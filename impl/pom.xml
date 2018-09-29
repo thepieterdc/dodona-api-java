@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2018. All rights reserved.
+  ~
+  ~ @author Pieter De Clercq
+  ~ @author Tobiah Lissens
+  ~
+  ~ https://github.com/thepieterdc/dodona-api-java/
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>be.ugent.piedcler.dodona</groupId>
+        <artifactId>dodona-api</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>dodona-api-impl</artifactId>
+    <name>Dodona API (implementation)</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <dodona.api>${basedir}/..</dodona.api>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>be.ugent.piedcler.dodona</groupId>
+            <artifactId>dodona-api-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${findbugs.jsr305.version}</version>
+        </dependency>
+    </dependencies>
+</project>
