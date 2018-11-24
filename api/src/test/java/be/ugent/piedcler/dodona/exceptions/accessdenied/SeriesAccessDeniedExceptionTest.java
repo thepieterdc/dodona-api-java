@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -23,7 +24,7 @@ public class SeriesAccessDeniedExceptionTest {
 	private static final Random random = new Random();
 	
 	/**
-	 * Tests SeriesAccessDeniedException#getSeriesId().
+	 * Tests SeriesAccessDeniedException#getSeriesUrl().
 	 */
 	@Test
 	public void testGetSeriesUrl() {
@@ -31,5 +32,17 @@ public class SeriesAccessDeniedExceptionTest {
 		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters);
 		Assert.assertThat(exception, notNullValue());
 		Assert.assertThat(exception.getSeriesUrl(), is(randomcharacters));
+	}
+	
+	/**
+	 * Tests SeriesAccessDeniedException#toString().
+	 */
+	@Test
+	public void testToString() {
+		final String randomcharacters = String.valueOf(random.nextLong());
+		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters);
+		Assert.assertThat(exception, notNullValue());
+		Assert.assertThat(exception.toString(), notNullValue());
+		Assert.assertThat(exception.toString(), containsString(SeriesAccessDeniedException.class.getSimpleName()));
 	}
 }

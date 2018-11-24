@@ -14,6 +14,8 @@ import javax.annotation.Nonnull;
  * A required course color was not found.
  */
 public final class CourseColorNotFoundException extends DodonaException {
+	private static final long serialVersionUID = -4335785034385436696L;
+	
 	private final String color;
 	
 	/**

@@ -14,6 +14,8 @@ import javax.annotation.Nonnull;
  * A required submission status was not found.
  */
 public final class SubmissionStatusNotFoundException extends DodonaException {
+	private static final long serialVersionUID = 3486708018079301919L;
+	
 	private final String status;
 	
 	/**
