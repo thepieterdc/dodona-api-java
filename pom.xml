@@ -113,6 +113,7 @@
                             <configuration>
                                 <excludes>
                                     <exclude>**/dodona/ClassLoader.*</exclude>
+                                    <exclude>**/dodona/DodonaBuilder.*</exclude>
                                 </excludes>
                             </configuration>
                         </execution>
