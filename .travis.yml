@@ -5,5 +5,4 @@ jdk:
   - oraclejdk9
 install: true
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -Fs api/target/
-  - bash <(curl -s https://codecov.io/bash) -Fs impl/target/
+  - bash <(curl -s https://codecov.io/bash)
