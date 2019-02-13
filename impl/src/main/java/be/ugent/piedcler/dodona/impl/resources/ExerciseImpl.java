@@ -9,6 +9,7 @@
 package be.ugent.piedcler.dodona.impl.resources;
 
 import be.ugent.piedcler.dodona.resources.Exercise;
+import be.ugent.piedcler.dodona.resources.ProgrammingLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,7 +31,7 @@ public final class ExerciseImpl implements Exercise {
 	private final String name;
 	
 	@Nullable
-	private final String programmingLanguage;
+	private final ProgrammingLanguageImpl programmingLanguage;
 	
 	private final String url;
 	
@@ -50,7 +51,7 @@ public final class ExerciseImpl implements Exercise {
 	                    @JsonProperty("id") final long id,
 	                    @JsonProperty("last_solution_correct") final boolean lastSolutionCorrect,
 	                    @JsonProperty("name") final String name,
-	                    @Nullable @JsonProperty("programming_language") final String programmingLanguage,
+	                    @Nullable @JsonProperty("programming_language") final ProgrammingLanguageImpl programmingLanguage,
 	                    @JsonProperty("url") final String url) {
 		this.boilerplate = boilerplate;
 		this.hasCorrectSolution = hasCorrectSolution;
@@ -85,7 +86,7 @@ public final class ExerciseImpl implements Exercise {
 	
 	@Override
 	@Nonnull
-	public Optional<String> getProgrammingLanguage() {
+	public Optional<ProgrammingLanguage> getProgrammingLanguage() {
 		return Optional.ofNullable(this.programmingLanguage);
 	}
 	

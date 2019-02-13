@@ -38,7 +38,7 @@ public interface Exercise extends Resource {
 	 * @return the programming language
 	 */
 	@Nonnull
-	Optional<String> getProgrammingLanguage();
+	Optional<ProgrammingLanguage> getProgrammingLanguage();
 	
 	/**
 	 * Gets whether this exercise has been solved correctly in the past.
