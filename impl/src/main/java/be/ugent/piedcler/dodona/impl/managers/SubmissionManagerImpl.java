@@ -82,7 +82,7 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	@Nonnull
 	public List<Submission> getAll(final User user) {
 		return Arrays.asList(http.get(
-			ENDPOINT_SUBMISSIONS, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
+			this.client.getBaseUrl() + ENDPOINT_SUBMISSIONS, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
 		));
 	}
 }
