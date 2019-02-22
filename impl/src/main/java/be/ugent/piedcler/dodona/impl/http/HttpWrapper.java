@@ -8,8 +8,7 @@
  */
 package be.ugent.piedcler.dodona.impl.http;
 
-import be.ugent.piedcler.dodona.exceptions.token.ApiTokenInvalidException;
-import be.ugent.piedcler.dodona.exceptions.token.ApiTokenNotSetException;
+import be.ugent.piedcler.dodona.exceptions.AuthenticationException;
 import be.ugent.piedcler.dodona.impl.data.EnumDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -20,6 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -58,34 +58,9 @@ public final class HttpWrapper {
 	 */
 	@Nonnull
 	public <T> T get(final String endpoint, final String apiToken, final String ua, final Class<T> returnCls) {
-		if (apiToken.isEmpty()) {
-			throw new ApiTokenNotSetException();
-		}
+		return this.request(endpoint, apiToken, ua, connection -> {
+		}, returnCls);
 		
-		try {
-			final URL url = new URL(endpoint);
-			
-			final HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-			connection.setRequestProperty(ACCEPT_HEADER, ACCEPT_VALUE);
-			connection.setRequestProperty(AUTHORIZATION_HEADER, apiToken);
-			connection.setRequestProperty(USER_AGENT_HEADER, ua);
-			
-			if (connection.getResponseCode() == StatusCode.HTTP_UNAUTHORIZED) {
-				throw new ApiTokenInvalidException(apiToken);
-			}
-			
-			if (connection.getResponseCode() == StatusCode.HTTP_FORBIDDEN) {
-				throw this.accessDeniedHandler.apply(endpoint);
-			}
-			
-			if (connection.getResponseCode() == StatusCode.HTTP_NOT_FOUND) {
-				throw this.notFoundHandler.apply(endpoint);
-			}
-			
-			return mapper.readValue(connection.getInputStream(), returnCls);
-		} catch (final IOException ex) {
-			throw new RuntimeException(ex);
-		}
 	}
 	
 	/**
@@ -93,6 +68,7 @@ public final class HttpWrapper {
 	 *
 	 * @param endpoint  the endpoint to call
 	 * @param apiToken  the api token
+	 * @param ua        the user agent
 	 * @param body      the post body
 	 * @param returnCls the class of the response
 	 * @return the response parsed as T
@@ -100,27 +76,51 @@ public final class HttpWrapper {
 	@Nonnull
 	public <R, T> T post(final String endpoint, final String apiToken, final String ua, final R body,
 	                     final Class<T> returnCls) {
+		return this.request(endpoint, apiToken, ua, connection -> {
+			try {
+				connection.setDoOutput(true);
+				connection.setRequestMethod("POST");
+				connection.setRequestProperty(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
+				
+				try (final OutputStream out = connection.getOutputStream()) {
+					mapper.writeValue(out, body);
+				}
+			} catch (final IOException ex) {
+				throw new RuntimeException(ex);
+			}
+		}, returnCls);
+	}
+	
+	/**
+	 * Performs a HTTP POST request to the given url.
+	 *
+	 * @param endpoint  the endpoint to call
+	 * @param apiToken  the api token
+	 * @param ua        the user agent
+	 * @param modifier  additional modifications to the connection
+	 * @param returnCls the class of the response
+	 * @return the response parsed as T
+	 */
+	@Nonnull
+	private <T> T request(final String endpoint, final String apiToken, final String ua,
+	                      final Consumer<HttpsURLConnection> modifier,
+	                      final Class<T> returnCls) {
 		if (apiToken.isEmpty()) {
-			throw new ApiTokenNotSetException();
+			throw new AuthenticationException(apiToken);
 		}
 		
 		try {
 			final URL url = new URL(endpoint);
 			
 			final HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setRequestMethod("POST");
 			connection.setRequestProperty(ACCEPT_HEADER, ACCEPT_VALUE);
 			connection.setRequestProperty(AUTHORIZATION_HEADER, apiToken);
-			connection.setRequestProperty(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
 			connection.setRequestProperty(USER_AGENT_HEADER, ua);
 			
-			try (final OutputStream out = connection.getOutputStream()) {
-				mapper.writeValue(out, body);
-			}
+			modifier.accept(connection);
 			
 			if (connection.getResponseCode() == StatusCode.HTTP_UNAUTHORIZED) {
-				throw new ApiTokenInvalidException(apiToken);
+				throw new AuthenticationException(apiToken);
 			}
 			
 			if (connection.getResponseCode() == StatusCode.HTTP_FORBIDDEN) {

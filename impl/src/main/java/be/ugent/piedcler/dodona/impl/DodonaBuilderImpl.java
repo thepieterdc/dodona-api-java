@@ -41,8 +41,8 @@ public class DodonaBuilderImpl implements DodonaBuilder {
 	
 	@Override
 	@Nonnull
-	public DodonaBuilder setBaseUrl(final String url) {
-		this.client.setBaseUrl(url);
+	public DodonaBuilder setHost(final String url) {
+		this.client.setHost(url);
 		return this;
 	}
 	

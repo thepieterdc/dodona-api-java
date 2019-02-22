@@ -29,13 +29,13 @@ public interface DodonaBuilder {
 	DodonaBuilder setApiToken(final String token);
 	
 	/**
-	 * Sets the base url.
+	 * Sets the host url.
 	 *
-	 * @param url the base url to set
+	 * @param host the host url to set
 	 * @return fluent
 	 */
 	@Nonnull
-	DodonaBuilder setBaseUrl(final String url);
+	DodonaBuilder setHost(final String host);
 	
 	/**
 	 * Sets the user agent.

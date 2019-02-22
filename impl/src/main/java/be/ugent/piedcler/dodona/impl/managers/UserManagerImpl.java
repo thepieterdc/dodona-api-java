@@ -42,7 +42,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	@Nonnull
 	public User get(final long id) {
-		return this.get(this.client.getBaseUrl() + String.format(ENDPOINT_USERS, id));
+		return this.get(this.client.getHost() + String.format(ENDPOINT_USERS, id));
 	}
 	
 	@Override

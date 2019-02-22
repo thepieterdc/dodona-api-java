@@ -42,12 +42,12 @@ public interface DodonaClient {
 	String getApiToken();
 	
 	/**
-	 * Gets the base url.
+	 * Gets the host url.
 	 *
-	 * @return the base url
+	 * @return the host url
 	 */
 	@Nonnull
-	String getBaseUrl();
+	String getHost();
 	
 	/**
 	 * Gets the user agent.
