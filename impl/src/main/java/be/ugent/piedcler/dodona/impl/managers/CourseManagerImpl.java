@@ -42,7 +42,7 @@ public class CourseManagerImpl implements CourseManager {
 	@Override
 	@Nonnull
 	public Course get(final long id) {
-		return this.get(this.client.getBaseUrl() + String.format(ENDPOINT_COURSES, id));
+		return this.get(this.client.getHost() + String.format(ENDPOINT_COURSES, id));
 	}
 	
 	@Override

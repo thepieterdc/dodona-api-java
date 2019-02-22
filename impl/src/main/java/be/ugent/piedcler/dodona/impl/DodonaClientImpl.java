@@ -25,8 +25,8 @@ public class DodonaClientImpl implements DodonaClient {
 	private static final HttpWrapper http = new HttpWrapper();
 	
 	private String apiToken = "";
-	private String baseUrl = "https://dodona.ugent.be";
-	private String userAgent = "DodonaApi/1.0.0";
+	private String host = "https://dodona.ugent.be";
+	private String userAgent = "DodonaApi/" + getClass().getPackage().getImplementationVersion();
 	
 	@Nullable
 	private CourseManager courses;
@@ -69,8 +69,8 @@ public class DodonaClientImpl implements DodonaClient {
 	
 	@Override
 	@Nonnull
-	public String getBaseUrl() {
-		return this.baseUrl;
+	public String getHost() {
+		return this.host;
 	}
 	
 	@Override
@@ -82,7 +82,7 @@ public class DodonaClientImpl implements DodonaClient {
 	@Override
 	@Nonnull
 	public User me() {
-		final RootResponseBody root = http.get(this.baseUrl, this.apiToken, this.userAgent, RootResponseBody.class);
+		final RootResponseBody root = http.get(this.host, this.apiToken, this.userAgent, RootResponseBody.class);
 		return root.getUser();
 	}
 	
@@ -105,12 +105,12 @@ public class DodonaClientImpl implements DodonaClient {
 	}
 	
 	/**
-	 * Sets the base url.
+	 * Sets the host url.
 	 *
-	 * @param url the base url
+	 * @param host the host url
 	 */
-	void setBaseUrl(final String url) {
-		this.baseUrl = url;
+	void setHost(final String host) {
+		this.host = host;
 	}
 	
 	/**

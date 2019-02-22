@@ -7,5 +7,35 @@
 
 Java binding for the Dodona API.
 
+## Installation
+
+### Gradle
+```
+repositories {
+    maven {
+        url  "https://dl.bintray.com/thepieterdc/dodona-api-java"
+    }
+}
+
+dependencies {
+    compile group: 'be.ugent.piedcler.dodona', name: 'dodona-api-interface', version: '1.0.4'
+    runtime group: 'be.ugent.piedcler.dodona', name: 'dodona-api-impl', version: '1.0.4'
+}
+```
+
+## Usage
+```java
+public class ApiApplication {
+    public static void main(String[] args) {
+		final DodonaClient dodona = DodonaBuilder.builder()
+			.setApiToken("myToken")
+			.setHost("https://dodona.ugent.be")
+			.build();
+		
+		System.out.println("My name is " + dodona.me().getFirstName());
+    }
+}
+```
+
 ## Credits
 This library was created by [Pieter De Clercq](https://thepieterdc.github.io/) and [Tobiah Lissens](https://github.com/darktilrisen).

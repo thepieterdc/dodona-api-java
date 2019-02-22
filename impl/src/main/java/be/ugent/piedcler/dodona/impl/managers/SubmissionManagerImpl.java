@@ -56,7 +56,7 @@ public class SubmissionManagerImpl implements SubmissionManager {
 		);
 		
 		final SubmissionCreatedResponseBody response = http.post(
-			this.client.getBaseUrl() + ENDPOINT_SUBMISSIONS,
+			this.client.getHost() + ENDPOINT_SUBMISSIONS,
 			this.client.getApiToken(),
 			this.client.getUserAgent(),
 			request,
@@ -69,7 +69,7 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	@Override
 	@Nonnull
 	public Submission get(final long id) {
-		return this.get(this.client.getBaseUrl() + String.format(ENDPOINT_SUBMISSIONS_ID, id));
+		return this.get(this.client.getHost() + String.format(ENDPOINT_SUBMISSIONS_ID, id));
 	}
 	
 	@Override
@@ -82,7 +82,7 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	@Nonnull
 	public List<Submission> getAll(final User user) {
 		return Arrays.asList(http.get(
-			this.client.getBaseUrl() + ENDPOINT_SUBMISSIONS, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
+			this.client.getHost() + ENDPOINT_SUBMISSIONS, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
 		));
 	}
 }
