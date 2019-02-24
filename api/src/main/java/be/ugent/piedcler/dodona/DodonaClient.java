@@ -18,6 +18,11 @@ import javax.annotation.Nonnull;
  */
 public interface DodonaClient {
 	/**
+	 * The default Dodona host.
+	 */
+	String DEFAULT_HOST = "https://dodona.ugent.be";
+	
+	/**
 	 * Gets a resource manager for courses.
 	 *
 	 * @return courses manager
