@@ -25,7 +25,7 @@ public class DodonaClientImpl implements DodonaClient {
 	private static final HttpWrapper http = new HttpWrapper();
 	
 	private String apiToken = "";
-	private String host = "https://dodona.ugent.be";
+	private String host = DEFAULT_HOST;
 	private String userAgent = "DodonaApi/" + getClass().getPackage().getImplementationVersion();
 	
 	@Nullable
