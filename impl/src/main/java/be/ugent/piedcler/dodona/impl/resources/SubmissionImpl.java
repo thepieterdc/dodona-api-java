@@ -21,34 +21,48 @@ import javax.annotation.Nonnull;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SubmissionImpl implements Submission {
 	private final boolean accepted;
+	private final String code;
 	private final String courseUrl;
 	private final String exerciseUrl;
 	private final long id;
 	private final SubmissionStatus status;
+	private final String summary;
 	private final String url;
 	
 	/**
 	 * SubmissionImpl constructor.
 	 *
 	 * @param accepted the acceptance status
+	 * @param code     the code
 	 * @param course   the course url
 	 * @param exercise the exercise url
 	 * @param id       the id
 	 * @param status   the status
+	 * @param summary  the summary
 	 * @param url      the url
 	 */
 	public SubmissionImpl(@JsonProperty("accepted") final boolean accepted,
+	                      @JsonProperty("code") final String code,
 	                      @JsonProperty("course") final String course,
 	                      @JsonProperty("exercise") final String exercise,
 	                      @JsonProperty("id") final long id,
 	                      @JsonProperty("status") final SubmissionStatus status,
+	                      @JsonProperty("summary") final String summary,
 	                      @JsonProperty("url") final String url) {
 		this.accepted = accepted;
+		this.code = code;
 		this.courseUrl = course;
 		this.exerciseUrl = exercise;
 		this.id = id;
 		this.status = status;
+		this.summary = summary;
 		this.url = url;
+	}
+	
+	@Override
+	@Nonnull
+	public String getCode() {
+		return this.code;
 	}
 	
 	@Override
@@ -72,6 +86,12 @@ public final class SubmissionImpl implements Submission {
 	@Nonnull
 	public SubmissionStatus getStatus() {
 		return this.status;
+	}
+	
+	@Override
+	@Nonnull
+	public String getSummary() {
+		return this.summary;
 	}
 	
 	@Override

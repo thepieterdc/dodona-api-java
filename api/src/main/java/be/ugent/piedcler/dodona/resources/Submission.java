@@ -17,6 +17,14 @@ import javax.annotation.Nonnull;
  */
 public interface Submission extends Resource {
 	/**
+	 * Gets the code from the submission.
+	 *
+	 * @return the code
+	 */
+	@Nonnull
+	String getCode();
+	
+	/**
 	 * Gets the url of the course of this submission.
 	 *
 	 * @return the course url
@@ -39,6 +47,14 @@ public interface Submission extends Resource {
 	 */
 	@Nonnull
 	SubmissionStatus getStatus();
+	
+	/**
+	 * Gets the summary of the submission.
+	 *
+	 * @return the summary
+	 */
+	@Nonnull
+	String getSummary();
 	
 	/**
 	 * Gets whether this submission was accepted or not.
