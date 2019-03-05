@@ -12,7 +12,7 @@
 
     <groupId>be.ugent.piedcler.dodona</groupId>
     <artifactId>dodona-api</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
     <name>Dodona API</name>
     <description>Dodona API binding for Java (https://dodona.ugent.be/)</description>
     <packaging>pom</packaging>

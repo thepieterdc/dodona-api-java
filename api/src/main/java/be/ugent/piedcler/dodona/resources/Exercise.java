@@ -67,7 +67,8 @@ public interface Exercise extends Resource {
 	
 	/**
 	 * Gets whether the last submission to this exercise is the best one (e.g.
-	 * correct > incorrect. If there are no correct submissions, this is true.
+	 * correct is better than incorrect. If there are no correct submissions,
+	 * this is true.
 	 *
 	 * @return true if the last submission is the best one, or if there are no
 	 * correct submissions yet

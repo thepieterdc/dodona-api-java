@@ -18,8 +18,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'be.ugent.piedcler.dodona', name: 'dodona-api-interface', version: '1.0.4'
-    runtime group: 'be.ugent.piedcler.dodona', name: 'dodona-api-impl', version: '1.0.4'
+    compile group: 'be.ugent.piedcler.dodona', name: 'dodona-api-interface', version: '1.0.7'
+    runtime group: 'be.ugent.piedcler.dodona', name: 'dodona-api-impl', version: '1.0.7'
 }
 ```
 
@@ -36,6 +36,9 @@ public class ApiApplication {
     }
 }
 ```
+
+## Documentation
+You can find the API documentation at [https://thepieterdc.github.io/dodona-api-java/](https://thepieterdc.github.io/dodona-api-java/).
 
 ## Credits
 This library was created by [Pieter De Clercq](https://thepieterdc.github.io/) and [Tobiah Lissens](https://github.com/darktilrisen).
