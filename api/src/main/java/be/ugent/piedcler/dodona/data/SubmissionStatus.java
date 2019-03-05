@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2019. All rights reserved.
  *
  * @author Pieter De Clercq
  * @author Tobiah Lissens
@@ -32,7 +32,7 @@ public enum SubmissionStatus {
 	/**
 	 * SubmissionStatus constructor.
 	 *
-	 * @param name the name of the color
+	 * @param name the name of the status
 	 */
 	SubmissionStatus(final String name) {
 		this.name = name;
