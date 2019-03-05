@@ -8,6 +8,8 @@
  */
 package be.ugent.piedcler.dodona.resources;
 
+import be.ugent.piedcler.dodona.data.ExerciseStatus;
+
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
@@ -41,6 +43,14 @@ public interface Exercise extends Resource {
 	Optional<ProgrammingLanguage> getProgrammingLanguage();
 	
 	/**
+	 * Gets the status of this exercise.
+	 *
+	 * @return the status
+	 */
+	@Nonnull
+	ExerciseStatus getStatus();
+	
+	/**
 	 * Gets whether this exercise has been solved correctly in the past.
 	 *
 	 * @return true if at least one of the user's submissions to this exercise
@@ -49,9 +59,18 @@ public interface Exercise extends Resource {
 	boolean hasCorrectSolution();
 	
 	/**
-	 * Gets whether the last submission to this exercise was correct.
+	 * Gets whether this exercise has at least one solution.
 	 *
-	 * @return true if the last submission is correctly evaluated
+	 * @return true if the exercise has at least one solution
 	 */
-	boolean isLastSolutionCorrect();
+	boolean hasSolution();
+	
+	/**
+	 * Gets whether the last submission to this exercise is the best one (e.g.
+	 * correct > incorrect. If there are no correct submissions, this is true.
+	 *
+	 * @return true if the last submission is the best one, or if there are no
+	 * correct submissions yet
+	 */
+	boolean lastSolutionIsBest();
 }

@@ -8,6 +8,7 @@
  */
 package be.ugent.piedcler.dodona.impl.resources;
 
+import be.ugent.piedcler.dodona.data.ExerciseStatus;
 import be.ugent.piedcler.dodona.resources.Exercise;
 import be.ugent.piedcler.dodona.resources.ProgrammingLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,12 +27,16 @@ public final class ExerciseImpl implements Exercise {
 	private final String boilerplate;
 	
 	private final boolean hasCorrectSolution;
+	private final boolean hasSolution;
+	private final boolean lastSolutionIsBest;
+	
 	private final long id;
-	private final boolean lastSolutionCorrect;
 	private final String name;
 	
 	@Nullable
 	private final ProgrammingLanguageImpl programmingLanguage;
+	
+	private final ExerciseStatus status;
 	
 	private final String url;
 	
@@ -40,25 +45,29 @@ public final class ExerciseImpl implements Exercise {
 	 *
 	 * @param boilerplate         the boilerplate code
 	 * @param hasCorrectSolution  true if the exercise has a correct submission
+	 * @param hasSolution         true if the exercise has a submission
 	 * @param id                  the id
-	 * @param lastSolutionCorrect true if the last submission was correct
+	 * @param lastSolutionIsBest  true if the last submission was correct
 	 * @param name                the name
 	 * @param programmingLanguage the programming language
 	 * @param url                 the url
 	 */
 	public ExerciseImpl(@Nullable @JsonProperty("boilerplate") final String boilerplate,
 	                    @JsonProperty("has_correct_solution") final boolean hasCorrectSolution,
+	                    @JsonProperty("has_solution") final boolean hasSolution,
 	                    @JsonProperty("id") final long id,
-	                    @JsonProperty("last_solution_correct") final boolean lastSolutionCorrect,
+	                    @JsonProperty("last_solution_is_best") final boolean lastSolutionIsBest,
 	                    @JsonProperty("name") final String name,
 	                    @Nullable @JsonProperty("programming_language") final ProgrammingLanguageImpl programmingLanguage,
 	                    @JsonProperty("url") final String url) {
 		this.boilerplate = boilerplate;
 		this.hasCorrectSolution = hasCorrectSolution;
+		this.hasSolution = hasSolution;
 		this.id = id;
-		this.lastSolutionCorrect = lastSolutionCorrect;
+		this.lastSolutionIsBest = lastSolutionIsBest;
 		this.name = name;
 		this.programmingLanguage = programmingLanguage;
+		this.status = ExerciseStatus.fromValues(hasCorrectSolution, hasSolution, lastSolutionIsBest);
 		this.url = url;
 	}
 	
@@ -71,6 +80,11 @@ public final class ExerciseImpl implements Exercise {
 	@Override
 	public boolean hasCorrectSolution() {
 		return this.hasCorrectSolution;
+	}
+	
+	@Override
+	public boolean hasSolution() {
+		return this.hasSolution;
 	}
 	
 	@Override
@@ -90,6 +104,12 @@ public final class ExerciseImpl implements Exercise {
 		return Optional.ofNullable(this.programmingLanguage);
 	}
 	
+	@Nonnull
+	@Override
+	public ExerciseStatus getStatus() {
+		return this.status;
+	}
+	
 	@Override
 	@Nonnull
 	public String getUrl() {
@@ -97,12 +117,12 @@ public final class ExerciseImpl implements Exercise {
 	}
 	
 	@Override
-	public boolean isLastSolutionCorrect() {
-		return this.lastSolutionCorrect;
+	public boolean lastSolutionIsBest() {
+		return this.lastSolutionIsBest;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("Exercise{id=%d, name=%s}", this.id, this.name);
+		return String.format("Exercise{id=%d, name=%s, status=%s}", this.id, this.name, this.status);
 	}
 }
