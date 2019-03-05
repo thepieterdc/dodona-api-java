@@ -18,8 +18,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'be.ugent.piedcler.dodona', name: 'dodona-api-interface', version: '1.0.4'
-    runtime group: 'be.ugent.piedcler.dodona', name: 'dodona-api-impl', version: '1.0.4'
+    compile group: 'be.ugent.piedcler.dodona', name: 'dodona-api-interface', version: '1.0.7'
+    runtime group: 'be.ugent.piedcler.dodona', name: 'dodona-api-impl', version: '1.0.7'
 }
 ```
 
