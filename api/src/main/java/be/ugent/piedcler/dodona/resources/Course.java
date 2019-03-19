@@ -12,6 +12,8 @@ import be.ugent.piedcler.dodona.data.CourseColor;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A course on Dodona.
@@ -24,6 +26,21 @@ public interface Course extends Resource {
 	 */
 	@Nonnull
 	CourseColor getColor();
+	
+	/**
+	 * Parses the id of a course from the url.
+	 *
+	 * @param url the url to the course
+	 * @return the course id
+	 */
+	@Nonnull
+	static Optional<Long> getId(final String url) {
+		final Pattern urlPattern = Pattern.compile("courses/([0-9]+)");
+		return Optional.of(urlPattern.matcher(url))
+			.filter(Matcher::find)
+			.map(matcher -> matcher.group(1))
+			.map(Long::parseLong);
+	}
 	
 	/**
 	 * Gets the name of the course.
