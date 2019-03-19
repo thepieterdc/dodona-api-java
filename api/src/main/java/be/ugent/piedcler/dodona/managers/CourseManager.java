@@ -12,6 +12,7 @@ import be.ugent.piedcler.dodona.resources.Course;
 import be.ugent.piedcler.dodona.resources.Submission;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 /**
  * Manager for courses.
@@ -27,13 +28,14 @@ public interface CourseManager extends ResourceManager<Course> {
 	Course get(long id);
 	
 	/**
-	 * Gets the course of a given submission.
+	 * Gets the course of a given submission, if the submission contains a
+	 * course.
 	 *
 	 * @param submission the submission
-	 * @return the course
+	 * @return the course, if any
 	 */
 	@Nonnull
-	default Course get(final Submission submission) {
-		return this.get(submission.getCourseUrl());
+	default Optional<Course> get(@Nonnull final Submission submission) {
+		return submission.getCourseUrl().map(this::get);
 	}
 }

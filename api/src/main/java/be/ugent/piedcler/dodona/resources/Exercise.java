@@ -12,6 +12,8 @@ import be.ugent.piedcler.dodona.data.ExerciseStatus;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A exercise on Dodona.
@@ -24,6 +26,21 @@ public interface Exercise extends Resource {
 	 */
 	@Nonnull
 	Optional<String> getBoilerplate();
+	
+	/**
+	 * Parses the id of an exercise from the url.
+	 *
+	 * @param url the url to the exercise
+	 * @return the exercise id
+	 */
+	@Nonnull
+	static Optional<Long> getId(final String url) {
+		final Pattern urlPattern = Pattern.compile("exercises/([0-9]+)");
+		return Optional.of(urlPattern.matcher(url))
+			.filter(Matcher::find)
+			.map(matcher -> matcher.group(1))
+			.map(Long::parseLong);
+	}
 	
 	/**
 	 * Gets the name of the course.

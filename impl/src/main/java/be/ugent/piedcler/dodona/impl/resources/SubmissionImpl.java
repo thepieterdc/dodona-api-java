@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * A submission on Dodona.
@@ -22,7 +24,10 @@ import javax.annotation.Nonnull;
 public final class SubmissionImpl implements Submission {
 	private final boolean accepted;
 	private final String code;
+	
+	@Nullable
 	private final String courseUrl;
+	
 	private final String exerciseUrl;
 	private final long id;
 	private final SubmissionStatus status;
@@ -43,7 +48,7 @@ public final class SubmissionImpl implements Submission {
 	 */
 	public SubmissionImpl(@JsonProperty("accepted") final boolean accepted,
 	                      @JsonProperty("code") final String code,
-	                      @JsonProperty("course") final String course,
+	                      @Nullable @JsonProperty("course") final String course,
 	                      @JsonProperty("exercise") final String exercise,
 	                      @JsonProperty("id") final long id,
 	                      @JsonProperty("status") final SubmissionStatus status,
@@ -67,8 +72,8 @@ public final class SubmissionImpl implements Submission {
 	
 	@Override
 	@Nonnull
-	public String getCourseUrl() {
-		return this.courseUrl;
+	public Optional<String> getCourseUrl() {
+		return Optional.ofNullable(this.courseUrl);
 	}
 	
 	@Override
