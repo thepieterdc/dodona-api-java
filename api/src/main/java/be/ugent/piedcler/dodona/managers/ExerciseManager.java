@@ -26,7 +26,7 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @return all exercises in the series
 	 */
 	@Nonnull
-	List<Exercise> getAll(Series series);
+	List<Exercise> getAll(@Nonnull Series series);
 	
 	/**
 	 * Gets the exercise of a given submission.
@@ -35,7 +35,5 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @return the exercise
 	 */
 	@Nonnull
-	default Exercise get(final Submission submission) {
-		return this.get(submission.getExerciseUrl());
-	}
+	Exercise get(@Nonnull Submission submission);
 }
