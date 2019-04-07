@@ -8,15 +8,12 @@
  */
 package be.ugent.piedcler.dodona.exceptions;
 
-import be.ugent.piedcler.dodona.exceptions.accessdenied.ExerciseAccessDeniedException;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Tests be.ugent.piedcler.dodona.exceptions.AuthenticationException.

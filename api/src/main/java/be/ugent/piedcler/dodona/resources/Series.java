@@ -9,7 +9,6 @@
 package be.ugent.piedcler.dodona.resources;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 

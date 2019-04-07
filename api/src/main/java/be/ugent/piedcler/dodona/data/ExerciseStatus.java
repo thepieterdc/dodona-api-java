@@ -8,8 +8,6 @@
  */
 package be.ugent.piedcler.dodona.data;
 
-import be.ugent.piedcler.dodona.exceptions.SubmissionStatusNotFoundException;
-
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
@@ -60,6 +58,7 @@ public enum ExerciseStatus {
 	 * @param hasCorrectSolution value for has_correct_solution
 	 * @param hasSolution        value for has_solution
 	 * @param lastSolutionIsBest value for last_solution_is_best
+	 * @return the matching exercise status
 	 */
 	public static ExerciseStatus fromValues(final boolean hasCorrectSolution,
 	                                        final boolean hasSolution,

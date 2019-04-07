@@ -8,15 +8,11 @@
  */
 package be.ugent.piedcler.dodona.impl.resources;
 
-import be.ugent.piedcler.dodona.data.CourseColor;
-import be.ugent.piedcler.dodona.resources.Course;
 import be.ugent.piedcler.dodona.resources.ProgrammingLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * A programming language on Dodona.

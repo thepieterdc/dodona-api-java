@@ -9,7 +9,6 @@
 package be.ugent.piedcler.dodona.resources;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
 
 /**
  * A programming language on Dodona.
