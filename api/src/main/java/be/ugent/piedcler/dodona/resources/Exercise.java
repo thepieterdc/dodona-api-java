@@ -28,6 +28,22 @@ public interface Exercise extends Resource {
 	Optional<String> getBoilerplate();
 	
 	/**
+	 * Gets the exercise description.
+	 *
+	 * @return the exercise description
+	 */
+	@Nonnull
+	String getDescription();
+	
+	/**
+	 * Gets the format of the exercise description.
+	 *
+	 * @return the format of the exercise description
+	 */
+	@Nonnull
+	String getDescriptionFormat();
+	
+	/**
 	 * Parses the id of an exercise from the url.
 	 *
 	 * @param url the url to the exercise

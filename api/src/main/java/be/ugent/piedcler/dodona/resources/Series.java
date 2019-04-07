@@ -9,11 +9,30 @@
 package be.ugent.piedcler.dodona.resources;
 
 import javax.annotation.Nonnull;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Optional;
 
 /**
  * A series on Dodona.
  */
 public interface Series extends Resource {
+	/**
+	 * Gets the deadline for this series, if any.
+	 *
+	 * @return the deadline
+	 */
+	@Nonnull
+	Optional<ZonedDateTime> getDeadline();
+	
+	/**
+	 * Gets the description for this series, if the description is non-empty.
+	 *
+	 * @return the description
+	 */
+	@Nonnull
+	Optional<String> getDescription();
+	
 	/**
 	 * Gets the url to fetch the exercises of the series.
 	 *
@@ -29,4 +48,11 @@ public interface Series extends Resource {
 	 */
 	@Nonnull
 	String getName();
+	
+	/**
+	 * Gets the order in which the series should be sorted.
+	 *
+	 * @return the sorting order
+	 */
+	int getOrder();
 }

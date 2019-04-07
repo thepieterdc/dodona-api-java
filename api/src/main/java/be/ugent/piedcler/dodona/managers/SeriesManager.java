@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface SeriesManager extends ResourceManager<Series> {
 	/**
-	 * Gets all series of a given course.
+	 * Gets all series of a given course, sorted by order.
 	 *
 	 * @param course the course
 	 * @return all series in the course

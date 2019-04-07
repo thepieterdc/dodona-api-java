@@ -58,7 +58,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	Submission get(long id);
 	
 	/**
-	 * Gets all submissions of a given user.
+	 * Gets all submissions of a given user, sorted by creation timestamp.
 	 *
 	 * @param user the user
 	 * @return all submissions by the given user
