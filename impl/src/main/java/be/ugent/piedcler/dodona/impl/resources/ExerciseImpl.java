@@ -31,6 +31,9 @@ public final class ExerciseImpl implements Exercise {
 	private final boolean lastSolutionIsBest;
 	
 	private final long id;
+	
+	private final String description;
+	private final String descriptionFormat;
 	private final String name;
 	
 	@Nullable
@@ -44,6 +47,8 @@ public final class ExerciseImpl implements Exercise {
 	 * ExerciseImpl constructor.
 	 *
 	 * @param boilerplate         the boilerplate code
+	 * @param description         the description
+	 * @param descriptionFormat   the description format
 	 * @param hasCorrectSolution  true if the exercise has a correct submission
 	 * @param hasSolution         true if the exercise has a submission
 	 * @param id                  the id
@@ -53,6 +58,8 @@ public final class ExerciseImpl implements Exercise {
 	 * @param url                 the url
 	 */
 	public ExerciseImpl(@Nullable @JsonProperty("boilerplate") final String boilerplate,
+	                    @JsonProperty("description") final String description,
+	                    @JsonProperty("description_format") final String descriptionFormat,
 	                    @JsonProperty("has_correct_solution") final boolean hasCorrectSolution,
 	                    @JsonProperty("has_solution") final boolean hasSolution,
 	                    @JsonProperty("id") final long id,
@@ -61,6 +68,8 @@ public final class ExerciseImpl implements Exercise {
 	                    @Nullable @JsonProperty("programming_language") final ProgrammingLanguageImpl programmingLanguage,
 	                    @JsonProperty("url") final String url) {
 		this.boilerplate = boilerplate;
+		this.description = description;
+		this.descriptionFormat = descriptionFormat;
 		this.hasCorrectSolution = hasCorrectSolution;
 		this.hasSolution = hasSolution;
 		this.id = id;
@@ -72,9 +81,26 @@ public final class ExerciseImpl implements Exercise {
 	}
 	
 	@Override
+	public int compareTo(final Exercise o) {
+		return this.name.compareToIgnoreCase(o.getName());
+	}
+	
+	@Override
 	@Nonnull
 	public Optional<String> getBoilerplate() {
 		return Optional.ofNullable(this.boilerplate);
+	}
+	
+	@Nonnull
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
+	
+	@Nonnull
+	@Override
+	public String getDescriptionFormat() {
+		return this.descriptionFormat;
 	}
 	
 	@Override

@@ -61,6 +61,12 @@ public final class CourseImpl implements Course {
 	}
 	
 	@Override
+	public int compareTo(Course o) {
+		final int compareYear = this.year.compareTo(o.getYear());
+		return compareYear != 0 ? compareYear : this.name.compareToIgnoreCase(o.getName());
+	}
+	
+	@Override
 	@Nonnull
 	public CourseColor getColor() {
 		return this.color;

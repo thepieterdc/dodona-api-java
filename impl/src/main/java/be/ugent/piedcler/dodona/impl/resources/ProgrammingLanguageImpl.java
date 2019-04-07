@@ -43,6 +43,11 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 	}
 	
 	@Override
+	public int compareTo(final ProgrammingLanguage o) {
+		return this.name.compareToIgnoreCase(o.getName());
+	}
+	
+	@Override
 	@Nonnull
 	public String getExtension() {
 		return this.extension;

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
@@ -24,6 +25,7 @@ import java.util.Optional;
 public final class SubmissionImpl implements Submission {
 	private final boolean accepted;
 	private final String code;
+	private final ZonedDateTime createdAt;
 	
 	@Nullable
 	private final String courseUrl;
@@ -37,18 +39,20 @@ public final class SubmissionImpl implements Submission {
 	/**
 	 * SubmissionImpl constructor.
 	 *
-	 * @param accepted the acceptance status
-	 * @param code     the code
-	 * @param course   the course url
-	 * @param exercise the exercise url
-	 * @param id       the id
-	 * @param status   the status
-	 * @param summary  the summary
-	 * @param url      the url
+	 * @param accepted  the acceptance status
+	 * @param code      the code
+	 * @param course    the course url
+	 * @param createdAt the creation timestamp
+	 * @param exercise  the exercise url
+	 * @param id        the id
+	 * @param status    the status
+	 * @param summary   the summary
+	 * @param url       the url
 	 */
 	public SubmissionImpl(@JsonProperty("accepted") final boolean accepted,
 	                      @JsonProperty("code") final String code,
 	                      @Nullable @JsonProperty("course") final String course,
+	                      @JsonProperty("createdAt") final ZonedDateTime createdAt,
 	                      @JsonProperty("exercise") final String exercise,
 	                      @JsonProperty("id") final long id,
 	                      @JsonProperty("status") final SubmissionStatus status,
@@ -57,11 +61,17 @@ public final class SubmissionImpl implements Submission {
 		this.accepted = accepted;
 		this.code = code;
 		this.courseUrl = course;
+		this.createdAt = createdAt;
 		this.exerciseUrl = exercise;
 		this.id = id;
 		this.status = status;
 		this.summary = summary;
 		this.url = url;
+	}
+	
+	@Override
+	public int compareTo(final Submission o) {
+		return this.createdAt.compareTo(o.getCreatedAt());
 	}
 	
 	@Override
@@ -74,6 +84,12 @@ public final class SubmissionImpl implements Submission {
 	@Nonnull
 	public Optional<String> getCourseUrl() {
 		return Optional.ofNullable(this.courseUrl);
+	}
+	
+	@Override
+	@Nonnull
+	public ZonedDateTime getCreatedAt() {
+		return this.createdAt;
 	}
 	
 	@Override
