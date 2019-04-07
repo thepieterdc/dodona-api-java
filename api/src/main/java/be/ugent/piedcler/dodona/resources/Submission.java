@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * A submission on Dodona.
  */
-public interface Submission extends Resource {
+public interface Submission extends Comparable<Submission>, Resource {
 	/**
 	 * Gets the code from the submission.
 	 *

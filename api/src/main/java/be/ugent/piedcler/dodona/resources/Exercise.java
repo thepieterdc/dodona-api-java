@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 /**
  * A exercise on Dodona.
  */
-public interface Exercise extends Resource {
+public interface Exercise extends Comparable<Exercise>, Resource {
 	/**
 	 * Gets the boilerplate code.
 	 *

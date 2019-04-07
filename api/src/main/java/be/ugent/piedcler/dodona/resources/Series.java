@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * A series on Dodona.
  */
-public interface Series extends Resource {
+public interface Series extends Comparable<Series>, Resource {
 	/**
 	 * Gets the deadline for this series, if any.
 	 *
