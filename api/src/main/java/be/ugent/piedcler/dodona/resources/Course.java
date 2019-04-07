@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 /**
  * A course on Dodona.
  */
-public interface Course extends Resource {
+public interface Course extends Comparable<Course>, Resource {
 	/**
 	 * Gets the color of the course.
 	 *

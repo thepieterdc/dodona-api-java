@@ -17,7 +17,9 @@ public final class AuthenticationException extends DodonaException {
 	private final String token;
 	
 	/**
-	 * ApiTokenException constructor.
+	 * AuthenticationException constructor.
+	 *
+	 * @param token the used authentication token
 	 */
 	public AuthenticationException(final String token) {
 		super("The provided API token was not valid.");

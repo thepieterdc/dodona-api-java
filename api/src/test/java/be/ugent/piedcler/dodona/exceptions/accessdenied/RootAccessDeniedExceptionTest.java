@@ -11,9 +11,8 @@ package be.ugent.piedcler.dodona.exceptions.accessdenied;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Random;
-
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.notNullValue;
 
 /**
  * Tests be.ugent.piedcler.dodona.exceptions.accessdenied.RootAccessDeniedException.

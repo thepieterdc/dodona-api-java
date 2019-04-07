@@ -16,6 +16,7 @@ import be.ugent.piedcler.dodona.impl.requestbodies.SubmissionCreateRequestBody;
 import be.ugent.piedcler.dodona.impl.resources.SubmissionImpl;
 import be.ugent.piedcler.dodona.impl.responsebodies.SubmissionCreatedResponseBody;
 import be.ugent.piedcler.dodona.managers.SubmissionManager;
+import be.ugent.piedcler.dodona.resources.Exercise;
 import be.ugent.piedcler.dodona.resources.Submission;
 import be.ugent.piedcler.dodona.resources.User;
 
@@ -28,6 +29,7 @@ import java.util.List;
  * Implementation of SubmissionManager.
  */
 public class SubmissionManagerImpl implements SubmissionManager {
+	private static final String ENDPOINT_EXERCISE_ID = "%s/?exercise_id=%d";
 	private static final String ENDPOINT_SUBMISSIONS = "/submissions";
 	private static final String ENDPOINT_SUBMISSIONS_ID = ENDPOINT_SUBMISSIONS + "/%d";
 	
@@ -82,7 +84,17 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	@Nonnull
 	public List<Submission> getAll(final User user) {
 		return Arrays.asList(http.get(
-			this.client.getHost() + ENDPOINT_SUBMISSIONS, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
+			user.getSubmissionsUrl(), this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
+		));
+	}
+	
+	@Override
+	@Nonnull
+	public List<Submission> getAllByMe(final Exercise exercise) {
+		final String endpoint = String.format(ENDPOINT_EXERCISE_ID, this.client.me(), exercise.getId());
+		
+		return Arrays.asList(http.get(
+			endpoint, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
 		));
 	}
 }

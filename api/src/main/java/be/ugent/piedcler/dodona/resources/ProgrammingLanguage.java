@@ -9,12 +9,11 @@
 package be.ugent.piedcler.dodona.resources;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
 
 /**
  * A programming language on Dodona.
  */
-public interface ProgrammingLanguage extends Resource {
+public interface ProgrammingLanguage extends Comparable<ProgrammingLanguage>, Resource {
 	/**
 	 * Gets the extension of the files.
 	 *

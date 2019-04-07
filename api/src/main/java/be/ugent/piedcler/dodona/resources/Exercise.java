@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 /**
  * A exercise on Dodona.
  */
-public interface Exercise extends Resource {
+public interface Exercise extends Comparable<Exercise>, Resource {
 	/**
 	 * Gets the boilerplate code.
 	 *
@@ -26,6 +26,22 @@ public interface Exercise extends Resource {
 	 */
 	@Nonnull
 	Optional<String> getBoilerplate();
+	
+	/**
+	 * Gets the exercise description.
+	 *
+	 * @return the exercise description
+	 */
+	@Nonnull
+	String getDescription();
+	
+	/**
+	 * Gets the format of the exercise description.
+	 *
+	 * @return the format of the exercise description
+	 */
+	@Nonnull
+	String getDescriptionFormat();
 	
 	/**
 	 * Parses the id of an exercise from the url.

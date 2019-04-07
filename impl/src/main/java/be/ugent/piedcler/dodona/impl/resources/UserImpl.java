@@ -62,6 +62,12 @@ public final class UserImpl implements User {
 	}
 	
 	@Override
+	public int compareTo(final User o) {
+		final int compareLast = this.lastName.compareToIgnoreCase(o.getLastName());
+		return compareLast != 0 ? compareLast : this.firstName.compareToIgnoreCase(o.getFirstName());
+	}
+	
+	@Override
 	public long getCorrectExercises() {
 		return this.correctExercises;
 	}

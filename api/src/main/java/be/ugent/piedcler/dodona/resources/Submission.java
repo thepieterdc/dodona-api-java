@@ -11,12 +11,13 @@ package be.ugent.piedcler.dodona.resources;
 import be.ugent.piedcler.dodona.data.SubmissionStatus;
 
 import javax.annotation.Nonnull;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
  * A submission on Dodona.
  */
-public interface Submission extends Resource {
+public interface Submission extends Comparable<Submission>, Resource {
 	/**
 	 * Gets the code from the submission.
 	 *
@@ -34,8 +35,16 @@ public interface Submission extends Resource {
 	Optional<String> getCourseUrl();
 	
 	/**
+	 * Gets the creation (submission) timestamp.
+	 *
+	 * @return the timestamp at which this submission was created
+	 */
+	@Nonnull
+	ZonedDateTime getCreatedAt();
+	
+	/**
 	 * Gets the url of the exercise of this submission.
-	 * 
+	 *
 	 * @return the exercise url
 	 */
 	@Nonnull

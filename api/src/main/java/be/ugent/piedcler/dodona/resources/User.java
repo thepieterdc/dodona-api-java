@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * A user on Dodona.
  */
-public interface User extends Resource {
+public interface User extends Comparable<User>, Resource {
 	/**
 	 * Gets the amount of correct exercises.
 	 *

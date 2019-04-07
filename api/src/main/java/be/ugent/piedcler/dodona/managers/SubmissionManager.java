@@ -58,11 +58,20 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	Submission get(long id);
 	
 	/**
-	 * Gets all submissions of a given user.
+	 * Gets all submissions of a given user, sorted by creation timestamp.
 	 *
 	 * @param user the user
 	 * @return all submissions by the given user
 	 */
 	@Nonnull
 	List<Submission> getAll(User user);
+	
+	/**
+	 * Gets all submissions to a given exercise, for the current user.
+	 *
+	 * @param exercise the exercise
+	 * @return all submissions to the exercise, by the user
+	 */
+	@Nonnull
+	List<Submission> getAllByMe(final Exercise exercise);
 }

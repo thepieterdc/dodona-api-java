@@ -8,16 +8,8 @@
  */
 package be.ugent.piedcler.dodona.data;
 
-import be.ugent.piedcler.dodona.exceptions.SubmissionStatusNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 
 /**
  * Tests be.ugent.piedcler.dodona.data.ExerciseStatus.

@@ -8,13 +8,10 @@
  */
 package be.ugent.piedcler.dodona.data;
 
-import be.ugent.piedcler.dodona.exceptions.CourseColorNotFoundException;
 import be.ugent.piedcler.dodona.exceptions.SubmissionStatusNotFoundException;
-import be.ugent.piedcler.dodona.exceptions.notfound.SubmissionNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
