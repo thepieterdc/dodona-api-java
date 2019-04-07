@@ -52,7 +52,7 @@ public final class SubmissionImpl implements Submission {
 	public SubmissionImpl(@JsonProperty("accepted") final boolean accepted,
 	                      @JsonProperty("code") final String code,
 	                      @Nullable @JsonProperty("course") final String course,
-	                      @JsonProperty("createdAt") final ZonedDateTime createdAt,
+	                      @JsonProperty("created_at") final ZonedDateTime createdAt,
 	                      @JsonProperty("exercise") final String exercise,
 	                      @JsonProperty("id") final long id,
 	                      @JsonProperty("status") final SubmissionStatus status,

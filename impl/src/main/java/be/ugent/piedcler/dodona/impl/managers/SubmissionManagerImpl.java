@@ -29,8 +29,8 @@ import java.util.List;
  * Implementation of SubmissionManager.
  */
 public class SubmissionManagerImpl implements SubmissionManager {
+	private static final String ENDPOINT_EXERCISE_ID = "%s/?exercise_id=%d";
 	private static final String ENDPOINT_SUBMISSIONS = "/submissions";
-	private static final String ENDPOINT_SUBMISSIONS_EXERCISE_USER = ENDPOINT_SUBMISSIONS + "/?exercise_id=%d&user_id=%d";
 	private static final String ENDPOINT_SUBMISSIONS_ID = ENDPOINT_SUBMISSIONS + "/%d";
 	
 	private static final HttpWrapper http = new HttpWrapper()
@@ -82,18 +82,19 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	
 	@Override
 	@Nonnull
-	public List<Submission> getAll(final Exercise exercise, final long uid) {
-		final String endpoint = String.format(ENDPOINT_SUBMISSIONS_EXERCISE_USER, exercise.getId(), uid);
+	public List<Submission> getAll(final User user) {
 		return Arrays.asList(http.get(
-			this.client.getHost() + endpoint, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
+			user.getSubmissionsUrl(), this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
 		));
 	}
 	
 	@Override
 	@Nonnull
-	public List<Submission> getAll(final User user) {
+	public List<Submission> getAllByMe(final Exercise exercise) {
+		final String endpoint = String.format(ENDPOINT_EXERCISE_ID, this.client.me(), exercise.getId());
+		
 		return Arrays.asList(http.get(
-			this.client.getHost() + ENDPOINT_SUBMISSIONS, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
+			endpoint, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
 		));
 	}
 }

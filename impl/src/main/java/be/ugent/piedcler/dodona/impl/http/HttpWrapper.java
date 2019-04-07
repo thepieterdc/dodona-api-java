@@ -13,6 +13,7 @@ import be.ugent.piedcler.dodona.impl.data.EnumDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
@@ -35,6 +36,7 @@ public final class HttpWrapper {
 	
 	private static final ObjectMapper mapper = new ObjectMapper()
 		.enable(SerializationFeature.WRAP_ROOT_VALUE)
+		.registerModule(new JavaTimeModule())
 		.registerModule(new SimpleModule().setDeserializerModifier(new EnumDeserializer()));
 	
 	private Function<String, RuntimeException> accessDeniedHandler;

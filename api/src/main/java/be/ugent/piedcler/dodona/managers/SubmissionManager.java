@@ -58,29 +58,6 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	Submission get(long id);
 	
 	/**
-	 * Gets all submissions to a given exercise, for a given user.
-	 *
-	 * @param exercise the exercise
-	 * @param uid      the user id
-	 * @return all submissions to the exercise, by the user
-	 */
-	@Nonnull
-	List<Submission> getAll(Exercise exercise, long uid);
-	
-	/**
-	 * Gets all submissions to a given exercise, for a given user, sorted by
-	 * creation date.
-	 *
-	 * @param exercise the exercise
-	 * @param user     the user
-	 * @return all submissions to the exercise, by the user
-	 */
-	@Nonnull
-	default List<Submission> getAll(final Exercise exercise, final User user) {
-		return this.getAll(exercise, user.getId());
-	}
-	
-	/**
 	 * Gets all submissions of a given user, sorted by creation timestamp.
 	 *
 	 * @param user the user
@@ -88,4 +65,13 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	List<Submission> getAll(User user);
+	
+	/**
+	 * Gets all submissions to a given exercise, for the current user.
+	 *
+	 * @param exercise the exercise
+	 * @return all submissions to the exercise, by the user
+	 */
+	@Nonnull
+	List<Submission> getAllByMe(final Exercise exercise);
 }
