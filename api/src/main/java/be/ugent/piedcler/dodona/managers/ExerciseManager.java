@@ -10,7 +10,8 @@ package be.ugent.piedcler.dodona.managers;
 
 import be.ugent.piedcler.dodona.resources.Exercise;
 import be.ugent.piedcler.dodona.resources.Series;
-import be.ugent.piedcler.dodona.resources.Submission;
+import be.ugent.piedcler.dodona.resources.submissions.PartialSubmission;
+import be.ugent.piedcler.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -35,5 +36,5 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @return the exercise
 	 */
 	@Nonnull
-	Exercise get(@Nonnull Submission submission);
+	Exercise get(@Nonnull PartialSubmission submission);
 }

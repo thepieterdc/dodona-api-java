@@ -17,7 +17,8 @@ import be.ugent.piedcler.dodona.impl.resources.SubmissionImpl;
 import be.ugent.piedcler.dodona.impl.responsebodies.SubmissionCreatedResponseBody;
 import be.ugent.piedcler.dodona.managers.SubmissionManager;
 import be.ugent.piedcler.dodona.resources.Exercise;
-import be.ugent.piedcler.dodona.resources.Submission;
+import be.ugent.piedcler.dodona.resources.submissions.PartialSubmission;
+import be.ugent.piedcler.dodona.resources.submissions.Submission;
 import be.ugent.piedcler.dodona.resources.User;
 
 import javax.annotation.Nonnull;
@@ -82,7 +83,7 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	
 	@Override
 	@Nonnull
-	public List<Submission> getAll(final User user) {
+	public List<PartialSubmission> getAll(final User user) {
 		return Arrays.asList(http.get(
 			user.getSubmissionsUrl(), this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl[].class
 		));
@@ -90,7 +91,7 @@ public class SubmissionManagerImpl implements SubmissionManager {
 	
 	@Override
 	@Nonnull
-	public List<Submission> getAllByMe(final Exercise exercise) {
+	public List<PartialSubmission> getAllByMe(final Exercise exercise) {
 		final String endpoint = String.format(ENDPOINT_EXERCISE_ID, this.client.me(), exercise.getId());
 		
 		return Arrays.asList(http.get(

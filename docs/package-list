@@ -5,3 +5,4 @@ be.ugent.piedcler.dodona.exceptions.accessdenied
 be.ugent.piedcler.dodona.exceptions.notfound
 be.ugent.piedcler.dodona.managers
 be.ugent.piedcler.dodona.resources
+be.ugent.piedcler.dodona.resources.submissions

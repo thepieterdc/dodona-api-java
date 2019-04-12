@@ -1,31 +1,24 @@
 /*
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2019. All rights reserved.
  *
  * @author Pieter De Clercq
  * @author Tobiah Lissens
  *
  * https://github.com/thepieterdc/dodona-api-java/
  */
-package be.ugent.piedcler.dodona.resources;
+package be.ugent.piedcler.dodona.resources.submissions;
 
 import be.ugent.piedcler.dodona.data.SubmissionStatus;
+import be.ugent.piedcler.dodona.resources.Resource;
 
 import javax.annotation.Nonnull;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
- * A submission on Dodona.
+ * A partial submission on Dodona.
  */
-public interface Submission extends Comparable<Submission>, Resource {
-	/**
-	 * Gets the code from the submission.
-	 *
-	 * @return the code
-	 */
-	@Nonnull
-	String getCode();
-	
+public interface PartialSubmission extends Resource {
 	/**
 	 * Gets the url of the course of this submission.
 	 *

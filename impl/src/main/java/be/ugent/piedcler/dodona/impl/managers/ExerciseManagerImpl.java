@@ -17,7 +17,8 @@ import be.ugent.piedcler.dodona.managers.ExerciseManager;
 import be.ugent.piedcler.dodona.resources.Course;
 import be.ugent.piedcler.dodona.resources.Exercise;
 import be.ugent.piedcler.dodona.resources.Series;
-import be.ugent.piedcler.dodona.resources.Submission;
+import be.ugent.piedcler.dodona.resources.submissions.PartialSubmission;
+import be.ugent.piedcler.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -63,7 +64,7 @@ public class ExerciseManagerImpl implements ExerciseManager {
 	
 	@Override
 	@Nonnull
-	public Exercise get(@Nonnull final Submission submission) {
+	public Exercise get(@Nonnull final PartialSubmission submission) {
 		final Long exerciseId = Exercise.getId(submission.getExerciseUrl())
 			.orElseThrow(() -> new ExerciseNotFoundException(submission.getExerciseUrl()));
 		

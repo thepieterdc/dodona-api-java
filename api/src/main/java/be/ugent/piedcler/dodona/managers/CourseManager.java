@@ -9,7 +9,8 @@
 package be.ugent.piedcler.dodona.managers;
 
 import be.ugent.piedcler.dodona.resources.Course;
-import be.ugent.piedcler.dodona.resources.Submission;
+import be.ugent.piedcler.dodona.resources.submissions.PartialSubmission;
+import be.ugent.piedcler.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public interface CourseManager extends ResourceManager<Course> {
 	 * @return the course, if any
 	 */
 	@Nonnull
-	default Optional<Course> get(@Nonnull final Submission submission) {
+	default Optional<Course> get(@Nonnull final PartialSubmission submission) {
 		return submission.getCourseUrl().map(this::get);
 	}
 }

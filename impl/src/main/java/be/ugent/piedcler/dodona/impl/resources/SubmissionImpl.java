@@ -9,7 +9,7 @@
 package be.ugent.piedcler.dodona.impl.resources;
 
 import be.ugent.piedcler.dodona.data.SubmissionStatus;
-import be.ugent.piedcler.dodona.resources.Submission;
+import be.ugent.piedcler.dodona.resources.submissions.Submission;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

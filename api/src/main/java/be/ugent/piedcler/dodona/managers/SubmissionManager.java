@@ -9,6 +9,8 @@
 package be.ugent.piedcler.dodona.managers;
 
 import be.ugent.piedcler.dodona.resources.*;
+import be.ugent.piedcler.dodona.resources.submissions.PartialSubmission;
+import be.ugent.piedcler.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,13 +60,24 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	Submission get(long id);
 	
 	/**
+	 * Gets the full submission, given a partial submission.
+	 *
+	 * @param partial the partial submission to complete
+	 * @return the full submission
+	 */
+	@Nonnull
+	default Submission get(@Nonnull final PartialSubmission partial) {
+		return this.get(partial.getUrl());
+	}
+	
+	/**
 	 * Gets all submissions of a given user, sorted by creation timestamp.
 	 *
 	 * @param user the user
 	 * @return all submissions by the given user
 	 */
 	@Nonnull
-	List<Submission> getAll(User user);
+	List<PartialSubmission> getAll(User user);
 	
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
@@ -73,5 +86,5 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<Submission> getAllByMe(final Exercise exercise);
+	List<PartialSubmission> getAllByMe(final Exercise exercise);
 }
