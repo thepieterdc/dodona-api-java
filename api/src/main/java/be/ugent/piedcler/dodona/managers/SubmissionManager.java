@@ -86,5 +86,26 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe(final Exercise exercise);
+	default List<PartialSubmission> getAllByMe(final Exercise exercise) {
+		return this.getAllByMe(exercise.getId());
+	}
+	
+	/**
+	 * Gets all submissions to a given exercise, for the current user.
+	 *
+	 * @param course     the course id
+	 * @param exerciseId the exercise id
+	 * @return all submissions to the exercise, by the user
+	 */
+	@Nonnull
+	List<PartialSubmission> getAllByMe(final long course, final long exerciseId);
+	
+	/**
+	 * Gets all submissions to a given exercise, for the current user.
+	 *
+	 * @param exerciseId the exercise id
+	 * @return all submissions to the exercise, by the user
+	 */
+	@Nonnull
+	List<PartialSubmission> getAllByMe(final long exerciseId);
 }
