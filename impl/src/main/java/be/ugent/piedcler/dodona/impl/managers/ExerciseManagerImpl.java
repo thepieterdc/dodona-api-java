@@ -63,15 +63,23 @@ public class ExerciseManagerImpl implements ExerciseManager {
 	}
 	
 	@Override
+	public Exercise get(final long courseId, final long exerciseId) {
+		return this.get(this.client.getHost() + String.format(ENDPOINT_COURSES_EXERCISES_ID, courseId, exerciseId));
+	}
+	
+	@Override
+	public Exercise get(final long exerciseId) {
+		return this.get(this.client.getHost() + String.format(ENDPOINT_EXERCISES_ID, exerciseId));
+	}
+	
+	@Override
 	@Nonnull
 	public Exercise get(@Nonnull final PartialSubmission submission) {
 		final Long exerciseId = Exercise.getId(submission.getExerciseUrl())
 			.orElseThrow(() -> new ExerciseNotFoundException(submission.getExerciseUrl()));
 		
-		return this.get(this.client.getHost() + submission.getCourseUrl()
-			.flatMap(Course::getId)
-			.map(course -> String.format(ENDPOINT_COURSES_EXERCISES_ID, course, exerciseId))
-			.orElseGet(() -> String.format(ENDPOINT_EXERCISES_ID, exerciseId))
-		);
+		return submission.getCourseUrl().flatMap(Course::getId)
+			.map(courseId -> this.get(courseId, exerciseId))
+			.orElseGet(() -> this.get(exerciseId));
 	}
 }

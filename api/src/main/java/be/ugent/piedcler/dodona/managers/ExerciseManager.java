@@ -11,7 +11,6 @@ package be.ugent.piedcler.dodona.managers;
 import be.ugent.piedcler.dodona.resources.Exercise;
 import be.ugent.piedcler.dodona.resources.Series;
 import be.ugent.piedcler.dodona.resources.submissions.PartialSubmission;
-import be.ugent.piedcler.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -28,6 +27,23 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 */
 	@Nonnull
 	List<Exercise> getAll(@Nonnull Series series);
+	
+	/**
+	 * Gets an exercise.
+	 *
+	 * @param courseId   the course id
+	 * @param exerciseId the exercise id
+	 * @return the exercise
+	 */
+	Exercise get(final long courseId, final long exerciseId);
+	
+	/**
+	 * Gets an exercise.
+	 *
+	 * @param exerciseId the exercise id
+	 * @return the exercise
+	 */
+	Exercise get(final long exerciseId);
 	
 	/**
 	 * Gets the exercise of a given submission.
