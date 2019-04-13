@@ -13,7 +13,7 @@
     <parent>
         <groupId>be.ugent.piedcler.dodona</groupId>
         <artifactId>dodona-api</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
