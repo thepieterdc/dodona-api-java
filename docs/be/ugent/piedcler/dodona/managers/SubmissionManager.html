@@ -129,7 +129,7 @@ extends <a href="../../../../../be/ugent/piedcler/dodona/managers/ResourceManage
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default long</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#create-be.ugent.piedcler.dodona.resources.Course-be.ugent.piedcler.dodona.resources.Series-be.ugent.piedcler.dodona.resources.Exercise-java.lang.String-">create</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/Course.html" title="interface in be.ugent.piedcler.dodona.resources">Course</a>&nbsp;course,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#create-Course-Series-Exercise-java.lang.String-">create</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/Course.html" title="interface in be.ugent.piedcler.dodona.resources">Course</a>&nbsp;course,
       <a href="../../../../../be/ugent/piedcler/dodona/resources/Series.html" title="interface in be.ugent.piedcler.dodona.resources">Series</a>&nbsp;series,
       <a href="../../../../../be/ugent/piedcler/dodona/resources/Exercise.html" title="interface in be.ugent.piedcler.dodona.resources">Exercise</a>&nbsp;exercise,
       <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;solution)</code>
@@ -153,25 +153,25 @@ extends <a href="../../../../../be/ugent/piedcler/dodona/managers/ResourceManage
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>default <a href="../../../../../be/ugent/piedcler/dodona/resources/submissions/Submission.html" title="interface in be.ugent.piedcler.dodona.resources.submissions">Submission</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#get-be.ugent.piedcler.dodona.resources.submissions.PartialSubmission-">get</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/submissions/PartialSubmission.html" title="interface in be.ugent.piedcler.dodona.resources.submissions">PartialSubmission</a>&nbsp;partial)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#get-PartialSubmission-">get</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/submissions/PartialSubmission.html" title="interface in be.ugent.piedcler.dodona.resources.submissions">PartialSubmission</a>&nbsp;partial)</code>
 <div class="block">Gets the full submission, given a partial submission.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../be/ugent/piedcler/dodona/resources/submissions/PartialSubmission.html" title="interface in be.ugent.piedcler.dodona.resources.submissions">PartialSubmission</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#getAll-be.ugent.piedcler.dodona.resources.User-">getAll</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/User.html" title="interface in be.ugent.piedcler.dodona.resources">User</a>&nbsp;user)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#getAll-User-">getAll</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/User.html" title="interface in be.ugent.piedcler.dodona.resources">User</a>&nbsp;user)</code>
 <div class="block">Gets all submissions of a given user, sorted by creation timestamp.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../be/ugent/piedcler/dodona/resources/submissions/PartialSubmission.html" title="interface in be.ugent.piedcler.dodona.resources.submissions">PartialSubmission</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#getAllByMe-be.ugent.piedcler.dodona.resources.Exercise-">getAllByMe</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/Exercise.html" title="interface in be.ugent.piedcler.dodona.resources">Exercise</a>&nbsp;exercise)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../be/ugent/piedcler/dodona/managers/SubmissionManager.html#getAllByMe-Exercise-">getAllByMe</a></span>(<a href="../../../../../be/ugent/piedcler/dodona/resources/Exercise.html" title="interface in be.ugent.piedcler.dodona.resources">Exercise</a>&nbsp;exercise)</code>
 <div class="block">Gets all submissions to a given exercise, for the current user.</div>
 </td>
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.be.ugent.piedcler.dodona.managers.ResourceManager">
+<li class="blockList"><a name="methods.inherited.from.class.ResourceManager">
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;be.ugent.piedcler.dodona.managers.<a href="../../../../../be/ugent/piedcler/dodona/managers/ResourceManager.html" title="interface in be.ugent.piedcler.dodona.managers">ResourceManager</a></h3>
@@ -191,7 +191,7 @@ extends <a href="../../../../../be/ugent/piedcler/dodona/managers/ResourceManage
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="create-be.ugent.piedcler.dodona.resources.Course-be.ugent.piedcler.dodona.resources.Series-be.ugent.piedcler.dodona.resources.Exercise-java.lang.String-">
+<a name="create-Course-Series-Exercise-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -256,7 +256,7 @@ extends <a href="../../../../../be/ugent/piedcler/dodona/managers/ResourceManage
 </dl>
 </li>
 </ul>
-<a name="get-be.ugent.piedcler.dodona.resources.submissions.PartialSubmission-">
+<a name="get-PartialSubmission-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -274,7 +274,7 @@ default&nbsp;<a href="../../../../../be/ugent/piedcler/dodona/resources/submissi
 </dl>
 </li>
 </ul>
-<a name="getAll-be.ugent.piedcler.dodona.resources.User-">
+<a name="getAll-User-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -291,7 +291,7 @@ default&nbsp;<a href="../../../../../be/ugent/piedcler/dodona/resources/submissi
 </dl>
 </li>
 </ul>
-<a name="getAllByMe-be.ugent.piedcler.dodona.resources.Exercise-">
+<a name="getAllByMe-Exercise-">
 <!--   -->
 </a>
 <ul class="blockListLast">
