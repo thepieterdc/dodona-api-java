@@ -60,6 +60,14 @@
         <junit.version>4.12</junit.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>bintray-thepieterdc-random-java</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/thepieterdc/random-java</url>
+        </repository>
+    </repositories>
+
     <modules>
         <module>api</module>
         <module>impl</module>
