@@ -7,7 +7,8 @@
   ~
   ~ https://github.com/thepieterdc/dodona-api-java/
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.thepieterdc.dodona</groupId>
@@ -51,6 +52,7 @@
         <maven.javadoc.version>3.1.0</maven.javadoc.version>
         <maven.jar.version>3.1.0</maven.jar.version>
         <maven.compiler.version>3.8.0</maven.compiler.version>
+        <random.version>0.2.0</random.version>
         <findbugs.jsr305.version>3.0.2</findbugs.jsr305.version>
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,6 +71,11 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.thepieterdc.random</groupId>
+            <artifactId>random</artifactId>
+            <version>${random.version}</version>
         </dependency>
     </dependencies>
 
