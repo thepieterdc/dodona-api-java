@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
- * A partial submission on Dodona.
+ * A partial submission (a submission without code) on Dodona.
  */
 public interface PartialSubmission extends Resource {
 	/**
