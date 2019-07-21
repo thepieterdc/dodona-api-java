@@ -83,6 +83,7 @@
             <groupId>io.github.thepieterdc.random</groupId>
             <artifactId>random</artifactId>
             <version>${random.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
