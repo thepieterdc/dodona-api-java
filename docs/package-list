@@ -1,8 +1,8 @@
-be.ugent.piedcler.dodona
-be.ugent.piedcler.dodona.data
-be.ugent.piedcler.dodona.exceptions
-be.ugent.piedcler.dodona.exceptions.accessdenied
-be.ugent.piedcler.dodona.exceptions.notfound
-be.ugent.piedcler.dodona.managers
-be.ugent.piedcler.dodona.resources
-be.ugent.piedcler.dodona.resources.submissions
+io.github.thepieterdc.dodona
+io.github.thepieterdc.dodona.data
+io.github.thepieterdc.dodona.exceptions
+io.github.thepieterdc.dodona.exceptions.accessdenied
+io.github.thepieterdc.dodona.exceptions.notfound
+io.github.thepieterdc.dodona.managers
+io.github.thepieterdc.dodona.resources
+io.github.thepieterdc.dodona.resources.submissions
