@@ -8,46 +8,56 @@
  */
 package io.github.thepieterdc.dodona.impl.managers;
 
-import io.github.thepieterdc.dodona.DodonaClient;
 import io.github.thepieterdc.dodona.exceptions.accessdenied.SubmissionAccessDeniedException;
 import io.github.thepieterdc.dodona.exceptions.notfound.SubmissionNotFoundException;
-import io.github.thepieterdc.dodona.impl.http.HttpWrapper;
 import io.github.thepieterdc.dodona.impl.requestbodies.SubmissionCreateRequestBody;
 import io.github.thepieterdc.dodona.impl.resources.PartialSubmissionImpl;
 import io.github.thepieterdc.dodona.impl.resources.SubmissionImpl;
 import io.github.thepieterdc.dodona.impl.responsebodies.SubmissionCreatedResponseBody;
 import io.github.thepieterdc.dodona.managers.SubmissionManager;
-import io.github.thepieterdc.dodona.resources.User;
+import io.github.thepieterdc.dodona.resources.*;
 import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
+import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Implementation of SubmissionManager.
  */
-public class SubmissionManagerImpl implements SubmissionManager {
+public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission> implements SubmissionManager {
 	private static final String ENDPOINT_COURSE_ID_EXERCISE_ID = "%s?course_id=%d&exercise_id=%d";
 	private static final String ENDPOINT_EXERCISE_ID = "%s?exercise_id=%d";
 	private static final String ENDPOINT_SUBMISSIONS = "/submissions";
 	private static final String ENDPOINT_SUBMISSIONS_ID = ENDPOINT_SUBMISSIONS + "/%d";
 	
-	private static final HttpWrapper http = new HttpWrapper()
-		.setAccessDeniedHandler(SubmissionAccessDeniedException::new)
-		.setNotFoundHandler(SubmissionNotFoundException::new);
-	
-	private final DodonaClient client;
+	private final Supplier<User> user;
 	
 	/**
-	 * SubmissionManager implementation.
+	 * SubmissionManager constructor.
 	 *
-	 * @param client client
+	 * @param host the host
+	 * @param http the http client
+	 * @param user user accessor
 	 */
-	public SubmissionManagerImpl(final DodonaClient client) {
-		this.client = client;
+	public SubmissionManagerImpl(final String host, final HttpClient http, final Supplier<User> user) {
+		super(host, http, SubmissionImpl.class, SubmissionAccessDeniedException::new, SubmissionNotFoundException::new);
+		this.user = user;
+	}
+	
+	@Override
+	public long create(@Nullable final Course course,
+	                    @Nullable final Series series,
+	                    final Exercise exercise,
+	                    final String solution) {
+		final Long courseId = Optional.ofNullable(course).map(Resource::getId).orElse(null);
+		final Long seriesId = Optional.ofNullable(series).map(Resource::getId).orElse(null);
+		return this.create(courseId, seriesId, exercise.getId(), solution);
 	}
 	
 	@Override
@@ -59,58 +69,56 @@ public class SubmissionManagerImpl implements SubmissionManager {
 			courseId, seriesId, exerciseId, solution
 		);
 		
-		final SubmissionCreatedResponseBody response = http.post(
-			this.client.getHost() + ENDPOINT_SUBMISSIONS,
-			this.client.getApiToken(),
-			this.client.getUserAgent(),
-			request,
-			SubmissionCreatedResponseBody.class
-		);
-		
-		return response.getId();
+		final String url = this.url(ENDPOINT_SUBMISSIONS);
+		return this.http.post(url, request, SubmissionCreatedResponseBody.class)
+			.forbidden(new SubmissionAccessDeniedException(url))
+			.notFound(new SubmissionNotFoundException(url))
+			.resolve()
+			.getId();
 	}
 	
 	@Override
 	@Nonnull
 	public Submission get(final long id) {
-		return this.get(this.client.getHost() + String.format(ENDPOINT_SUBMISSIONS_ID, id));
+		return this.get(url(String.format(ENDPOINT_SUBMISSIONS_ID, id)));
 	}
 	
-	@Override
 	@Nonnull
-	public Submission get(final String url) {
-		return http.get(url, this.client.getApiToken(), this.client.getUserAgent(), SubmissionImpl.class);
+	@Override
+	public Submission get(final PartialSubmission partial) {
+		return this.get(partial.getUrl());
 	}
 	
 	@Override
 	@Nonnull
 	public List<PartialSubmission> getAll(final User user) {
-		return Arrays.asList(http.get(
-			user.getSubmissionsUrl(), this.client.getApiToken(), this.client.getUserAgent(), PartialSubmissionImpl[].class
-		));
+		return Arrays.asList(this.get(user.getSubmissionsUrl(), PartialSubmissionImpl[].class));
 	}
+	
+	@Nonnull
+	@Override
+	public List<PartialSubmission> getAllByMe(final Exercise exercise) {
+		return this.getAllByMe(exercise.getId());
+	}
+	
 	
 	@Override
 	@Nonnull
 	public List<PartialSubmission> getAllByMe(final long courseId, final long exerciseId) {
 		final String endpoint = String.format(ENDPOINT_COURSE_ID_EXERCISE_ID,
-			this.client.me().getSubmissionsUrl(), courseId, exerciseId
+			this.user.get().getSubmissionsUrl(), courseId, exerciseId
 		);
 		
-		return Arrays.asList(http.get(
-			endpoint, this.client.getApiToken(), this.client.getUserAgent(), PartialSubmissionImpl[].class
-		));
+		return Arrays.asList(this.get(endpoint, PartialSubmissionImpl[].class));
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<PartialSubmission> getAllByMe(final long exerciseId) {
 		final String endpoint = String.format(ENDPOINT_EXERCISE_ID,
-			this.client.me().getSubmissionsUrl(), exerciseId
+			this.user.get().getSubmissionsUrl(), exerciseId
 		);
 		
-		return Arrays.asList(http.get(
-			endpoint, this.client.getApiToken(), this.client.getUserAgent(), PartialSubmissionImpl[].class
-		));
+		return Arrays.asList(this.get(endpoint, PartialSubmissionImpl[].class));
 	}
 }

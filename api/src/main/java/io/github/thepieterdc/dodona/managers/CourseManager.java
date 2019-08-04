@@ -10,7 +10,6 @@ package io.github.thepieterdc.dodona.managers;
 
 import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
-import io.github.thepieterdc.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -36,7 +35,5 @@ public interface CourseManager extends ResourceManager<Course> {
 	 * @return the course, if any
 	 */
 	@Nonnull
-	default Optional<Course> get(@Nonnull final PartialSubmission submission) {
-		return submission.getCourseUrl().map(this::get);
-	}
+	Optional<Course> get(PartialSubmission submission);
 }

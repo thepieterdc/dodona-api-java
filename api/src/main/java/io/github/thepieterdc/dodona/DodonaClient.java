@@ -39,30 +39,6 @@ public interface DodonaClient {
 	ExerciseManager exercises();
 	
 	/**
-	 * Gets the api token.
-	 *
-	 * @return the api token
-	 */
-	@Nonnull
-	String getApiToken();
-	
-	/**
-	 * Gets the host url.
-	 *
-	 * @return the host url
-	 */
-	@Nonnull
-	String getHost();
-	
-	/**
-	 * Gets the user agent.
-	 *
-	 * @return the user agent
-	 */
-	@Nonnull
-	String getUserAgent();
-	
-	/**
 	 * Gets the current user.
 	 *
 	 * @return the current user

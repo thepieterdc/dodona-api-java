@@ -14,30 +14,41 @@ import javax.annotation.Nonnull;
  * An exception occurred because an invalid API token was used.
  */
 public final class AuthenticationException extends DodonaException {
-	private final String token;
+	static final String INVALID = "An invalid API token was provided.";
+	static final String MISSING = "No API token was provided.";
 	
 	/**
 	 * AuthenticationException constructor.
 	 *
-	 * @param token the used authentication token
+	 * @param message the error message
 	 */
-	public AuthenticationException(final String token) {
-		super("The provided API token was not valid.");
-		this.token = token;
+	private AuthenticationException(final String message) {
+		super(message);
 	}
 	
 	/**
-	 * Gets the used API token.
+	 * Generates an exception stating that there was an API token provided, but
+	 * it was invalid.
 	 *
-	 * @return the API token
+	 * @return the exception
 	 */
 	@Nonnull
-	public String getToken() {
-		return this.token;
+	public static AuthenticationException invalid() {
+		return new AuthenticationException(INVALID);
+	}
+	
+	/**
+	 * Generates an exception stating that there was no API token provided.
+	 *
+	 * @return the exception
+	 */
+	@Nonnull
+	public static AuthenticationException missing() {
+		return new AuthenticationException(MISSING);
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("AuthenticationException{token=%s}", this.token);
+		return String.format("AuthenticationException: %s", this.getMessage());
 	}
 }

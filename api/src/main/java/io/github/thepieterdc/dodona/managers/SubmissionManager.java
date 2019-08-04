@@ -8,14 +8,16 @@
  */
 package io.github.thepieterdc.dodona.managers;
 
-import io.github.thepieterdc.dodona.resources.*;
+import io.github.thepieterdc.dodona.resources.Course;
+import io.github.thepieterdc.dodona.resources.Exercise;
+import io.github.thepieterdc.dodona.resources.Series;
+import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Manager for submissions.
@@ -30,14 +32,8 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @param solution solution to the exercise
 	 * @return the id of the created submission
 	 */
-	default long create(@Nullable final Course course,
-	                    @Nullable final Series series,
-	                    final Exercise exercise,
-	                    final String solution) {
-		final Long courseId = Optional.ofNullable(course).map(Resource::getId).orElse(null);
-		final Long seriesId = Optional.ofNullable(series).map(Resource::getId).orElse(null);
-		return this.create(courseId, seriesId, exercise.getId(), solution);
-	}
+	long create(@Nullable Course course, @Nullable Series series,
+	            Exercise exercise, String solution);
 	
 	/**
 	 * Submits the given code to the given exercise.
@@ -66,9 +62,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return the full submission
 	 */
 	@Nonnull
-	default Submission get(@Nonnull final PartialSubmission partial) {
-		return this.get(partial.getUrl());
-	}
+	Submission get(PartialSubmission partial);
 	
 	/**
 	 * Gets all submissions of a given user, sorted by creation timestamp.
@@ -86,9 +80,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	default List<PartialSubmission> getAllByMe(final Exercise exercise) {
-		return this.getAllByMe(exercise.getId());
-	}
+	List<PartialSubmission> getAllByMe(Exercise exercise);
 	
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
@@ -98,7 +90,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe(final long course, final long exerciseId);
+	List<PartialSubmission> getAllByMe(long course, long exerciseId);
 	
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
@@ -107,5 +99,5 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe(final long exerciseId);
+	List<PartialSubmission> getAllByMe(long exerciseId);
 }

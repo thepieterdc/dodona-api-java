@@ -18,8 +18,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'io.github.thepieterdc.dodona', name: 'dodona-api-interface', version: '1.3.0'
-    runtime group: 'io.github.thepieterdc.dodona', name: 'dodona-api-impl', version: '1.3.0'
+    compile group: 'io.github.thepieterdc.dodona', name: 'dodona-api-interface', version: '1.4.0'
+    runtime group: 'io.github.thepieterdc.dodona', name: 'dodona-api-impl', version: '1.4.0'
 }
 ```
 
@@ -28,7 +28,7 @@ dependencies {
 public class ApiApplication {
     public static void main(String[] args) {
 		final DodonaClient dodona = DodonaBuilder.builder()
-			.setApiToken("myToken")
+			.authenticate("myToken")
 			.setHost("https://dodona.ugent.be")
 			.build();
 		

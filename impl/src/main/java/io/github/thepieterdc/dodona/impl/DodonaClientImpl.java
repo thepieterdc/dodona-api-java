@@ -9,134 +9,78 @@
 package io.github.thepieterdc.dodona.impl;
 
 import io.github.thepieterdc.dodona.DodonaClient;
-import io.github.thepieterdc.dodona.impl.http.HttpWrapper;
 import io.github.thepieterdc.dodona.impl.managers.*;
 import io.github.thepieterdc.dodona.impl.responsebodies.RootResponseBody;
 import io.github.thepieterdc.dodona.managers.*;
 import io.github.thepieterdc.dodona.resources.User;
+import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Implementation of DodonaClient.
  */
-public class DodonaClientImpl implements DodonaClient {
-	private static final HttpWrapper http = new HttpWrapper();
+public final class DodonaClientImpl implements DodonaClient {
+	private final String host;
+	private final HttpClient http;
 	
-	private String apiToken = "";
-	private String host = DEFAULT_HOST;
-	private String userAgent = "DodonaApi/" + getClass().getPackage().getImplementationVersion();
+	private final CourseManager courses;
+	private final ExerciseManager exercises;
+	private final SeriesManager series;
+	private final SubmissionManager submissions;
+	private final UserManager users;
 	
-	@Nullable
-	private CourseManager courses;
-	
-	@Nullable
-	private ExerciseManager exercises;
-	
-	@Nullable
-	private SeriesManager series;
-	
-	@Nullable
-	private SubmissionManager submissions;
-	
-	@Nullable
-	private UserManager users;
+	/**
+	 * DodonaClientImpl constructor.
+	 *
+	 * @param host the host
+	 * @param http the http client
+	 */
+	DodonaClientImpl(final String host, final HttpClient http) {
+		this.host = host;
+		this.http = http;
+		
+		this.courses = new CourseManagerImpl(host, http);
+		this.exercises = new ExerciseManagerImpl(host, http);
+		this.series = new SeriesManagerImpl(host, http);
+		this.submissions = new SubmissionManagerImpl(host, http, this::me);
+		this.users = new UserManagerImpl(host, http);
+	}
 	
 	@Override
 	@Nonnull
 	public CourseManager courses() {
-		if (this.courses == null) {
-			this.courses = new CourseManagerImpl(this);
-		}
 		return this.courses;
 	}
 	
 	@Override
 	@Nonnull
 	public ExerciseManager exercises() {
-		if (this.exercises == null) {
-			this.exercises = new ExerciseManagerImpl(this);
-		}
 		return this.exercises;
 	}
 	
 	@Override
 	@Nonnull
-	public String getApiToken() {
-		return this.apiToken;
-	}
-	
-	@Override
-	@Nonnull
-	public String getHost() {
-		return this.host;
-	}
-	
-	@Override
-	@Nonnull
-	public String getUserAgent() {
-		return this.userAgent;
-	}
-	
-	@Override
-	@Nonnull
 	public User me() {
-		final RootResponseBody root = http.get(this.host, this.apiToken, this.userAgent, RootResponseBody.class);
-		return root.getUser();
+		return this.http.get(this.host, RootResponseBody.class).resolve()
+			.getUser();
 	}
 	
 	@Override
 	@Nonnull
 	public SeriesManager series() {
-		if (this.series == null) {
-			this.series = new SeriesManagerImpl(this);
-		}
 		return this.series;
-	}
-	
-	/**
-	 * Sets the api token.
-	 *
-	 * @param token the api token
-	 */
-	void setApiToken(final String token) {
-		this.apiToken = token;
-	}
-	
-	/**
-	 * Sets the host url.
-	 *
-	 * @param host the host url
-	 */
-	void setHost(final String host) {
-		this.host = host;
-	}
-	
-	/**
-	 * Sets the user agent.
-	 *
-	 * @param ua the user agent
-	 */
-	void setUserAgent(final String ua) {
-		this.userAgent = ua;
 	}
 	
 	@Override
 	@Nonnull
 	public SubmissionManager submissions() {
-		if (this.submissions == null) {
-			this.submissions = new SubmissionManagerImpl(this);
-		}
 		return this.submissions;
 	}
 	
 	@Override
 	@Nonnull
 	public UserManager users() {
-		if (this.users == null) {
-			this.users = new UserManagerImpl(this);
-		}
 		return this.users;
 	}
 }

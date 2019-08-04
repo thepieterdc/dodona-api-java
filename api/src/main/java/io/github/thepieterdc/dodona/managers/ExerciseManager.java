@@ -26,7 +26,7 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @return all exercises in the series
 	 */
 	@Nonnull
-	List<Exercise> getAll(@Nonnull Series series);
+	List<Exercise> getAll(Series series);
 	
 	/**
 	 * Gets an exercise.
@@ -35,7 +35,7 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @param exerciseId the exercise id
 	 * @return the exercise
 	 */
-	Exercise get(final long courseId, final long exerciseId);
+	Exercise get(long courseId, long exerciseId);
 	
 	/**
 	 * Gets an exercise.
@@ -43,7 +43,7 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @param exerciseId the exercise id
 	 * @return the exercise
 	 */
-	Exercise get(final long exerciseId);
+	Exercise get(long exerciseId);
 	
 	/**
 	 * Gets the exercise of a given submission.
@@ -52,5 +52,5 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	 * @return the exercise
 	 */
 	@Nonnull
-	Exercise get(@Nonnull PartialSubmission submission);
+	Exercise get(PartialSubmission submission);
 }

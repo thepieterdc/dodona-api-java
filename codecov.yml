@@ -1,4 +1,6 @@
 coverage:
+  ignore:
+    - "ClassLoader.java"
   status:
     project:
       default:

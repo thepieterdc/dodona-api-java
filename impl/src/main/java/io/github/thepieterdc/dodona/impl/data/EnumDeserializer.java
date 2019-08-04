@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Maps json submission statuses to SubmissionStatus instances.
  */
-public class EnumDeserializer extends BeanDeserializerModifier {
+public final class EnumDeserializer extends BeanDeserializerModifier {
 	
 	@Override
 	@SuppressWarnings("unchecked")
