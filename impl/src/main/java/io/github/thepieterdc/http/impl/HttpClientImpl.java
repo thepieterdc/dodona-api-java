@@ -14,26 +14,16 @@ import io.github.thepieterdc.http.HttpResponse;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 /**
  * Implementation of a HttpClient.
  */
 public final class HttpClientImpl implements HttpClient {
-	/**
-	 * Connection adapter.
-	 */
-	@FunctionalInterface
-	private interface Adapter extends Consumer<HttpsURLConnection> {
-		
-	}
-	
 	private static final String ACCEPT_HEADER = "Accept";
 	private static final String ACCEPT_VALUE = "application/json";
 	private static final String AUTHORIZATION_HEADER = "Authorization";
@@ -104,12 +94,14 @@ public final class HttpClientImpl implements HttpClient {
 	                                    final Adapter adapter,
 	                                    final Class<T> returnCls) {
 		try {
-			final HttpsURLConnection conn = (HttpsURLConnection) new URL(url).openConnection();
+			final HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 			conn.setRequestProperty(ACCEPT_HEADER, ACCEPT_VALUE);
 			Optional.ofNullable(this.authentication).ifPresent(token ->
 				conn.setRequestProperty(AUTHORIZATION_HEADER, token)
 			);
 			conn.setRequestProperty(USER_AGENT_HEADER, this.userAgent);
+			
+			adapter.accept(conn);
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
 				Optional.ofNullable(this.authentication).ifPresent(t -> {
