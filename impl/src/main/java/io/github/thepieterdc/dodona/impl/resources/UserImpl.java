@@ -8,10 +8,10 @@
  */
 package io.github.thepieterdc.dodona.impl.resources;
 
-import io.github.thepieterdc.dodona.resources.Course;
-import io.github.thepieterdc.dodona.resources.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.thepieterdc.dodona.resources.Course;
+import io.github.thepieterdc.dodona.resources.User;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -23,6 +23,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class UserImpl implements User {
 	private final long correctExercises;
+	private final String email;
 	private final String firstName;
 	private final long id;
 	private final String lastName;
@@ -35,6 +36,7 @@ public final class UserImpl implements User {
 	 * UserImpl constructor.
 	 *
 	 * @param correctExercises  amount of correct solved exercises
+	 * @param email             the email address
 	 * @param firstName         first name
 	 * @param id                id
 	 * @param lastName          last name
@@ -44,6 +46,7 @@ public final class UserImpl implements User {
 	 * @param url               url
 	 */
 	public UserImpl(@JsonProperty("correct_exercises") final long correctExercises,
+	                @JsonProperty("email") final String email,
 	                @JsonProperty("first_name") final String firstName,
 	                @JsonProperty("id") final long id,
 	                @JsonProperty("last_name") final String lastName,
@@ -52,6 +55,7 @@ public final class UserImpl implements User {
 	                @JsonProperty("subscribed_courses") final List<CourseImpl> subscribedCourses,
 	                @JsonProperty("url") final String url) {
 		this.correctExercises = correctExercises;
+		this.email = email;
 		this.firstName = firstName;
 		this.id = id;
 		this.lastName = lastName;
@@ -70,6 +74,12 @@ public final class UserImpl implements User {
 	@Override
 	public long getCorrectExercises() {
 		return this.correctExercises;
+	}
+	
+	@Nonnull
+	@Override
+	public String getEmail() {
+		return this.email;
 	}
 	
 	@Override

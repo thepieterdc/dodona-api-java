@@ -23,6 +23,14 @@ public interface User extends Comparable<User>, Resource {
 	long getCorrectExercises();
 	
 	/**
+	 * Gets the email address of the user.
+	 *
+	 * @return the email address
+	 */
+	@Nonnull
+	String getEmail();
+	
+	/**
 	 * Gets the first name of the user.
 	 *
 	 * @return the first name
