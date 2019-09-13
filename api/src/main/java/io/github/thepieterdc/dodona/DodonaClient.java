@@ -9,9 +9,11 @@
 package io.github.thepieterdc.dodona;
 
 import io.github.thepieterdc.dodona.managers.*;
+import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 
 /**
  * API client to interface with Dodona.
@@ -29,6 +31,14 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	CourseManager courses();
+	
+	/**
+	 * Gets the deadlines for the authenticated user.
+	 *
+	 * @return the deadlines
+	 */
+	@Nonnull
+	Collection<Series> deadlines();
 	
 	/**
 	 * Gets a resource manager for exercises.

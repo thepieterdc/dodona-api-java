@@ -12,10 +12,13 @@ import io.github.thepieterdc.dodona.DodonaClient;
 import io.github.thepieterdc.dodona.impl.managers.*;
 import io.github.thepieterdc.dodona.impl.responsebodies.RootResponseBody;
 import io.github.thepieterdc.dodona.managers.*;
+import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Implementation of DodonaClient.
@@ -51,6 +54,13 @@ public final class DodonaClientImpl implements DodonaClient {
 	@Nonnull
 	public CourseManager courses() {
 		return this.courses;
+	}
+	
+	@Nonnull
+	@Override
+	public Collection<Series> deadlines() {
+		return this.http.get(this.host, RootResponseBody.class).resolve()
+			.getDeadlineSeries();
 	}
 	
 	@Override
