@@ -17,6 +17,14 @@ import java.util.Optional;
  */
 public interface Series extends Comparable<Series>, Resource {
 	/**
+	 * Gets the url to the course this series belongs to.
+	 *
+	 * @return the course url
+	 */
+	@Nonnull
+	String getCourseUrl();
+	
+	/**
 	 * Gets the deadline for this series, if any.
 	 *
 	 * @return the deadline
