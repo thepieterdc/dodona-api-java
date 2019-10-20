@@ -10,15 +10,15 @@ package io.github.thepieterdc.dodona.impl;
 
 import io.github.thepieterdc.dodona.DodonaClient;
 import io.github.thepieterdc.dodona.impl.managers.*;
-import io.github.thepieterdc.dodona.impl.responsebodies.RootResponseBody;
+import io.github.thepieterdc.dodona.impl.responses.RootResponseImpl;
 import io.github.thepieterdc.dodona.managers.*;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
+import io.github.thepieterdc.dodona.responses.RootResponse;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Implementation of DodonaClient.
@@ -59,8 +59,7 @@ public final class DodonaClientImpl implements DodonaClient {
 	@Nonnull
 	@Override
 	public Collection<Series> deadlines() {
-		return this.http.get(this.host, RootResponseBody.class).resolve()
-			.getDeadlineSeries();
+		return this.root().getDeadlineSeries();
 	}
 	
 	@Override
@@ -72,8 +71,13 @@ public final class DodonaClientImpl implements DodonaClient {
 	@Override
 	@Nonnull
 	public User me() {
-		return this.http.get(this.host, RootResponseBody.class).resolve()
-			.getUser();
+		return this.root().getUser();
+	}
+	
+	@Nonnull
+	@Override
+	public RootResponse root() {
+		return this.http.get(this.host, RootResponseImpl.class).resolve();
 	}
 	
 	@Override

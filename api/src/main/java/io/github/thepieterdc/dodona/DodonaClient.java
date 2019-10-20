@@ -11,6 +11,7 @@ package io.github.thepieterdc.dodona;
 import io.github.thepieterdc.dodona.managers.*;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
+import io.github.thepieterdc.dodona.responses.RootResponse;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -55,6 +56,14 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	User me();
+	
+	/**
+	 * Gets the response from querying the root.
+	 *
+	 * @return the root response
+	 */
+	@Nonnull
+	RootResponse root();
 	
 	/**
 	 * Gets a resource manager for series.

@@ -18,7 +18,7 @@ import java.util.Optional;
  * Tests io.github.thepieterdc.dodona.resources.Course.
  */
 public class CourseTest {
-	private static final RandomLongGenerator rng = RandomLongGenerator.POSITIVE;
+	private static final RandomLongGenerator rng = RandomLongGenerator.positive();
 	
 	private static final String urlPattern = "https://dodona.ugent.be/courses/%d/series/%d/exercise/%d";
 	

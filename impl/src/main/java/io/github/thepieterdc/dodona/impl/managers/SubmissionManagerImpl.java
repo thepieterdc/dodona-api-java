@@ -13,7 +13,7 @@ import io.github.thepieterdc.dodona.exceptions.notfound.SubmissionNotFoundExcept
 import io.github.thepieterdc.dodona.impl.requestbodies.SubmissionCreateRequestBody;
 import io.github.thepieterdc.dodona.impl.resources.PartialSubmissionImpl;
 import io.github.thepieterdc.dodona.impl.resources.SubmissionImpl;
-import io.github.thepieterdc.dodona.impl.responsebodies.SubmissionCreatedResponseBody;
+import io.github.thepieterdc.dodona.impl.responses.SubmissionCreatedResponseBody;
 import io.github.thepieterdc.dodona.managers.SubmissionManager;
 import io.github.thepieterdc.dodona.resources.*;
 import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;

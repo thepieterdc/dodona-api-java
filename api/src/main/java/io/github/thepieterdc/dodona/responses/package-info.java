@@ -8,9 +8,9 @@
  */
 
 /**
- * API responses.
+ * Responses given by Dodona.
  */
 @ParametersAreNonnullByDefault
-package io.github.thepieterdc.dodona.impl.responsebodies;
+package io.github.thepieterdc.dodona.responses;
 
 import javax.annotation.ParametersAreNonnullByDefault;

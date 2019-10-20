@@ -6,7 +6,7 @@
  *
  * https://github.com/thepieterdc/ugent-dodona/
  */
-package io.github.thepieterdc.dodona.impl.responsebodies;
+package io.github.thepieterdc.dodona.impl.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
