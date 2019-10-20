@@ -8,9 +8,9 @@
  */
 package io.github.thepieterdc.dodona.impl.resources;
 
-import io.github.thepieterdc.dodona.resources.Series;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.thepieterdc.dodona.resources.Series;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,9 +22,9 @@ import java.util.Optional;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SeriesImpl implements Series {
+	private final String courseUrl;
 	@Nullable
 	private final ZonedDateTime deadline;
-	
 	private final String description;
 	private final String exercisesUrl;
 	private final long id;
@@ -35,6 +35,7 @@ public final class SeriesImpl implements Series {
 	/**
 	 * SeriesImpl constructor.
 	 *
+	 * @param courseUrl    url to the course
 	 * @param deadline     the optional deadline
 	 * @param description  the description
 	 * @param exercisesUrl url to fetch exercises
@@ -43,13 +44,15 @@ public final class SeriesImpl implements Series {
 	 * @param order        the order
 	 * @param url          the url
 	 */
-	public SeriesImpl(@Nullable @JsonProperty("deadline") final ZonedDateTime deadline,
+	public SeriesImpl(@JsonProperty("course") final String courseUrl,
+	                  @Nullable @JsonProperty("deadline") final ZonedDateTime deadline,
 	                  @JsonProperty("description") final String description,
 	                  @JsonProperty("exercises") final String exercisesUrl,
 	                  @JsonProperty("id") final long id,
 	                  @JsonProperty("name") final String name,
 	                  @JsonProperty("order") final int order,
 	                  @JsonProperty("url") final String url) {
+		this.courseUrl = courseUrl;
 		this.deadline = deadline;
 		this.description = description;
 		this.exercisesUrl = exercisesUrl;
@@ -62,6 +65,12 @@ public final class SeriesImpl implements Series {
 	@Override
 	public int compareTo(final Series o) {
 		return this.order - o.getOrder();
+	}
+	
+	@Nonnull
+	@Override
+	public String getCourseUrl() {
+		return this.courseUrl;
 	}
 	
 	@Override
