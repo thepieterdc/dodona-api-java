@@ -35,7 +35,11 @@ public interface Course extends Comparable<Course>, Resource {
 	 */
 	@Nonnull
 	static Optional<Long> getId(final String url) {
-		final Pattern urlPattern = Pattern.compile("courses/([0-9]+)");
+		final Pattern urlPattern = Pattern.compile(
+			"https?://.*/courses/(\\d+)",
+			Pattern.CASE_INSENSITIVE
+		);
+		
 		return Optional.of(urlPattern.matcher(url))
 			.filter(Matcher::find)
 			.map(matcher -> matcher.group(1))
