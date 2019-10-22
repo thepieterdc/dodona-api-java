@@ -11,6 +11,8 @@ package io.github.thepieterdc.dodona.resources;
 import javax.annotation.Nonnull;
 import java.time.ZonedDateTime;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A series on Dodona.
@@ -47,6 +49,25 @@ public interface Series extends Comparable<Series>, Resource {
 	 */
 	@Nonnull
 	String getExercisesUrl();
+	
+	/**
+	 * Parses the id of a series from the url.
+	 *
+	 * @param url the url to the series
+	 * @return the course id
+	 */
+	@Nonnull
+	static Optional<Long> getId(final String url) {
+		final Pattern urlPattern = Pattern.compile(
+			"https?://.*/series/(\\d+)",
+			Pattern.CASE_INSENSITIVE
+		);
+		
+		return Optional.of(urlPattern.matcher(url))
+			.filter(Matcher::find)
+			.map(matcher -> matcher.group(1))
+			.map(Long::parseLong);
+	}
 	
 	/**
 	 * Gets the name of the course.
