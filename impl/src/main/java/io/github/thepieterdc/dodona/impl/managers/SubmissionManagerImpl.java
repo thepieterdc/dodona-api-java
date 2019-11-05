@@ -15,7 +15,11 @@ import io.github.thepieterdc.dodona.impl.resources.PartialSubmissionImpl;
 import io.github.thepieterdc.dodona.impl.resources.SubmissionImpl;
 import io.github.thepieterdc.dodona.impl.responses.SubmissionCreatedResponseBody;
 import io.github.thepieterdc.dodona.managers.SubmissionManager;
-import io.github.thepieterdc.dodona.resources.*;
+import io.github.thepieterdc.dodona.resources.Course;
+import io.github.thepieterdc.dodona.resources.Exercise;
+import io.github.thepieterdc.dodona.resources.Resource;
+import io.github.thepieterdc.dodona.resources.Series;
+import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import io.github.thepieterdc.http.HttpClient;
@@ -52,9 +56,9 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 	
 	@Override
 	public long create(@Nullable final Course course,
-	                    @Nullable final Series series,
-	                    final Exercise exercise,
-	                    final String solution) {
+	                   @Nullable final Series series,
+	                   final Exercise exercise,
+	                   final String solution) {
 		final Long courseId = Optional.ofNullable(course).map(Resource::getId).orElse(null);
 		final Long seriesId = Optional.ofNullable(series).map(Resource::getId).orElse(null);
 		return this.create(courseId, seriesId, exercise.getId(), solution);
@@ -97,10 +101,18 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 	
 	@Nonnull
 	@Override
+	public List<PartialSubmission> getAllByMe() {
+		return Arrays.asList(this.get(
+			this.user.get().getSubmissionsUrl(),
+			PartialSubmissionImpl[].class
+		));
+	}
+	
+	@Nonnull
+	@Override
 	public List<PartialSubmission> getAllByMe(final Exercise exercise) {
 		return this.getAllByMe(exercise.getId());
 	}
-	
 	
 	@Override
 	@Nonnull
@@ -111,7 +123,7 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		
 		return Arrays.asList(this.get(endpoint, PartialSubmissionImpl[].class));
 	}
-
+	
 	@Override
 	@Nonnull
 	public List<PartialSubmission> getAllByMe(final long exerciseId) {

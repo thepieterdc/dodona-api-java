@@ -74,6 +74,14 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	List<PartialSubmission> getAll(User user);
 	
 	/**
+	 * Gets all submissions by the current user.
+	 *
+	 * @return all submissions by the current user
+	 */
+	@Nonnull
+	List<PartialSubmission> getAllByMe();
+	
+	/**
 	 * Gets all submissions to a given exercise, for the current user.
 	 *
 	 * @param exercise the exercise
