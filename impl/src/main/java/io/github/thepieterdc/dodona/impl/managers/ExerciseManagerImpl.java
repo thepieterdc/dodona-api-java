@@ -15,7 +15,7 @@ import io.github.thepieterdc.dodona.managers.ExerciseManager;
 import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.Exercise;
 import io.github.thepieterdc.dodona.resources.Series;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
+import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
@@ -59,7 +59,7 @@ public final class ExerciseManagerImpl extends AbstractManagerImpl<Exercise> imp
 	
 	@Override
 	@Nonnull
-	public Exercise get(@Nonnull final PartialSubmission submission) {
+	public Exercise get(@Nonnull final SubmissionInfo submission) {
 		final Long exerciseId = Exercise.getId(submission.getExerciseUrl())
 			.orElseThrow(() -> new ExerciseNotFoundException(submission.getExerciseUrl()));
 		
