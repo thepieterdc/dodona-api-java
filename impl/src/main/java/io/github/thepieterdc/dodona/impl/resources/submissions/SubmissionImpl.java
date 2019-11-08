@@ -8,10 +8,11 @@
  */
 package io.github.thepieterdc.dodona.impl.resources.submissions;
 
-import io.github.thepieterdc.dodona.data.SubmissionStatus;
-import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.thepieterdc.dodona.data.SubmissionStatus;
+import io.github.thepieterdc.dodona.resources.submissions.Submission;
+import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -101,6 +102,21 @@ public final class SubmissionImpl implements Submission {
 	@Override
 	public long getId() {
 		return this.id;
+	}
+	
+	@Nonnull
+	@Override
+	public SubmissionInfo getInfo() {
+		return new SubmissionInfoImpl(
+			this.accepted,
+			this.courseUrl,
+			this.createdAt,
+			this.exerciseUrl,
+			this.id,
+			this.status,
+			this.summary,
+			this.url
+		);
 	}
 	
 	@Override

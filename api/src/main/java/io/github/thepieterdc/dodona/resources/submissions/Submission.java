@@ -52,6 +52,14 @@ public interface Submission extends Comparable<Submission>, Resource {
 	String getExerciseUrl();
 	
 	/**
+	 * Gets the submission info from the current submission.
+	 *
+	 * @return the submission info
+	 */
+	@Nonnull
+	SubmissionInfo getInfo();
+	
+	/**
 	 * Gets the status of the submission.
 	 *
 	 * @return the submission status
