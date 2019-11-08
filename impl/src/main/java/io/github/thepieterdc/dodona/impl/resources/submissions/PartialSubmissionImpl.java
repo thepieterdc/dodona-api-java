@@ -8,11 +8,10 @@
  */
 package io.github.thepieterdc.dodona.impl.resources.submissions;
 
-import io.github.thepieterdc.dodona.data.SubmissionStatus;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
-import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.thepieterdc.dodona.data.SubmissionStatus;
+import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -67,7 +66,7 @@ public final class PartialSubmissionImpl implements PartialSubmission {
 	}
 	
 	@Override
-	public int compareTo(final Submission o) {
+	public int compareTo(final PartialSubmission o) {
 		return this.createdAt.compareTo(o.getCreatedAt());
 	}
 	

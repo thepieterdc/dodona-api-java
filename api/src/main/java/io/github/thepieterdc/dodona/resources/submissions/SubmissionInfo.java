@@ -16,9 +16,9 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
- * A partial submission (a submission without code) on Dodona.
+ * The info of a submission on Dodona.
  */
-public interface PartialSubmission extends Comparable<Submission>, Resource {
+public interface SubmissionInfo extends Comparable<SubmissionInfo>, Resource {
 	/**
 	 * Gets the url of the course of this submission.
 	 *
