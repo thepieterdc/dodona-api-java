@@ -11,8 +11,8 @@ package io.github.thepieterdc.dodona.impl.managers;
 import io.github.thepieterdc.dodona.exceptions.accessdenied.SubmissionAccessDeniedException;
 import io.github.thepieterdc.dodona.exceptions.notfound.SubmissionNotFoundException;
 import io.github.thepieterdc.dodona.impl.requestbodies.SubmissionCreateRequestBody;
-import io.github.thepieterdc.dodona.impl.resources.submissions.PartialSubmissionImpl;
 import io.github.thepieterdc.dodona.impl.resources.submissions.SubmissionImpl;
+import io.github.thepieterdc.dodona.impl.resources.submissions.SubmissionInfoImpl;
 import io.github.thepieterdc.dodona.impl.responses.SubmissionCreatedResponseBody;
 import io.github.thepieterdc.dodona.managers.SubmissionManager;
 import io.github.thepieterdc.dodona.resources.Course;
@@ -20,8 +20,8 @@ import io.github.thepieterdc.dodona.resources.Exercise;
 import io.github.thepieterdc.dodona.resources.Resource;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
+import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
@@ -89,48 +89,48 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 	
 	@Nonnull
 	@Override
-	public Submission get(final PartialSubmission partial) {
-		return this.get(partial.getUrl());
+	public Submission get(final SubmissionInfo info) {
+		return this.get(info.getUrl());
 	}
 	
 	@Override
 	@Nonnull
-	public List<PartialSubmission> getAll(final User user) {
-		return Arrays.asList(this.get(user.getSubmissionsUrl(), PartialSubmissionImpl[].class));
+	public List<SubmissionInfo> getAll(final User user) {
+		return Arrays.asList(this.get(user.getSubmissionsUrl(), SubmissionInfoImpl[].class));
 	}
 	
 	@Nonnull
 	@Override
-	public List<PartialSubmission> getAllByMe() {
+	public List<SubmissionInfo> getAllByMe() {
 		return Arrays.asList(this.get(
 			this.user.get().getSubmissionsUrl(),
-			PartialSubmissionImpl[].class
+			SubmissionInfoImpl[].class
 		));
 	}
 	
 	@Nonnull
 	@Override
-	public List<PartialSubmission> getAllByMe(final Exercise exercise) {
+	public List<SubmissionInfo> getAllByMe(final Exercise exercise) {
 		return this.getAllByMe(exercise.getId());
 	}
 	
 	@Override
 	@Nonnull
-	public List<PartialSubmission> getAllByMe(final long courseId, final long exerciseId) {
+	public List<SubmissionInfo> getAllByMe(final long courseId, final long exerciseId) {
 		final String endpoint = String.format(ENDPOINT_COURSE_ID_EXERCISE_ID,
 			this.user.get().getSubmissionsUrl(), courseId, exerciseId
 		);
 		
-		return Arrays.asList(this.get(endpoint, PartialSubmissionImpl[].class));
+		return Arrays.asList(this.get(endpoint, SubmissionInfoImpl[].class));
 	}
 	
 	@Override
 	@Nonnull
-	public List<PartialSubmission> getAllByMe(final long exerciseId) {
+	public List<SubmissionInfo> getAllByMe(final long exerciseId) {
 		final String endpoint = String.format(ENDPOINT_EXERCISE_ID,
 			this.user.get().getSubmissionsUrl(), exerciseId
 		);
 		
-		return Arrays.asList(this.get(endpoint, PartialSubmissionImpl[].class));
+		return Arrays.asList(this.get(endpoint, SubmissionInfoImpl[].class));
 	}
 }
