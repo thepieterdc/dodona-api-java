@@ -6,10 +6,9 @@
  *
  * https://github.com/thepieterdc/dodona-api-java/
  */
-package io.github.thepieterdc.dodona.impl.resources;
+package io.github.thepieterdc.dodona.impl.resources.submissions;
 
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,11 +19,12 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
- * A partal submission on Dodona.
+ * A submission on Dodona.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class PartialSubmissionImpl implements PartialSubmission {
+public final class SubmissionImpl implements Submission {
 	private final boolean accepted;
+	private final String code;
 	private final ZonedDateTime createdAt;
 	
 	@Nullable
@@ -37,9 +37,10 @@ public final class PartialSubmissionImpl implements PartialSubmission {
 	private final String url;
 	
 	/**
-	 * PartialSubmissionImpl constructor.
+	 * SubmissionImpl constructor.
 	 *
 	 * @param accepted  the acceptance status
+	 * @param code      the code
 	 * @param course    the course url
 	 * @param createdAt the creation timestamp
 	 * @param exercise  the exercise url
@@ -48,15 +49,17 @@ public final class PartialSubmissionImpl implements PartialSubmission {
 	 * @param summary   the summary
 	 * @param url       the url
 	 */
-	public PartialSubmissionImpl(@JsonProperty("accepted") final boolean accepted,
-	                             @Nullable @JsonProperty("course") final String course,
-	                             @JsonProperty("created_at") final ZonedDateTime createdAt,
-	                             @JsonProperty("exercise") final String exercise,
-	                             @JsonProperty("id") final long id,
-	                             @JsonProperty("status") final SubmissionStatus status,
-	                             @JsonProperty("summary") final String summary,
-	                             @JsonProperty("url") final String url) {
+	public SubmissionImpl(@JsonProperty("accepted") final boolean accepted,
+	                      @JsonProperty("code") final String code,
+	                      @Nullable @JsonProperty("course") final String course,
+	                      @JsonProperty("created_at") final ZonedDateTime createdAt,
+	                      @JsonProperty("exercise") final String exercise,
+	                      @JsonProperty("id") final long id,
+	                      @JsonProperty("status") final SubmissionStatus status,
+	                      @JsonProperty("summary") final String summary,
+	                      @JsonProperty("url") final String url) {
 		this.accepted = accepted;
+		this.code = code;
 		this.courseUrl = course;
 		this.createdAt = createdAt;
 		this.exerciseUrl = exercise;
@@ -64,6 +67,17 @@ public final class PartialSubmissionImpl implements PartialSubmission {
 		this.status = status;
 		this.summary = summary;
 		this.url = url;
+	}
+	
+	@Override
+	public int compareTo(final Submission o) {
+		return this.createdAt.compareTo(o.getCreatedAt());
+	}
+	
+	@Override
+	@Nonnull
+	public String getCode() {
+		return this.code;
 	}
 	
 	@Override

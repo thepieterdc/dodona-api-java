@@ -6,4 +6,5 @@ io.github.thepieterdc.dodona.exceptions.notfound
 io.github.thepieterdc.dodona.managers
 io.github.thepieterdc.dodona.resources
 io.github.thepieterdc.dodona.resources.submissions
+io.github.thepieterdc.dodona.responses
 io.github.thepieterdc.http
