@@ -10,7 +10,7 @@ package io.github.thepieterdc.dodona.managers;
 
 import io.github.thepieterdc.dodona.resources.Exercise;
 import io.github.thepieterdc.dodona.resources.Series;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
+import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -48,9 +48,9 @@ public interface ExerciseManager extends ResourceManager<Exercise> {
 	/**
 	 * Gets the exercise of a given submission.
 	 *
-	 * @param submission the submission
+	 * @param submission the submission info
 	 * @return the exercise
 	 */
 	@Nonnull
-	Exercise get(PartialSubmission submission);
+	Exercise get(SubmissionInfo submission);
 }

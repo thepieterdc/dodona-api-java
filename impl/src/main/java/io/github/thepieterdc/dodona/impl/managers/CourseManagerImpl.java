@@ -13,7 +13,7 @@ import io.github.thepieterdc.dodona.exceptions.notfound.CourseNotFoundException;
 import io.github.thepieterdc.dodona.impl.resources.CourseImpl;
 import io.github.thepieterdc.dodona.managers.CourseManager;
 import io.github.thepieterdc.dodona.resources.Course;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
+import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
@@ -43,7 +43,7 @@ public final class CourseManagerImpl extends AbstractManagerImpl<Course> impleme
 	
 	@Nonnull
 	@Override
-	public Optional<Course> get(@Nonnull final PartialSubmission submission) {
+	public Optional<Course> get(@Nonnull final SubmissionInfo submission) {
 		return submission.getCourseUrl().map(this::get);
 	}
 }

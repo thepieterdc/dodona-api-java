@@ -12,8 +12,8 @@ import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.Exercise;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
-import io.github.thepieterdc.dodona.resources.submissions.PartialSubmission;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
+import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,13 +56,13 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	Submission get(long id);
 	
 	/**
-	 * Gets the full submission, given a partial submission.
+	 * Gets the full submission, given its info.
 	 *
-	 * @param partial the partial submission to complete
+	 * @param info the submission info
 	 * @return the full submission
 	 */
 	@Nonnull
-	Submission get(PartialSubmission partial);
+	Submission get(SubmissionInfo info);
 	
 	/**
 	 * Gets all submissions of a given user, sorted by creation timestamp.
@@ -71,7 +71,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions by the given user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAll(User user);
+	List<SubmissionInfo> getAll(User user);
 	
 	/**
 	 * Gets all submissions by the current user.
@@ -79,7 +79,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions by the current user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe();
+	List<SubmissionInfo> getAllByMe();
 	
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
@@ -88,7 +88,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe(Exercise exercise);
+	List<SubmissionInfo> getAllByMe(Exercise exercise);
 	
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
@@ -98,7 +98,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe(long course, long exerciseId);
+	List<SubmissionInfo> getAllByMe(long course, long exerciseId);
 	
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
@@ -107,5 +107,5 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return all submissions to the exercise, by the user
 	 */
 	@Nonnull
-	List<PartialSubmission> getAllByMe(long exerciseId);
+	List<SubmissionInfo> getAllByMe(long exerciseId);
 }
