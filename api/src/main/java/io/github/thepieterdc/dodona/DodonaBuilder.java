@@ -27,7 +27,7 @@ public interface DodonaBuilder {
 	
 	@Nonnull
 	static DodonaBuilder builder() {
-		return ClassLoader.instance("io.github.thepieterdc.dodona.impl.DodonaBuilderImpl");
+		return DodonaClassLoader.instance("io.github.thepieterdc.dodona.impl.DodonaBuilderImpl");
 	}
 	
 	/**

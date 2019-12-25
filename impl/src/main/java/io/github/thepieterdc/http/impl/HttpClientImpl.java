@@ -105,7 +105,6 @@ public final class HttpClientImpl implements HttpClient {
 			
 			adapter.accept(conn);
 			
-			// Handle errors.
 			switch (conn.getResponseCode()) {
 				case HttpURLConnection.HTTP_FORBIDDEN:
 					return HttpResponseImpl.forbidden();
@@ -126,11 +125,12 @@ public final class HttpClientImpl implements HttpClient {
 				
 				case HTTP_UNPROCESSABLE_ENTITY:
 					return HttpResponseImpl.unprocessable();
+				
+				default:
+					return HttpResponseImpl.of(
+						mapper.readValue(conn.getInputStream(), returnCls)
+					);
 			}
-			
-			return HttpResponseImpl.of(
-				mapper.readValue(conn.getInputStream(), returnCls)
-			);
 		} catch (final IOException ex) {
 			throw new RuntimeException(ex);
 		}

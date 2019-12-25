@@ -9,9 +9,17 @@
 package io.github.thepieterdc.dodona.impl;
 
 import io.github.thepieterdc.dodona.DodonaClient;
-import io.github.thepieterdc.dodona.impl.managers.*;
+import io.github.thepieterdc.dodona.impl.managers.CourseManagerImpl;
+import io.github.thepieterdc.dodona.impl.managers.ExerciseManagerImpl;
+import io.github.thepieterdc.dodona.impl.managers.SeriesManagerImpl;
+import io.github.thepieterdc.dodona.impl.managers.SubmissionManagerImpl;
+import io.github.thepieterdc.dodona.impl.managers.UserManagerImpl;
 import io.github.thepieterdc.dodona.impl.responses.RootResponseImpl;
-import io.github.thepieterdc.dodona.managers.*;
+import io.github.thepieterdc.dodona.managers.CourseManager;
+import io.github.thepieterdc.dodona.managers.ExerciseManager;
+import io.github.thepieterdc.dodona.managers.SeriesManager;
+import io.github.thepieterdc.dodona.managers.SubmissionManager;
+import io.github.thepieterdc.dodona.managers.UserManager;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.dodona.responses.RootResponse;

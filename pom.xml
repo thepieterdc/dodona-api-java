@@ -136,8 +136,8 @@
                             </goals>
                             <configuration>
                                 <excludes>
-                                    <exclude>**/dodona/ClassLoader.*</exclude>
                                     <exclude>**/dodona/DodonaBuilder.*</exclude>
+                                    <exclude>**/dodona/DodonaClassLoader.*</exclude>
                                 </excludes>
                             </configuration>
                         </execution>

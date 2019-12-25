@@ -8,8 +8,8 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import javax.annotation.Nullable;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.function.Predicate;
 
 /**
  * The status of an exercise.
@@ -18,38 +18,45 @@ public enum ExerciseStatus {
 	/**
 	 * The exercise is correct.
 	 */
-	CORRECT(true, true, true),
+	CORRECT(b -> ((b & Masks.MASK_CORRECT) == Masks.MASK_CORRECT)),
 	/**
 	 * The exercise was solved correctly before, but afterwards another
 	 * incorrect solution was made.
 	 */
-	HAS_BEEN_CORRECT(true, true, false),
+	HAS_BEEN_CORRECT(b -> (b & Masks.MASK_HAS_BEEN_CORRECT) == Masks.MASK_HAS_BEEN_CORRECT),
 	/**
 	 * The exercise has not yet been solved correctly.
 	 */
-	INCORRECT(false, true, null),
+	INCORRECT(b -> ((b & Masks.MASK_INCORRECT) == Masks.MASK_INCORRECT)),
 	/**
 	 * The exercise has not yet been attempted.
 	 */
-	NOT_ATTEMPTED(null, false, null);
+	NOT_ATTEMPTED(b -> false);
 	
-	private final Boolean hasCorrectSolution;
-	private final Boolean hasSolution;
-	private final Boolean lastSolutionIsBest;
+	private final Predicate<Byte> mask;
+	
+	/**
+	 * Masks used in the exercise statuses.
+	 */
+	private static class Masks {
+		// Parts.
+		private static final byte HAS_CORRECT_SOLUTION = 1 << 2;
+		private static final byte HAS_SOLUTION = 1 << 1;
+		private static final byte LAST_SOLUTION_IS_BEST = 1;
+		
+		// Masks.
+		private static final byte MASK_CORRECT = (HAS_CORRECT_SOLUTION | HAS_SOLUTION | LAST_SOLUTION_IS_BEST);
+		private static final byte MASK_HAS_BEEN_CORRECT = (HAS_CORRECT_SOLUTION | HAS_SOLUTION);
+		private static final byte MASK_INCORRECT = HAS_SOLUTION;
+	}
 	
 	/**
 	 * ExerciseStatus constructor.
 	 *
-	 * @param hasCorrectSolution matching value for has_correct_solution
-	 * @param hasSolution        matching value for has_solution
-	 * @param lastSolutionIsBest matching value for last_solution_is_best
+	 * @param mask the mask to validate
 	 */
-	ExerciseStatus(@Nullable final Boolean hasCorrectSolution,
-	               @Nullable final Boolean hasSolution,
-	               @Nullable final Boolean lastSolutionIsBest) {
-		this.hasCorrectSolution = hasCorrectSolution;
-		this.hasSolution = hasSolution;
-		this.lastSolutionIsBest = lastSolutionIsBest;
+	ExerciseStatus(final Predicate<Byte> mask) {
+		this.mask = mask;
 	}
 	
 	/**
@@ -63,13 +70,14 @@ public enum ExerciseStatus {
 	public static ExerciseStatus fromValues(final boolean hasCorrectSolution,
 	                                        final boolean hasSolution,
 	                                        final boolean lastSolutionIsBest) {
-		return Stream.of(ExerciseStatus.values())
-			.filter(status ->
-				(status.hasCorrectSolution == null || status.hasCorrectSolution == hasCorrectSolution)
-					&& (status.hasSolution == null || status.hasSolution == hasSolution)
-					&& (status.lastSolutionIsBest == null || status.lastSolutionIsBest == lastSolutionIsBest)
-			)
+		// Build the mask.
+		final byte mask = (byte) ((hasCorrectSolution ? Masks.HAS_CORRECT_SOLUTION : 0)
+			| (hasSolution ? Masks.HAS_SOLUTION : 0)
+			| (lastSolutionIsBest ? Masks.LAST_SOLUTION_IS_BEST : 0));
+		
+		return Arrays.stream(ExerciseStatus.values())
+			.filter(status -> status.mask.test(mask))
 			.findAny()
-			.orElse(INCORRECT);
+			.orElse(NOT_ATTEMPTED);
 	}
 }
