@@ -24,6 +24,8 @@ import java.util.Optional;
  * Implementation of a HttpClient.
  */
 public final class HttpClientImpl implements HttpClient {
+	private static final int HTTP_UNPROCESSABLE_ENTITY = 422;
+	
 	private static final String ACCEPT_HEADER = "Accept";
 	private static final String ACCEPT_VALUE = "application/json";
 	private static final String AUTHORIZATION_HEADER = "Authorization";
@@ -103,19 +105,27 @@ public final class HttpClientImpl implements HttpClient {
 			
 			adapter.accept(conn);
 			
-			if (conn.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-				Optional.ofNullable(this.authentication).ifPresent(t -> {
-					throw AuthenticationException.invalid();
-				});
-				throw AuthenticationException.missing();
-			}
-			
-			if (conn.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
-				return HttpResponseImpl.forbidden();
-			}
-			
-			if (conn.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
-				return HttpResponseImpl.notFound();
+			// Handle errors.
+			switch (conn.getResponseCode()) {
+				case HttpURLConnection.HTTP_FORBIDDEN:
+					return HttpResponseImpl.forbidden();
+				
+				case HttpURLConnection.HTTP_NOT_FOUND:
+					return HttpResponseImpl.notFound();
+				
+				case HttpURLConnection.HTTP_UNAUTHORIZED: {
+					if (this.authentication != null) {
+						return HttpResponseImpl.unauthorized(
+							AuthenticationException.invalid()
+						);
+					}
+					return HttpResponseImpl.unauthorized(
+						AuthenticationException.missing()
+					);
+				}
+				
+				case HTTP_UNPROCESSABLE_ENTITY:
+					return HttpResponseImpl.unprocessable();
 			}
 			
 			return HttpResponseImpl.of(

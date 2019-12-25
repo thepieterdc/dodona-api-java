@@ -19,18 +19,20 @@ import java.util.function.Function;
 final class HttpResponseImpl<T> implements HttpResponse<T> {
 	private RuntimeException forbidden;
 	private RuntimeException notFound;
+	private RuntimeException unprocessable;
 	
-	private final Function<HttpResponseImpl, T> resolver;
+	private final Function<HttpResponseImpl<T>, T> resolver;
 	
 	/**
 	 * HttpResponseImpl constructor.
 	 *
 	 * @param resolver the value resolver
 	 */
-	private HttpResponseImpl(final Function<HttpResponseImpl, T> resolver) {
+	private HttpResponseImpl(final Function<HttpResponseImpl<T>, T> resolver) {
 		this.resolver = resolver;
 		this.forbidden = new RuntimeException("Access denied.");
 		this.notFound = new RuntimeException("Not found.");
+		this.unprocessable = new RuntimeException("Unprocessable.");
 	}
 	
 	@Nonnull
@@ -102,6 +104,26 @@ final class HttpResponseImpl<T> implements HttpResponse<T> {
 	static <T> HttpResponse<T> unauthorized(final AuthenticationException ex) {
 		return new HttpResponseImpl<>(r -> {
 			throw ex;
+		});
+	}
+	
+	@Nonnull
+	@Override
+	public HttpResponse<T> unprocessable(final RuntimeException exception) {
+		this.unprocessable = exception;
+		return this;
+	}
+	
+	/**
+	 * Generates a not found HTTP/422 response.
+	 *
+	 * @param <T> type class of the response
+	 * @return response
+	 */
+	@Nonnull
+	static <T> HttpResponse<T> unprocessable() {
+		return new HttpResponseImpl<>(r -> {
+			throw r.unprocessable;
 		});
 	}
 }

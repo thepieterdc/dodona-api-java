@@ -8,7 +8,9 @@
  */
 package io.github.thepieterdc.dodona.impl.managers;
 
+import io.github.thepieterdc.dodona.exceptions.accessdenied.ExerciseAccessDeniedException;
 import io.github.thepieterdc.dodona.exceptions.accessdenied.SubmissionAccessDeniedException;
+import io.github.thepieterdc.dodona.exceptions.notfound.ExerciseNotFoundException;
 import io.github.thepieterdc.dodona.exceptions.notfound.SubmissionNotFoundException;
 import io.github.thepieterdc.dodona.impl.requestbodies.SubmissionCreateRequestBody;
 import io.github.thepieterdc.dodona.impl.resources.submissions.SubmissionImpl;
@@ -75,8 +77,9 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		
 		final String url = this.url(ENDPOINT_SUBMISSIONS);
 		return this.http.post(url, request, SubmissionCreatedResponseBody.class)
-			.forbidden(new SubmissionAccessDeniedException(url))
-			.notFound(new SubmissionNotFoundException(url))
+			.forbidden(new ExerciseAccessDeniedException(url))
+			.notFound(new ExerciseNotFoundException(url))
+			.unprocessable(new ExerciseNotFoundException(url))
 			.resolve()
 			.getId();
 	}

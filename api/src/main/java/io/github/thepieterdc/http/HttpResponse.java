@@ -39,4 +39,13 @@ public interface HttpResponse<T> {
 	 */
 	@Nonnull
 	T resolve();
+	
+	/**
+	 * Sets the exception to throw when a HTTP/422 error has occurred.
+	 *
+	 * @param exception the exception to throw
+	 * @return fluent
+	 */
+	@Nonnull
+	HttpResponse<T> unprocessable(RuntimeException exception);
 }
