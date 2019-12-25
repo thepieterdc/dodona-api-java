@@ -1,16 +1,16 @@
 # dodona-api-java
 
-[![Build Status](https://travis-ci.org/thepieterdc/dodona-api-java.svg?branch=master)](https://travis-ci.org/thepieterdc/dodona-api-java)
+![Build Status](https://img.shields.io/github/workflow/status/thepieterdc/dodona-api-java/Java)
 [![codecov](https://codecov.io/gh/thepieterdc/dodona-api-java/branch/master/graph/badge.svg)](https://codecov.io/gh/thepieterdc/dodona-api-java)
-[![Download](https://api.bintray.com/packages/thepieterdc/dodona-api-java/dodona-api-java/images/download.svg) ](https://bintray.com/thepieterdc/dodona-api-java/dodona-api-java/_latestVersion)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a532059319a41279261932ea9543692)](https://www.codacy.com/manual/thepieterdc/dodona-api-java)
+[![Download](https://api.bintray.com/packages/thepieterdc/dodona-api-java/dodona-api-java/images/download.svg)](https://bintray.com/thepieterdc/dodona-api-java/dodona-api-java/_latestVersion)
 
 Java binding for the Dodona API.
 
 ## Installation
 
 ### Gradle
-```
+```gradle
 repositories {
     maven {
         url  "https://dl.bintray.com/thepieterdc/dodona-api-java"

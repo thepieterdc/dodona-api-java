@@ -8,9 +8,9 @@
  */
 package io.github.thepieterdc.dodona.impl.resources;
 
-import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
 
 import javax.annotation.Nonnull;
 

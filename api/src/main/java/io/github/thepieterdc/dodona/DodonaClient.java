@@ -8,7 +8,11 @@
  */
 package io.github.thepieterdc.dodona;
 
-import io.github.thepieterdc.dodona.managers.*;
+import io.github.thepieterdc.dodona.managers.CourseManager;
+import io.github.thepieterdc.dodona.managers.ExerciseManager;
+import io.github.thepieterdc.dodona.managers.SeriesManager;
+import io.github.thepieterdc.dodona.managers.SubmissionManager;
+import io.github.thepieterdc.dodona.managers.UserManager;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.dodona.responses.RootResponse;

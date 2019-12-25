@@ -8,11 +8,15 @@
  */
 package io.github.thepieterdc.dodona.impl.data;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import io.github.thepieterdc.dodona.data.CourseColor;
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 
 import java.io.IOException;
 

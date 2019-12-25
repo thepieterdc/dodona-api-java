@@ -11,8 +11,6 @@ package io.github.thepieterdc.dodona.exceptions;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Random;
-
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -20,8 +18,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
  * Tests io.github.thepieterdc.dodona.exceptions.AuthenticationException.
  */
 public class AuthenticationExceptionTest {
-	private static final Random random = new Random();
-	
 	/**
 	 * Tests AuthenticationException.invalid().
 	 */

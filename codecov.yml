@@ -1,6 +1,6 @@
 coverage:
   ignore:
-    - "ClassLoader.java"
+    - "DodonaClassLoader.java"
   status:
     project:
       default:

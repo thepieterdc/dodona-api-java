@@ -15,11 +15,11 @@ import java.util.Optional;
  * Loads implementation classes without having to add the implementation
  * library as a dependency (since this would cause circular dependencies).
  */
-final class ClassLoader {
+final class DodonaClassLoader {
 	/**
-	 * ClassLoader constructor.
+	 * DodonaClassLoader constructor.
 	 */
-	private ClassLoader() {
+	private DodonaClassLoader() {
 	}
 	
 	/**
@@ -31,7 +31,7 @@ final class ClassLoader {
 	 */
 	@Nonnull
 	@SuppressWarnings("unchecked")
-	static <T> T instance(final String fqcn) {
+	public static <T> T instance(final String fqcn) {
 		try {
 			return (T) load(fqcn).newInstance();
 		} catch (final InstantiationException | IllegalAccessException ex) {
@@ -64,7 +64,7 @@ final class ClassLoader {
 	 */
 	@Nonnull
 	@SuppressWarnings("unchecked")
-	private static <T> Optional<Class<T>> load(final String fqcn, final java.lang.ClassLoader loader) {
+	private static <T> Optional<Class<T>> load(final String fqcn, final ClassLoader loader) {
 		try {
 			return Optional.ofNullable((Class<T>) loader.loadClass(fqcn));
 		} catch (final ClassNotFoundException e) {
@@ -81,7 +81,7 @@ final class ClassLoader {
 	@Nonnull
 	@SuppressWarnings("unchecked")
 	private static <T> Optional<Class<T>> loadLocal(final String fqcn) {
-		return load(fqcn, ClassLoader.class.getClassLoader());
+		return load(fqcn, DodonaClassLoader.class.getClassLoader());
 	}
 	
 	/**
@@ -93,7 +93,7 @@ final class ClassLoader {
 	@Nonnull
 	@SuppressWarnings("unchecked")
 	private static <T> Optional<Class<T>> loadSystem(final String fqcn) {
-		return load(fqcn, java.lang.ClassLoader.getSystemClassLoader());
+		return load(fqcn, ClassLoader.getSystemClassLoader());
 	}
 	
 	/**

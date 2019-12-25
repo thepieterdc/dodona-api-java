@@ -21,6 +21,12 @@ public class ExerciseStatusTest {
 	@Test
 	public void testFromValues() {
 		Assert.assertEquals(ExerciseStatus.CORRECT, ExerciseStatus.fromValues(true, true, true));
+		Assert.assertEquals(ExerciseStatus.HAS_BEEN_CORRECT, ExerciseStatus.fromValues(true, true, false));
 		Assert.assertEquals(ExerciseStatus.INCORRECT, ExerciseStatus.fromValues(false, true, true));
+		Assert.assertEquals(ExerciseStatus.INCORRECT, ExerciseStatus.fromValues(false, true, false));
+		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(true, false, true));
+		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(true, false, false));
+		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(false, false, true));
+		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(false, false, false));
 	}
 }
