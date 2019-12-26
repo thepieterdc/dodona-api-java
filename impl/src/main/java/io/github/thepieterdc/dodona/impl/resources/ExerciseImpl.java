@@ -16,6 +16,7 @@ import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -86,6 +87,15 @@ public final class ExerciseImpl implements Exercise {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o instanceof Exercise) {
+			return this.id == ((Exercise) o).getId();
+		}
+		return false;
+	}
+	
+	@Override
 	@Nonnull
 	public Optional<String> getBoilerplate() {
 		return Optional.ofNullable(this.boilerplate);
@@ -106,6 +116,11 @@ public final class ExerciseImpl implements Exercise {
 	@Override
 	public boolean hasCorrectSolution() {
 		return this.hasCorrectSolution;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
 	}
 	
 	@Override

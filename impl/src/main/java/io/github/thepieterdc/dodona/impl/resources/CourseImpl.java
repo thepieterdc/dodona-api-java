@@ -15,6 +15,7 @@ import io.github.thepieterdc.dodona.resources.Course;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -67,6 +68,15 @@ public final class CourseImpl implements Course {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o instanceof Course) {
+			return this.id == ((Course) o).getId();
+		}
+		return false;
+	}
+	
+	@Override
 	@Nonnull
 	public CourseColor getColor() {
 		return this.color;
@@ -105,6 +115,11 @@ public final class CourseImpl implements Course {
 	@Nonnull
 	public String getYear() {
 		return this.year;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
 	}
 	
 	@Override

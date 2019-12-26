@@ -44,6 +44,15 @@
                     <reportOutputDirectory>${dodona.api}</reportOutputDirectory>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <skipTests>${skip.api.tests}</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
