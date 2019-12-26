@@ -15,6 +15,7 @@ import io.github.thepieterdc.dodona.resources.Series;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -67,6 +68,15 @@ public final class SeriesImpl implements Series {
 		return this.order - o.getOrder();
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o instanceof Series) {
+			return this.id == ((Series) o).getId();
+		}
+		return false;
+	}
+	
 	@Nonnull
 	@Override
 	public String getCourseUrl() {
@@ -111,6 +121,11 @@ public final class SeriesImpl implements Series {
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
 	}
 	
 	@Override

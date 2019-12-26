@@ -31,8 +31,8 @@ public class CourseColorTest {
 	public void testByName() {
 		Arrays.stream(CourseColor.values()).forEach(color -> {
 			final CourseColor byName = CourseColor.byName(color.getName());
-			Assert.assertThat(byName, notNullValue());
-			Assert.assertThat(byName, is(color));
+			Assert.assertNotNull(byName);
+			Assert.assertEquals(byName, color);
 		});
 	}
 	

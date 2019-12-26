@@ -16,6 +16,7 @@ import io.github.thepieterdc.dodona.resources.User;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A user on Dodona.
@@ -72,6 +73,15 @@ public final class UserImpl implements User {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o instanceof User) {
+			return this.id == ((User) o).getId();
+		}
+		return false;
+	}
+	
+	@Override
 	public long getCorrectExercises() {
 		return this.correctExercises;
 	}
@@ -120,6 +130,11 @@ public final class UserImpl implements User {
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
 	}
 	
 	@Override

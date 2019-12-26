@@ -30,8 +30,8 @@ public class SubmissionStatusTest {
 	public void testByName() {
 		Arrays.stream(SubmissionStatus.values()).forEach(status -> {
 			final SubmissionStatus byName = SubmissionStatus.byName(status.getName());
-			Assert.assertThat(byName, notNullValue());
-			Assert.assertThat(byName, is(status));
+			Assert.assertNotNull(byName);
+			Assert.assertEquals(byName, status);
 		});
 	}
 	

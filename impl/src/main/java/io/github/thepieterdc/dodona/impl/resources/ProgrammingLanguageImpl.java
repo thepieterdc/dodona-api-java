@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 /**
  * A programming language on Dodona.
@@ -44,6 +45,15 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o instanceof ProgrammingLanguage) {
+			return this.id == ((ProgrammingLanguage) o).getId();
+		}
+		return false;
+	}
+	
+	@Override
 	@Nonnull
 	public String getExtension() {
 		return this.extension;
@@ -64,6 +74,11 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 	@Nonnull
 	public String getUrl() {
 		return String.format("https://dodona.ugent.be/en/programming_languages/%d.json", this.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
 	}
 	
 	@Override

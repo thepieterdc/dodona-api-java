@@ -1,0 +1,41 @@
+name: Integration
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      database:
+        image: mariadb
+        env:
+          MYSQL_DATABASE: "dodona"
+          MYSQL_ROOT_PASSWORD: "dodona"
+          MYSQL_HOST: "localhost"
+        options: --health-cmd "mysqladmin ping --silent" --health-interval 10s --health-timeout 10s --health-retries 6
+      dodona:
+        image: thepieterdc/dodona:latest
+        ports:
+        - 3000:3000
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11.x.x
+    - name: Cache the dependencies
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Wait for dodona to boot
+      run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000/exercises.json)" != "200" ]]; do sleep 5; done' || false
+    - name: Test with Maven
+      run: mvn -B test --file pom.xml -P SKIP_API_TESTS
