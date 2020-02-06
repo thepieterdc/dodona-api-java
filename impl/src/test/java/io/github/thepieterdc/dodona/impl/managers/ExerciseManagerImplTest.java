@@ -80,12 +80,11 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 	 */
 	@Test
 	public void testGetByIdValid() {
-		final long echoId = 3L;
+		final long id = 3L;
 		
-		final Exercise exercise = this.guestClient.exercises().get(echoId);
+		final Exercise exercise = this.guestClient.exercises().get(id);
 		Assert.assertNotNull(exercise);
-		Assert.assertEquals(echoId, exercise.getId());
-		Assert.assertEquals("Echo", exercise.getName());
+		Assert.assertEquals(id, exercise.getId());
 		Assert.assertTrue(exercise.getProgrammingLanguage().isPresent());
 		Assert.assertFalse(exercise.getBoilerplate().isPresent());
 	}
