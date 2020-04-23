@@ -8,7 +8,6 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import io.github.thepieterdc.dodona.exceptions.SubmissionStatusNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,11 +35,11 @@ public class SubmissionStatusTest {
 	}
 	
 	/**
-	 * Tests SubmissionStatus.byName(String) using a non-existing color.
+	 * Tests SubmissionStatus.byName(String) using a non-existing status.
 	 */
-	@Test(expected = SubmissionStatusNotFoundException.class)
 	public void testByNameNonExisting() {
-		SubmissionStatus.byName("non-existing-status");
+		final SubmissionStatus nonExisting = SubmissionStatus.byName("non-existing-status");
+		Assert.assertEquals(SubmissionStatus.UNKNOWN, nonExisting);
 	}
 	
 	/**

@@ -8,8 +8,6 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import io.github.thepieterdc.dodona.exceptions.SubmissionStatusNotFoundException;
-
 import java.util.stream.Stream;
 
 /**
@@ -20,6 +18,7 @@ public enum SubmissionStatus {
 	CORRECT("correct"),
 	INTERNAL_ERROR("internal error"),
 	MEMORY_LIMIT_EXCEEDED("memory limit exceeded"),
+	OUTPUT_LIMIT_EXCEEDED("output limit exceeded"),
 	QUEUED("queued"),
 	RUNNING("running"),
 	RUNTIME_ERROR("runtime error"),
@@ -48,7 +47,7 @@ public enum SubmissionStatus {
 		return Stream.of(SubmissionStatus.values())
 			.filter(status -> status.name.equals(name))
 			.findAny()
-			.orElseThrow(() -> new SubmissionStatusNotFoundException(name));
+			.orElse(UNKNOWN);
 	}
 	
 	/**
