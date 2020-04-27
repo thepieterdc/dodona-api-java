@@ -17,6 +17,7 @@ import io.github.thepieterdc.dodona.resources.activities.Activity;
 import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
+import io.github.thepieterdc.http.exceptions.UnprocessableEntityException;
 import io.github.thepieterdc.random.collection.RandomCollectionGenerator;
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class SubmissionManagerImplTest extends IntegrationTest {
 	 * Tests SubmissionManager#create(long, long, long, String).
 	 */
 	@Test
-	public void testCreateCourseScoped() {
+	public void testCreateCourseScoped() throws Exception {
 		final Course course = this.zeusClient.courses().get(1L);
 		Assert.assertNotNull(course);
 		
@@ -43,8 +44,14 @@ public class SubmissionManagerImplTest extends IntegrationTest {
 		final Exercise exercise = this.zeusClient.exercises().getAll(series).get(0);
 		Assert.assertNotNull(exercise);
 		
-		final long id = this.zeusClient.submissions().create(course, series, exercise, CODE);
-		Assert.assertNotEquals(0L, id);
+		long id = -1;
+		do {
+			try {
+				id = this.zeusClient.submissions().create(course, series, exercise, CODE);
+			} catch (final UnprocessableEntityException ex) {
+				Thread.sleep(1000L);
+			}
+		} while (id <= 0L);
 		
 		final Submission submission = this.zeusClient.submissions().get(id);
 		Assert.assertNotNull(submission);
@@ -56,11 +63,17 @@ public class SubmissionManagerImplTest extends IntegrationTest {
 	 * Tests SubmissionManager#create(long, String).
 	 */
 	@Test
-	public void testCreate() {
+	public void testCreate() throws Exception {
 		final Exercise exercise = this.zeusClient.exercises().getAll().get(0);
 		
-		final long id = this.zeusClient.submissions().create(null, null, exercise, CODE);
-		Assert.assertNotEquals(0L, id);
+		long id = -1;
+		do {
+			try {
+				id = this.zeusClient.submissions().create(null, null, exercise, CODE);
+			} catch (final UnprocessableEntityException ex) {
+				Thread.sleep(1000L);
+			}
+		} while (id <= 0L);
 		
 		final Submission submission = this.zeusClient.submissions().get(id);
 		Assert.assertNotNull(submission);

@@ -9,6 +9,7 @@ package io.github.thepieterdc.http.impl;
 
 import io.github.thepieterdc.dodona.exceptions.AuthenticationException;
 import io.github.thepieterdc.http.HttpResponse;
+import io.github.thepieterdc.http.exceptions.UnprocessableEntityException;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
@@ -32,7 +33,7 @@ final class HttpResponseImpl<T> implements HttpResponse<T> {
 		this.resolver = resolver;
 		this.forbidden = new RuntimeException("Access denied.");
 		this.notFound = new RuntimeException("Not found.");
-		this.unprocessable = new RuntimeException("Unprocessable.");
+		this.unprocessable = new UnprocessableEntityException("Unprocessable.");
 	}
 	
 	@Nonnull

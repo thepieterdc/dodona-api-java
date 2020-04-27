@@ -79,7 +79,6 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		return this.http.post(url, request, SubmissionCreatedResponseBody.class)
 			.forbidden(new ActivityAccessDeniedException(url))
 			.notFound(new ActivityNotFoundException(url))
-			.unprocessable(new ActivityNotFoundException(url))
 			.resolve()
 			.getId();
 	}
