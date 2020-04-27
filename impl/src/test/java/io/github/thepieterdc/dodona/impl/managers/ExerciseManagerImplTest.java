@@ -10,8 +10,8 @@ package io.github.thepieterdc.dodona.impl.managers;
 
 import io.github.thepieterdc.dodona.impl.IntegrationTest;
 import io.github.thepieterdc.dodona.resources.Course;
-import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.Series;
+import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 import org.junit.Assert;
 import org.junit.Test;

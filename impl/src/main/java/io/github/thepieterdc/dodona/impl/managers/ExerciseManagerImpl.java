@@ -123,7 +123,7 @@ public final class ExerciseManagerImpl implements ExerciseManager {
 	 * @return the complete url
 	 */
 	@Nonnull
-	String url(final String endpoint) {
+	private String url(final String endpoint) {
 		return this.host + endpoint;
 	}
 }
