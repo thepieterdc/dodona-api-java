@@ -11,11 +11,15 @@ package io.github.thepieterdc.dodona.impl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.thepieterdc.dodona.DodonaBuilder;
 import io.github.thepieterdc.dodona.DodonaClient;
+import io.github.thepieterdc.dodona.data.ActivityType;
 import io.github.thepieterdc.dodona.impl.data.EnumDeserializer;
+import io.github.thepieterdc.dodona.impl.resources.activities.ContentPageImpl;
+import io.github.thepieterdc.dodona.impl.resources.activities.ExerciseImpl;
 import io.github.thepieterdc.http.HttpClient;
 import io.github.thepieterdc.http.impl.HttpClientImpl;
 
@@ -32,11 +36,7 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 	private HttpClient http;
 	private String userAgent = "DodonaApi/" + getClass().getPackage().getImplementationVersion();
 	
-	private static final ObjectMapper mapper = new ObjectMapper()
-		.enable(SerializationFeature.WRAP_ROOT_VALUE)
-		.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-		.registerModule(new JavaTimeModule())
-		.registerModule(new SimpleModule().setDeserializerModifier(new EnumDeserializer()));
+	private static final ObjectMapper mapper = createMapper();
 	
 	/**
 	 * DodonaBuilderImpl constructor.
@@ -59,6 +59,19 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 			this.host,
 			this.http.authenticate(apiToken).userAgent(this.userAgent)
 		);
+	}
+	
+	private static ObjectMapper createMapper() {
+		final ObjectMapper mapper = new ObjectMapper()
+			.enable(SerializationFeature.WRAP_ROOT_VALUE)
+			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+			.registerModule(new JavaTimeModule())
+			.registerModule(new SimpleModule().setDeserializerModifier(new EnumDeserializer()));
+		mapper.registerSubtypes(
+			new NamedType(ContentPageImpl.class, ActivityType.CONTENT_PAGE_TYPE),
+			new NamedType(ExerciseImpl.class, ActivityType.EXERCISE_TYPE)
+		);
+		return mapper;
 	}
 	
 	@Override

@@ -10,8 +10,11 @@ package io.github.thepieterdc.dodona.impl.managers;
 
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
 import io.github.thepieterdc.dodona.impl.IntegrationTest;
-import io.github.thepieterdc.dodona.resources.activities.Exercise;
+import io.github.thepieterdc.dodona.resources.Course;
+import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
+import io.github.thepieterdc.dodona.resources.activities.Activity;
+import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 import io.github.thepieterdc.random.collection.RandomCollectionGenerator;
@@ -24,18 +27,45 @@ import java.util.Collection;
  * Tests io.github.thepieterdc.dodona.impl.managers.SubmissionManagerImpl.
  */
 public class SubmissionManagerImplTest extends IntegrationTest {
+	private static final String CODE = "answer();";
+	
 	/**
 	 * Tests SubmissionManager#create(long, long, long, String).
 	 */
 	@Test
-	public void testCreate() {
-		final long id = this.zeusClient.submissions().create(8L, null, 8L, "some solution");
+	public void testCreateCourseScoped() {
+		final Course course = this.zeusClient.courses().get(1L);
+		Assert.assertNotNull(course);
+		
+		final Series series = this.zeusClient.series().getAll(course).get(0);
+		Assert.assertNotNull(series);
+		
+		final Exercise exercise = this.zeusClient.exercises().getAll(series).get(0);
+		Assert.assertNotNull(exercise);
+		
+		final long id = this.zeusClient.submissions().create(course, series, exercise, CODE);
 		Assert.assertNotEquals(0L, id);
 		
 		final Submission submission = this.zeusClient.submissions().get(id);
 		Assert.assertNotNull(submission);
 		Assert.assertEquals(SubmissionStatus.QUEUED, submission.getStatus());
-		Assert.assertEquals("some solution", submission.getCode());
+		Assert.assertEquals(CODE, submission.getCode());
+	}
+	
+	/**
+	 * Tests SubmissionManager#create(long, String).
+	 */
+	@Test
+	public void testCreate() {
+		final Exercise exercise = this.zeusClient.exercises().getAll().get(0);
+		
+		final long id = this.zeusClient.submissions().create(null, null, exercise, CODE);
+		Assert.assertNotEquals(0L, id);
+		
+		final Submission submission = this.zeusClient.submissions().get(id);
+		Assert.assertNotNull(submission);
+		Assert.assertEquals(SubmissionStatus.QUEUED, submission.getStatus());
+		Assert.assertEquals(CODE, submission.getCode());
 	}
 	
 	/**
@@ -68,7 +98,7 @@ public class SubmissionManagerImplTest extends IntegrationTest {
 		Assert.assertFalse(exerciseSubmissions.isEmpty());
 		for (SubmissionInfo info : exerciseSubmissions) {
 			Assert.assertNotNull(info);
-			Assert.assertEquals(exercise.getId(), (long) Exercise.getId(info.getExerciseUrl()).orElse(-1L));
+			Assert.assertEquals(exercise.getId(), (long) Activity.getId(info.getExerciseUrl()).orElse(-1L));
 		}
 	}
 	

@@ -37,8 +37,8 @@ import java.util.function.Supplier;
  * Implementation of SubmissionManager.
  */
 public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission> implements SubmissionManager {
-	private static final String ENDPOINT_COURSE_ID_EXERCISE_ID = "%s?course_id=%d&exercise_id=%d";
-	private static final String ENDPOINT_EXERCISE_ID = "%s?exercise_id=%d";
+	private static final String ENDPOINT_COURSE_ID_EXERCISE_ID = "%s?course_id=%d&activity_id=%d";
+	private static final String ENDPOINT_EXERCISE_ID = "%s?activity_id=%d";
 	private static final String ENDPOINT_SUBMISSIONS = "/submissions";
 	private static final String ENDPOINT_SUBMISSIONS_ID = ENDPOINT_SUBMISSIONS + "/%d";
 	

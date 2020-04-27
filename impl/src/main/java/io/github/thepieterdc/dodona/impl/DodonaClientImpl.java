@@ -10,13 +10,13 @@ package io.github.thepieterdc.dodona.impl;
 
 import io.github.thepieterdc.dodona.DodonaClient;
 import io.github.thepieterdc.dodona.impl.managers.CourseManagerImpl;
-import io.github.thepieterdc.dodona.impl.managers.activities.ExerciseManagerImpl;
+import io.github.thepieterdc.dodona.impl.managers.ExerciseManagerImpl;
 import io.github.thepieterdc.dodona.impl.managers.SeriesManagerImpl;
 import io.github.thepieterdc.dodona.impl.managers.SubmissionManagerImpl;
 import io.github.thepieterdc.dodona.impl.managers.UserManagerImpl;
 import io.github.thepieterdc.dodona.impl.responses.RootResponseImpl;
 import io.github.thepieterdc.dodona.managers.CourseManager;
-import io.github.thepieterdc.dodona.managers.activities.ActivityManager;
+import io.github.thepieterdc.dodona.managers.ExerciseManager;
 import io.github.thepieterdc.dodona.managers.SeriesManager;
 import io.github.thepieterdc.dodona.managers.SubmissionManager;
 import io.github.thepieterdc.dodona.managers.UserManager;
@@ -36,7 +36,7 @@ public final class DodonaClientImpl implements DodonaClient {
 	private final HttpClient http;
 	
 	private final CourseManager courses;
-	private final ActivityManager exercises;
+	private final ExerciseManager exercises;
 	private final SeriesManager series;
 	private final SubmissionManager submissions;
 	private final UserManager users;
@@ -72,7 +72,7 @@ public final class DodonaClientImpl implements DodonaClient {
 	
 	@Override
 	@Nonnull
-	public ActivityManager exercises() {
+	public ExerciseManager exercises() {
 		return this.exercises;
 	}
 	

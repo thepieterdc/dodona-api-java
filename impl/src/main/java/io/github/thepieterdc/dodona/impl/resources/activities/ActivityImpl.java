@@ -10,9 +10,7 @@ package io.github.thepieterdc.dodona.impl.resources.activities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import io.github.thepieterdc.dodona.data.ActivityType;
 import io.github.thepieterdc.dodona.resources.activities.Activity;
 
 import javax.annotation.Nonnull;
@@ -22,11 +20,7 @@ import java.util.Objects;
  * An activity on Dodona.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "type")
-@JsonSubTypes({
-	@JsonSubTypes.Type(value = ContentPageImpl.class, name = ActivityType.CONTENT_PAGE_TYPE),
-	@JsonSubTypes.Type(value = ExerciseImpl.class, name = ActivityType.EXERCISE_TYPE)
-})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 public abstract class ActivityImpl implements Activity {
 	private final long id;
 	

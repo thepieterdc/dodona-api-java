@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.data.ExerciseStatus;
 import io.github.thepieterdc.dodona.impl.resources.ProgrammingLanguageImpl;
-import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
+import io.github.thepieterdc.dodona.resources.activities.Exercise;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

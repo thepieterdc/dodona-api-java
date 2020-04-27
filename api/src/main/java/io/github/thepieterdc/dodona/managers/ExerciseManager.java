@@ -8,15 +8,51 @@
  */
 package io.github.thepieterdc.dodona.managers;
 
+import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * Manager for exercises.
  */
 public interface ExerciseManager extends ResourceManager<Exercise> {
+	/**
+	 * Gets all exercises.
+	 *
+	 * @return all exercises
+	 */
+	@Nonnull
+	List<Exercise> getAll();
+	
+	/**
+	 * Gets all exercises of a given series.
+	 *
+	 * @param series the series
+	 * @return all exercises in the series
+	 */
+	@Nonnull
+	List<Exercise> getAll(Series series);
+	
+	/**
+	 * Gets an exercise.
+	 *
+	 * @param courseId   the course id
+	 * @param exerciseId the exercise id
+	 * @return the exercise
+	 */
+	Exercise get(long courseId, long exerciseId);
+	
+	/**
+	 * Gets an exercise.
+	 *
+	 * @param activityId the exercise id
+	 * @return the exercise
+	 */
+	Exercise get(long activityId);
+	
 	/**
 	 * Gets the exercise of a given submission.
 	 *
