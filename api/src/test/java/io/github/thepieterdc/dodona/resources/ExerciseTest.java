@@ -8,6 +8,7 @@
  */
 package io.github.thepieterdc.dodona.resources;
 
+import io.github.thepieterdc.dodona.resources.activities.Activity;
 import io.github.thepieterdc.random.numerical.RandomLongGenerator;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,20 +21,20 @@ import java.util.Optional;
 public class ExerciseTest {
 	private static final RandomLongGenerator rng = RandomLongGenerator.positive();
 	
-	private static final String urlPattern = "https://dodona.ugent.be/courses/%d/series/%d/exercises/%d";
+	private static final String urlPattern = "https://dodona.ugent.be/courses/%d/series/%d/activities/%d";
 	
 	/**
 	 * Tests Course.getId().
 	 */
 	@Test
 	public void testGetId() {
-		final Optional<Long> test1 = Exercise.getId(String.format(urlPattern, 1, 2, 3));
+		final Optional<Long> test1 = Activity.getId(String.format(urlPattern, 1, 2, 3));
 		Assert.assertNotNull(test1);
 		Assert.assertEquals(3L, (long) test1.orElseThrow(AssertionError::new));
 		
 		final Long randomId = rng.generate();
 		Assert.assertNotNull(randomId);
-		final Optional<Long> randomTest = Exercise.getId(String.format(urlPattern, 1, 2, randomId));
+		final Optional<Long> randomTest = Activity.getId(String.format(urlPattern, 1, 2, randomId));
 		Assert.assertNotNull(randomTest);
 		Assert.assertEquals(randomId, randomTest.orElseThrow(AssertionError::new));
 	}

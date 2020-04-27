@@ -8,9 +8,9 @@
  */
 package io.github.thepieterdc.dodona.impl.managers;
 
-import io.github.thepieterdc.dodona.exceptions.accessdenied.ExerciseAccessDeniedException;
+import io.github.thepieterdc.dodona.exceptions.accessdenied.ActivityAccessDeniedException;
 import io.github.thepieterdc.dodona.exceptions.accessdenied.SubmissionAccessDeniedException;
-import io.github.thepieterdc.dodona.exceptions.notfound.ExerciseNotFoundException;
+import io.github.thepieterdc.dodona.exceptions.notfound.ActivityNotFoundException;
 import io.github.thepieterdc.dodona.exceptions.notfound.SubmissionNotFoundException;
 import io.github.thepieterdc.dodona.impl.requestbodies.SubmissionCreateRequestBody;
 import io.github.thepieterdc.dodona.impl.resources.submissions.SubmissionImpl;
@@ -18,7 +18,7 @@ import io.github.thepieterdc.dodona.impl.resources.submissions.SubmissionInfoImp
 import io.github.thepieterdc.dodona.impl.responses.SubmissionCreatedResponseBody;
 import io.github.thepieterdc.dodona.managers.SubmissionManager;
 import io.github.thepieterdc.dodona.resources.Course;
-import io.github.thepieterdc.dodona.resources.Exercise;
+import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.Resource;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
@@ -77,9 +77,9 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		
 		final String url = this.url(ENDPOINT_SUBMISSIONS);
 		return this.http.post(url, request, SubmissionCreatedResponseBody.class)
-			.forbidden(new ExerciseAccessDeniedException(url))
-			.notFound(new ExerciseNotFoundException(url))
-			.unprocessable(new ExerciseNotFoundException(url))
+			.forbidden(new ActivityAccessDeniedException(url))
+			.notFound(new ActivityNotFoundException(url))
+			.unprocessable(new ActivityNotFoundException(url))
 			.resolve()
 			.getId();
 	}

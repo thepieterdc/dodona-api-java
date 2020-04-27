@@ -22,7 +22,7 @@ import java.util.function.Function;
  *
  * @param <T> type class of the resource
  */
-abstract class AbstractManagerImpl<T extends Resource> implements ResourceManager<T> {
+public abstract class AbstractManagerImpl<T extends Resource> implements ResourceManager<T> {
 	private final String host;
 	final HttpClient http;
 	private final Class<? extends T> impl;

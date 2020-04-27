@@ -6,19 +6,19 @@
  *
  * https://github.com/thepieterdc/dodona-api-java/
  */
-package io.github.thepieterdc.dodona.resources;
+package io.github.thepieterdc.dodona.resources.activities;
 
+import io.github.thepieterdc.dodona.data.ActivityType;
 import io.github.thepieterdc.dodona.data.ExerciseStatus;
+import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * A exercise on Dodona.
  */
-public interface Exercise extends Comparable<Exercise>, Resource {
+public interface Exercise extends Comparable<Exercise>, Activity {
 	/**
 	 * Gets the boilerplate code.
 	 *
@@ -26,49 +26,6 @@ public interface Exercise extends Comparable<Exercise>, Resource {
 	 */
 	@Nonnull
 	Optional<String> getBoilerplate();
-	
-	/**
-	 * Gets the exercise description.
-	 *
-	 * @return the exercise description
-	 */
-	@Nonnull
-	String getDescription();
-	
-	/**
-	 * Gets the format of the exercise description.
-	 *
-	 * @return the format of the exercise description
-	 */
-	@Nonnull
-	String getDescriptionFormat();
-	
-	/**
-	 * Parses the id of an exercise from the url.
-	 *
-	 * @param url the url to the exercise
-	 * @return the exercise id
-	 */
-	@Nonnull
-	static Optional<Long> getId(final String url) {
-		final Pattern urlPattern = Pattern.compile(
-			"https?://.*/exercises/(\\d+)",
-			Pattern.CASE_INSENSITIVE
-		);
-		
-		return Optional.of(urlPattern.matcher(url))
-			.filter(Matcher::find)
-			.map(matcher -> matcher.group(1))
-			.map(Long::parseLong);
-	}
-	
-	/**
-	 * Gets the name of the course.
-	 *
-	 * @return the name of the course
-	 */
-	@Nonnull
-	String getName();
 	
 	/**
 	 * Gets the programming language of this exercise. This is optional since
@@ -86,6 +43,12 @@ public interface Exercise extends Comparable<Exercise>, Resource {
 	 */
 	@Nonnull
 	ExerciseStatus getStatus();
+	
+	@Nonnull
+	@Override
+	default ActivityType getType() {
+		return ActivityType.EXERCISE;
+	}
 	
 	/**
 	 * Gets whether this exercise has been solved correctly in the past.

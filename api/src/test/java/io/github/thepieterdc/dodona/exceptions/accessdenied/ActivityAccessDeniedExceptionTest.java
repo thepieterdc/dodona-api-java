@@ -16,31 +16,31 @@ import java.util.Random;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
- * Tests io.github.thepieterdc.dodona.exceptions.accessdenied.ExerciseAccessDeniedException.
+ * Tests io.github.thepieterdc.dodona.exceptions.accessdenied.ActivityAccessDeniedException
  */
-public class ExerciseAccessDeniedExceptionTest {
+public class ActivityAccessDeniedExceptionTest {
 	private static final Random random = new Random();
 	
 	/**
-	 * Tests ExerciseAccessDeniedException#getExerciseUrl().
+	 * Tests ActivityAccessDeniedException#getActivityUrl().
 	 */
 	@Test
 	public void testGetExerciseUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final ExerciseAccessDeniedException exception = new ExerciseAccessDeniedException(randomcharacters);
+		final ActivityAccessDeniedException exception = new ActivityAccessDeniedException(randomcharacters);
 		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getExerciseUrl(), is(randomcharacters));
+		Assert.assertThat(exception.getActivityUrl(), is(randomcharacters));
 	}
 	
 	/**
-	 * Tests ExerciseAccessDeniedException#toString().
+	 * Tests ActivityAccessDeniedException#toString().
 	 */
 	@Test
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final ExerciseAccessDeniedException exception = new ExerciseAccessDeniedException(randomcharacters);
+		final ActivityAccessDeniedException exception = new ActivityAccessDeniedException(randomcharacters);
 		Assert.assertThat(exception, notNullValue());
 		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(ExerciseAccessDeniedException.class.getSimpleName()));
+		Assert.assertThat(exception.toString(), containsString(ActivityAccessDeniedException.class.getSimpleName()));
 	}
 }

@@ -10,7 +10,7 @@ package io.github.thepieterdc.dodona.impl.managers;
 
 import io.github.thepieterdc.dodona.impl.IntegrationTest;
 import io.github.thepieterdc.dodona.resources.Course;
-import io.github.thepieterdc.dodona.resources.Exercise;
+import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
 import org.junit.Assert;
@@ -26,21 +26,18 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 	 * Tests ExerciseManagerImpl#getAll(Series).
 	 */
 	@Test
-	public void testGetAll() {
-		final Course first = this.zeusClient.courses().get(1L);
-		Assert.assertNotNull(first);
+	public void testGetAllStatuses() {
+		final Course statusTest = this.zeusClient.courses().get(8L);
+		Assert.assertNotNull(statusTest);
+		Assert.assertEquals("Status Test", statusTest.getName());
 		
-		final List<Series> firstSeries = this.zeusClient.series().getAll(first);
+		final List<Series> firstSeries = this.zeusClient.series().getAll(statusTest);
 		Assert.assertNotNull(firstSeries);
 		
-		final Series series22 = firstSeries.stream()
-			.filter(series -> series.getId() == 22L)
-			.findAny().orElse(null);
-		Assert.assertNotNull(series22);
-		
-		final List<Exercise> exercises = this.zeusClient.exercises().getAll(series22);
-		Assert.assertNotNull(exercises);
-		Assert.assertFalse(exercises.isEmpty());
+		for (Series series : firstSeries) {
+			final List<Exercise> exercises = this.zeusClient.exercises().getAll(series);
+			Assert.assertFalse(exercises.isEmpty());
+		}
 	}
 	
 	/**
@@ -79,14 +76,20 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 	 * Tests ExerciseManagerImpl#get(long).
 	 */
 	@Test
-	public void testGetByIdValid() {
-		final long id = 3L;
+	public void testGetAllInSeriesById() {
+		final Course course = this.guestClient.courses().get(1L);
+		Assert.assertNotNull(course);
 		
-		final Exercise exercise = this.guestClient.exercises().get(id);
-		Assert.assertNotNull(exercise);
-		Assert.assertEquals(id, exercise.getId());
-		Assert.assertTrue(exercise.getProgrammingLanguage().isPresent());
-		Assert.assertFalse(exercise.getBoilerplate().isPresent());
+		final Series series = this.zeusClient.series().getAll(course).get(0);
+		Assert.assertNotNull(series);
+		
+		final List<Exercise> exercises = this.guestClient.exercises().getAll(series);
+		Assert.assertFalse(exercises.isEmpty());
+		
+		for (Exercise ex : exercises) {
+			final Exercise ex2 = this.guestClient.exercises().get(ex.getId());
+			Assert.assertNotNull(ex2);
+		}
 	}
 	
 	/**

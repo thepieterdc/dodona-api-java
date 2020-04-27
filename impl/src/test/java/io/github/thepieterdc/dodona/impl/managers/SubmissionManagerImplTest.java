@@ -10,7 +10,7 @@ package io.github.thepieterdc.dodona.impl.managers;
 
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
 import io.github.thepieterdc.dodona.impl.IntegrationTest;
-import io.github.thepieterdc.dodona.resources.Exercise;
+import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.dodona.resources.submissions.Submission;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;

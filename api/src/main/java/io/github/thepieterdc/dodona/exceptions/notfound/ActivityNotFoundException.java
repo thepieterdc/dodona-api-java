@@ -11,35 +11,35 @@ package io.github.thepieterdc.dodona.exceptions.notfound;
 import javax.annotation.Nonnull;
 
 /**
- * A exercise that can not be found.
+ * A activity that can not be found.
  */
-public final class ExerciseNotFoundException extends ResourceNotFoundException {
+public final class ActivityNotFoundException extends ResourceNotFoundException {
 	private static final long serialVersionUID = -7563952852777465712L;
 	
 	private final String url;
 	
 	/**
-	 * ExerciseNotFoundException constructor.
+	 * ActivityNotFoundException constructor.
 	 *
-	 * @param url the url of the exercise that was not found
+	 * @param url the url of the activity that was not found
 	 */
-	public ExerciseNotFoundException(final String url) {
-		super(String.format("No exercise was found at the given url: %s.", url));
+	public ActivityNotFoundException(final String url) {
+		super(String.format("No activity was found at the given url: %s.", url));
 		this.url = url;
 	}
 	
 	/**
-	 * Gets the url of the exercise that can not be found.
+	 * Gets the url of the activity that can not be found.
 	 *
 	 * @return the url
 	 */
-	public String getExerciseUrl() {
+	public String getActivityUrl() {
 		return this.url;
 	}
 	
 	@Override
 	@Nonnull
 	public String toString() {
-		return String.format("ExerciseNotFoundException{url=%s}", this.url);
+		return String.format("ActivityNotFoundException{url=%s}", this.url);
 	}
 }
