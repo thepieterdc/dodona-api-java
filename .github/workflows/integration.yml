@@ -23,7 +23,7 @@ jobs:
         - 3000:3000
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
