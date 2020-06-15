@@ -36,6 +36,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
     - name: Wait for dodona to boot
-      run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000/exercises.json)" != "200" ]]; do sleep 5; done' || false
+      run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000/activities.json)" != "200" ]]; do sleep 5; done' || false
     - name: Test with Maven
       run: mvn -B test --file pom.xml -P SKIP_API_TESTS
