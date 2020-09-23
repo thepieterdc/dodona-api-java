@@ -38,11 +38,6 @@
         <url>https://github.com/thepieterdc/dodona-api-jaa</url>
     </issueManagement>
 
-    <ciManagement>
-        <system>TravisCI</system>
-        <url>https://travis.com/thepieterdc/dodona-api-java</url>
-    </ciManagement>
-
     <properties>
         <dodona.api>${basedir}</dodona.api>
         <bintray.repo>thepieterdc/dodona-api-java</bintray.repo>
@@ -198,9 +193,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-thepieterdc-dodona-api-java</id>
-            <name>thepieterdc-dodona-api-java</name>
-            <url>https://api.bintray.com/maven/thepieterdc/dodona-api-java/dodona-api-java/;publish=1</url>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/thepieterdc/dodona-api-java</url>
         </repository>
     </distributionManagement>
 </project>
