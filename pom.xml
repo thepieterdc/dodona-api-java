@@ -193,8 +193,8 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
+            <id>github-dodona-api-java</id>
+            <name>GitHub Apache Maven Packages | thepieterdc/dodona-api-java</name>
             <url>https://maven.pkg.github.com/thepieterdc/dodona-api-java</url>
         </repository>
     </distributionManagement>
