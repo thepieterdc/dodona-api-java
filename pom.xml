@@ -30,29 +30,27 @@
         <connection>scm:git:https://github.com/thepieterdc/dodona-api-java.git</connection>
         <developerConnection>scm:git:git@github.com:thepieterdc/dodona-api-java.git</developerConnection>
         <url>git@github.com:thepieterdc/dodona-api-java.git</url>
-        <tag>HEAD</tag>
+        <tag>v1.9.2</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/thepieterdc/dodona-api-jaa</url>
+        <url>https://github.com/thepieterdc/dodona-api-java</url>
     </issueManagement>
 
     <properties>
         <dodona.api>${basedir}</dodona.api>
-        <bintray.repo>thepieterdc/dodona-api-java</bintray.repo>
-        <bintray.package>dodona-api-java</bintray.package>
-        <maven.compiler.version>3.8.0</maven.compiler.version>
-        <maven.jar.version>3.1.0</maven.jar.version>
-        <maven.javadoc.version>3.1.0</maven.javadoc.version>
-        <maven.source.version>3.0.1</maven.source.version>
-        <maven.surefire.version>3.0.0-M4</maven.surefire.version>
-        <mockito.version>3.0.0</mockito.version>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.jar.version>3.2.0</maven.jar.version>
+        <maven.javadoc.version>3.2.0</maven.javadoc.version>
+        <maven.source.version>3.2.1</maven.source.version>
+        <maven.surefire.version>3.0.0-M5</maven.surefire.version>
+        <mockito.version>3.5.11</mockito.version>
         <random.version>0.3.0</random.version>
         <findbugs.jsr305.version>3.0.2</findbugs.jsr305.version>
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.11.2</jackson.version>
         <junit.version>4.12</junit.version>
         <skip.api.tests>false</skip.api.tests>
         <skip.impl.tests>false</skip.impl.tests>
@@ -161,6 +159,15 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.version}</version>
+                <configuration>
+                    <source>8</source>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
