@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import io.github.thepieterdc.dodona.data.CourseColor;
+import io.github.thepieterdc.dodona.data.SeriesVisibility;
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
 
 import java.io.IOException;
@@ -35,6 +36,8 @@ public final class EnumDeserializer extends BeanDeserializerModifier {
 		
 		if (enumClass.equals(CourseColor.class)) {
 			return new CourseColorDeserializer();
+		} else if (enumClass.equals(SeriesVisibility.class)) {
+			return new SeriesVisibilityDeserializer();
 		} else if (enumClass.equals(SubmissionStatus.class)) {
 			return new SubmissionStatusDeserializer();
 		}
@@ -49,6 +52,16 @@ public final class EnumDeserializer extends BeanDeserializerModifier {
 		@Override
 		public CourseColor deserialize(final JsonParser p, final DeserializationContext ctx) throws IOException {
 			return CourseColor.byName(p.getValueAsString());
+		}
+	}
+	
+	/**
+	 * Deserializer for SeriesVisibilities.
+	 */
+	private static class SeriesVisibilityDeserializer extends JsonDeserializer<SeriesVisibility> {
+		@Override
+		public SeriesVisibility deserialize(final JsonParser p, final DeserializationContext ctx) throws IOException {
+			return SeriesVisibility.byName(p.getValueAsString());
 		}
 	}
 	
