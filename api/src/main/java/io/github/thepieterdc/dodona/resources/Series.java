@@ -8,6 +8,8 @@
  */
 package io.github.thepieterdc.dodona.resources;
 
+import io.github.thepieterdc.dodona.data.SeriesVisibility;
+
 import javax.annotation.Nonnull;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -70,9 +72,9 @@ public interface Series extends Comparable<Series>, Resource {
 	}
 	
 	/**
-	 * Gets the name of the course.
+	 * Gets the name of the series.
 	 *
-	 * @return the name of the course
+	 * @return the name of the series
 	 */
 	@Nonnull
 	String getName();
@@ -83,4 +85,12 @@ public interface Series extends Comparable<Series>, Resource {
 	 * @return the sorting order
 	 */
 	int getOrder();
+	
+	/**
+	 * Gets the visibility of the series.
+	 *
+	 * @return the visibility of the series
+	 */
+	@Nonnull
+	SeriesVisibility getVisibility();
 }

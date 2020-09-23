@@ -8,6 +8,7 @@
  */
 package io.github.thepieterdc.dodona.impl.managers;
 
+import io.github.thepieterdc.dodona.data.SeriesVisibility;
 import io.github.thepieterdc.dodona.impl.IntegrationTest;
 import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.Series;
@@ -80,14 +81,18 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 		final Course course = this.guestClient.courses().get(1L);
 		Assert.assertNotNull(course);
 		
-		final Series series = this.zeusClient.series().getAll(course).get(0);
+		final Series series = this.zeusClient.series().getAll(course)
+			.stream()
+			.filter(s -> s.getVisibility() == SeriesVisibility.OPEN)
+			.findAny()
+			.orElseThrow(AssertionError::new);
 		Assert.assertNotNull(series);
 		
 		final List<Exercise> exercises = this.guestClient.exercises().getAll(series);
 		Assert.assertFalse(exercises.isEmpty());
 		
 		for (Exercise ex : exercises) {
-			final Exercise ex2 = this.guestClient.exercises().get(ex.getId());
+			final Exercise ex2 = this.zeusClient.exercises().get(ex.getId());
 			Assert.assertNotNull(ex2);
 		}
 	}

@@ -10,6 +10,7 @@ package io.github.thepieterdc.dodona.impl.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.thepieterdc.dodona.data.SeriesVisibility;
 import io.github.thepieterdc.dodona.resources.Series;
 
 import javax.annotation.Nonnull;
@@ -32,6 +33,7 @@ public final class SeriesImpl implements Series {
 	private final String name;
 	private final int order;
 	private final String url;
+	private final SeriesVisibility visibility;
 	
 	/**
 	 * SeriesImpl constructor.
@@ -44,6 +46,7 @@ public final class SeriesImpl implements Series {
 	 * @param name         the name
 	 * @param order        the order
 	 * @param url          the url
+	 * @param visibility   the series visibility
 	 */
 	public SeriesImpl(@JsonProperty("course") final String courseUrl,
 	                  @Nullable @JsonProperty("deadline") final ZonedDateTime deadline,
@@ -52,7 +55,8 @@ public final class SeriesImpl implements Series {
 	                  @JsonProperty("id") final long id,
 	                  @JsonProperty("name") final String name,
 	                  @JsonProperty("order") final int order,
-	                  @JsonProperty("url") final String url) {
+	                  @JsonProperty("url") final String url,
+	                  @JsonProperty("visibility") final SeriesVisibility visibility) {
 		this.courseUrl = courseUrl;
 		this.deadline = deadline;
 		this.description = description;
@@ -61,6 +65,7 @@ public final class SeriesImpl implements Series {
 		this.name = name;
 		this.order = order;
 		this.url = url;
+		this.visibility = visibility;
 	}
 	
 	@Override
@@ -121,6 +126,12 @@ public final class SeriesImpl implements Series {
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
+	}
+	
+	@Override
+	@Nonnull
+	public SeriesVisibility getVisibility() {
+		return this.visibility;
 	}
 	
 	@Override
