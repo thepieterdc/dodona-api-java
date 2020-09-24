@@ -13,7 +13,7 @@
     <parent>
         <groupId>io.github.thepieterdc.dodona</groupId>
         <artifactId>dodona-api</artifactId>
-        <version>1.9.3-SNAPSHOT</version>
+        <version>1.9.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
