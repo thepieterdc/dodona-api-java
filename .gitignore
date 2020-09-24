@@ -81,5 +81,4 @@ hs_err_pid*
 build/
 gradle.properties
 
-settings.xml
 target/
