@@ -12,7 +12,7 @@
 
     <groupId>io.github.thepieterdc.dodona</groupId>
     <artifactId>dodona-api</artifactId>
-    <version>1.9.2-SNAPSHOT</version>
+    <version>1.9.2</version>
     <name>Dodona API</name>
     <description>Dodona API binding for Java (https://dodona.ugent.be/)</description>
     <packaging>pom</packaging>
