@@ -32,8 +32,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'io.github.thepieterdc.dodona', name: 'dodona-api-interface', version: '1.9.2'
-    runtime group: 'io.github.thepieterdc.dodona', name: 'dodona-api-impl', version: '1.9.2'
+    compile group: 'io.github.thepieterdc.dodona', name: 'dodona-api-interface', version: '1.9.3'
+    runtime group: 'io.github.thepieterdc.dodona', name: 'dodona-api-impl', version: '1.9.3'
 }
 ```
 
