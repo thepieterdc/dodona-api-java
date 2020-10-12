@@ -51,7 +51,7 @@
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.11.2</jackson.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <skip.api.tests>false</skip.api.tests>
         <skip.impl.tests>false</skip.impl.tests>
     </properties>
