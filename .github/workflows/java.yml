@@ -14,17 +14,21 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        java: [1.8, 11.x.x, 12.x.x]
+        java: [11.x.x, 12.x.x, 15.x.x]
         os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Setup Java
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
+        distribution: 'zulu'
         java-version: ${{ matrix.java }}
+        server-id: github
+        server-password: GITHUB_PACKAGES_TOKEN
+        server-username: thepieterdc
     - name: Cache the dependencies
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -32,8 +36,10 @@ jobs:
           ${{ runner.os }}-maven-
     - name: Build with Maven
       run: mvn -B package --file pom.xml -P SKIP_IMPL_TESTS
-    - name: Generate the coverage report
-      uses: codecov/codecov-action@v1.0.5
+      env:
+        GITHUB_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+    - name: Upload the coverage report
+      uses: codecov/codecov-action@v2
       with:
-        token: ${{secrets.CODECOV_TOKEN}}
+        token: ${{ secrets.CODECOV_TOKEN }}
 
