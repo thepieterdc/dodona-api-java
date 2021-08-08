@@ -28,11 +28,11 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 	 */
 	@Test
 	public void testGetAllStatuses() {
-		final Course statusTest = this.zeusClient.courses().get(8L);
-		Assert.assertNotNull(statusTest);
-		Assert.assertEquals("Status Test", statusTest.getName());
+		final Course featuredCourse = this.zeusClient.courses().get(8L);
+		Assert.assertNotNull(featuredCourse);
+		Assert.assertEquals("Featured course", featuredCourse.getName());
 		
-		final List<Series> firstSeries = this.zeusClient.series().getAll(statusTest);
+		final List<Series> firstSeries = this.zeusClient.series().getAll(featuredCourse);
 		Assert.assertNotNull(firstSeries);
 		
 		for (Series series : firstSeries) {
