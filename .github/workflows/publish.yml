@@ -1,0 +1,99 @@
+name: Publish release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  docs:
+    name: Publish docs to GitHub Pages
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+          server-id: github
+          server-password: GITHUB_TOKEN
+          server-username: thepieterdc
+      - name: Cache the dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Generate the documentation
+        run: mvn --batch-mode javadoc:javadoc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish the documentation
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs
+
+  publish:
+    name: Publish artifact to GitHub Packages
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+          server-id: github
+          server-password: GITHUB_TOKEN
+          server-username: thepieterdc
+      - name: Configure git
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+      - name: Cache the dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Get the release version
+        id: version
+        run: |
+          VERSION_RAW=v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          VERSION="${VERSION_RAW//-SNAPSHOT/}"
+          echo "::set-output name=version::$VERSION"
+      - name: Publish package
+        run: mvn --batch-mode release:prepare release:perform -P SKIP_IMPL_TESTS
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
+      - name: Open a pull request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: master
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_assignee: thepieterdc
+          pr_body: Merge the maven release commits into the main branch.
+          pr_title: Release ${{ steps.version.outputs.version }}
