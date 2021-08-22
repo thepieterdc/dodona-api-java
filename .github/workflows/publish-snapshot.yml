@@ -21,8 +21,8 @@ jobs:
           distribution: 'zulu'
           java-version: 11
           server-id: github
-          server-password: GITHUB_TOKEN
-          server-username: GITHUB_USER
+          server-password: GITHUB_PACKAGES_TOKEN
+          server-username: thepieterdc
       - name: Cache the dependencies
         uses: actions/cache@v2
         with:
@@ -31,7 +31,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Publish package
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode deploy -P SKIP_IMPL_TESTS
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USER: thepieterdc
+          GITHUB_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
