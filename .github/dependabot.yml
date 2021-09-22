@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    reviewers:
+      - "thepieterdc"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: maven
+    directory: "/"
+    reviewers:
+      - "thepieterdc"
+    schedule:
+      interval: weekly
