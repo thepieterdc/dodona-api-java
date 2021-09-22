@@ -20,12 +20,12 @@ import java.util.stream.Stream;
 public enum CourseColor {
 	BLUE_GREY("blue-grey", Color.decode("#607D8B")),
 	BROWN("brown", Color.decode("#795548")),
+	CYAN("cyan", Color.decode("#00BCD4")),
 	DEEP_PURPLE("deep-purple", Color.decode("#673AB7")),
 	INDIGO("indigo", Color.decode("#3F51B5")),
 	ORANGE("orange", Color.decode("#FF5722")),
 	PINK("pink", Color.decode("#E91E63")),
 	PURPLE("purple", Color.decode("#9C27B0")),
-	RED("red", Color.decode("#F44336")),
 	TEAL("teal", Color.decode("#009688"));
 	
 	private final Color color;
