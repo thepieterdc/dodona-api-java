@@ -99,3 +99,4 @@ jobs:
           pr_assignee: thepieterdc
           pr_body: Merge the maven release commits into the main branch.
           pr_title: Release ${{ steps.version.outputs.version }}
+          source_branch: release
