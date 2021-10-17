@@ -55,7 +55,7 @@ public class ApiApplication {
 You can find the API documentation at [https://thepieterdc.github.io/dodona-api-java/](https://thepieterdc.github.io/dodona-api-java/).
 
 ## Releasing
-This process is automated via GitHub Actions. In order to make a new release, publish a commit to the `release` branch.
+This process is automated via GitHub Actions. In order to make a new release, trigger the `Release` workflow.
 
 ## Credits
 This library was created by [Pieter De Clercq](https://thepieterdc.github.io/) and [Tobiah Lissens](https://github.com/darktilrisen).
