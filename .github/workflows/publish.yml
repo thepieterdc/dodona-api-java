@@ -22,7 +22,7 @@ jobs:
           server-password: GITHUB_TOKEN
           server-username: thepieterdc
       - name: Cache the dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -66,7 +66,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: Cache the dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
