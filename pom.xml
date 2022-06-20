@@ -51,7 +51,7 @@
         <maven.javadoc.version>3.4.0</maven.javadoc.version>
         <maven.release.version>3.0.0-M6</maven.release.version>
         <maven.source.version>3.2.1</maven.source.version>
-        <maven.surefire.version>3.0.0-M6</maven.surefire.version>
+        <maven.surefire.version>3.0.0-M7</maven.surefire.version>
         <mockito.version>4.6.1</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <random.version>1.0.0</random.version>
