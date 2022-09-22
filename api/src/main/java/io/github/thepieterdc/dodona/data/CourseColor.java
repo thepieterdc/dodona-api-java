@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * The color of a course.
  */
 public enum CourseColor {
-	BLUE_GREY("blue-grey", Color.decode("#607D8B")),
+	BLUE_GREY("blue-gray", Color.decode("#607D8B")),
 	BROWN("brown", Color.decode("#795548")),
 	CYAN("cyan", Color.decode("#00BCD4")),
 	DEEP_PURPLE("deep-purple", Color.decode("#673AB7")),
