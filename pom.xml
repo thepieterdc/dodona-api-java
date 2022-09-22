@@ -42,7 +42,7 @@
     <properties>
         <dodona.api>${basedir}</dodona.api>
         <findbugs.jsr305.version>3.0.2</findbugs.jsr305.version>
-        <jackson.version>2.13.3</jackson.version>
+        <jackson.version>2.13.4</jackson.version>
         <jacoco.version>0.8.8</jacoco.version>
         <jdk.version>11</jdk.version>
         <junit.version>4.13.2</junit.version>
@@ -54,7 +54,7 @@
         <maven.surefire.version>3.0.0-M7</maven.surefire.version>
         <mockito.version>4.7.0</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <random.version>1.0.0</random.version>
+        <random.version>1.0.2</random.version>
         <skip.api.tests>false</skip.api.tests>
         <skip.impl.tests>false</skip.impl.tests>
     </properties>
