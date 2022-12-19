@@ -52,7 +52,7 @@
         <maven.release.version>3.0.0-M7</maven.release.version>
         <maven.source.version>3.2.1</maven.source.version>
         <maven.surefire.version>3.0.0-M7</maven.surefire.version>
-        <mockito.version>4.9.0</mockito.version>
+        <mockito.version>4.10.0</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <random.version>1.0.2</random.version>
         <skip.api.tests>false</skip.api.tests>
