@@ -42,7 +42,7 @@
     <properties>
         <dodona.api>${basedir}</dodona.api>
         <findbugs.jsr305.version>3.0.2</findbugs.jsr305.version>
-        <jackson.version>2.15.1</jackson.version>
+        <jackson.version>2.15.2</jackson.version>
         <jacoco.version>0.8.10</jacoco.version>
         <jdk.version>11</jdk.version>
         <junit.version>4.13.2</junit.version>
