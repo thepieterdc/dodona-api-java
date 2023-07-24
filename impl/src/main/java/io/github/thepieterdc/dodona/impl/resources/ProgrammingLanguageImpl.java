@@ -73,7 +73,7 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 	@Override
 	@Nonnull
 	public String getUrl() {
-		return String.format("https://dodona.ugent.be/en/programming_languages/%d.json", this.id);
+		return String.format("https://dodona.be/en/programming_languages/%d.json", this.id);
 	}
 	
 	@Override

@@ -43,7 +43,7 @@ public class ApiApplication {
     public static void main(String[] args) {
 		final DodonaClient dodona = DodonaBuilder.builder()
 			.authenticate("myToken")
-			.setHost("https://dodona.ugent.be")
+			.setHost("https://dodona.be")
 			.build();
 		
 		System.out.println("My name is " + dodona.me().getFirstName());

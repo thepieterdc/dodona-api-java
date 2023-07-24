@@ -27,7 +27,7 @@ public interface DodonaClient {
 	/**
 	 * The default Dodona host.
 	 */
-	String DEFAULT_HOST = "https://dodona.ugent.be";
+	String DEFAULT_HOST = "https://dodona.be";
 	
 	/**
 	 * Gets a resource manager for courses.

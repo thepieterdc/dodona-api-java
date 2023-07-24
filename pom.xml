@@ -15,7 +15,7 @@
     <version>2.0.3-SNAPSHOT</version>
 
     <name>Dodona API</name>
-    <description>Dodona API binding for Java (https://dodona.ugent.be/)</description>
+    <description>Dodona API binding for Java (https://dodona.be/)</description>
     <packaging>pom</packaging>
     <url>https://github.com/thepieterdc/dodona-api-java</url>
 

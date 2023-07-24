@@ -20,7 +20,7 @@ import java.util.Optional;
 public class SeriesTest {
 	private static final RandomLongGenerator rng = RandomLongGenerator.positive();
 	
-	private static final String urlPattern = "https://dodona.ugent.be/courses/%d/series/%d/exercise/%d";
+	private static final String urlPattern = "https://dodona.be/courses/%d/series/%d/exercise/%d";
 	
 	/**
 	 * Tests Series.getId().
