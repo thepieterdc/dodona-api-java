@@ -21,7 +21,7 @@ import java.util.Optional;
 public class ExerciseTest {
 	private static final RandomLongGenerator rng = RandomLongGenerator.positive();
 	
-	private static final String urlPattern = "https://dodona.ugent.be/courses/%d/series/%d/activities/%d";
+	private static final String urlPattern = "https://dodona.be/courses/%d/series/%d/activities/%d";
 	
 	/**
 	 * Tests Course.getId().
