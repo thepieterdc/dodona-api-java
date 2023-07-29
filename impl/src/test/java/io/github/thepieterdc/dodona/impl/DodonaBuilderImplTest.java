@@ -16,9 +16,10 @@ import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.http.HttpClient;
 import io.github.thepieterdc.http.impl.HttpResponseImplTest;
 import io.github.thepieterdc.random.numerical.RandomLongGenerator;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.when;
  */
 public class DodonaBuilderImplTest {
 	private static final RandomLongGenerator userIds = RandomLongGenerator.between(1L, 1000L);
-	
+
 	/**
 	 * Tests DodonaBuilderImpl#setHttpClient().
 	 */
@@ -38,8 +39,8 @@ public class DodonaBuilderImplTest {
 		// Create a user.
 		final long uid = userIds.generate();
 		final UserImpl user = UserImplTest.random(uid);
-		Assert.assertNotNull(user);
-		
+		assertNotNull(user);
+
 		// Mock the http client.
 		final HttpClient http = mock(HttpClient.class);
 		when(http.authenticate(anyString())).thenReturn(http);
@@ -47,15 +48,15 @@ public class DodonaBuilderImplTest {
 		when(http.get(anyString(), eq(UserImpl.class))).thenReturn(
 			HttpResponseImplTest.wrap(user)
 		);
-		
+
 		final DodonaClient custom = DodonaBuilder.builder()
 			.setHttpClient(http)
 			.build();
-		Assert.assertNotNull(custom);
-		
+		assertNotNull(custom);
+
 		// Fetch the user profile.
 		final User result = custom.users().get(uid);
-		Assert.assertNotNull(result);
-		Assert.assertEquals(user, result);
+		assertNotNull(result);
+		assertEquals(user, result);
 	}
 }

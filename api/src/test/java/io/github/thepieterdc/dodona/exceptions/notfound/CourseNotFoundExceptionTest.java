@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions.notfound;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.notfound.CourseNotFoundException.
  */
 public class CourseNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests CourseNotFoundException#getCourseUrl().
 	 */
@@ -28,10 +27,10 @@ public class CourseNotFoundExceptionTest {
 	public void testGetCourseUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final CourseNotFoundException exception = new CourseNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getCourseUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getCourseUrl());
 	}
-	
+
 	/**
 	 * Tests CourseNotFoundException#toString().
 	 */
@@ -39,8 +38,8 @@ public class CourseNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final CourseNotFoundException exception = new CourseNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(CourseNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(CourseNotFoundException.class.getSimpleName()));
 	}
 }

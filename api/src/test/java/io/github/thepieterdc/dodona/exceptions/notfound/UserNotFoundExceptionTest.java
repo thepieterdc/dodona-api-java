@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions.notfound;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.notFound.UserNotFoundException.
  */
 public class UserNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests UserNotFoundException#getUserUrl().
 	 */
@@ -28,10 +27,10 @@ public class UserNotFoundExceptionTest {
 	public void testGetUserUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final UserNotFoundException exception = new UserNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getUserUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(exception.getUserUrl(), randomcharacters);
 	}
-	
+
 	/**
 	 * Tests UserNotFoundException#toString().
 	 */
@@ -39,8 +38,8 @@ public class UserNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final UserNotFoundException exception = new UserNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(UserNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(UserNotFoundException.class.getSimpleName()));
 	}
 }

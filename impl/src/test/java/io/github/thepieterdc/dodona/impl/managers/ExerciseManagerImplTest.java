@@ -14,10 +14,11 @@ import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.activities.Exercise;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.impl.managers.ExerciseManagerImpl.
@@ -29,18 +30,18 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 	@Test
 	public void testGetAllStatuses() {
 		final Course featuredCourse = this.zeusClient.courses().get(8L);
-		Assert.assertNotNull(featuredCourse);
-		Assert.assertEquals("Featured course", featuredCourse.getName());
-		
+		assertNotNull(featuredCourse);
+		assertEquals("Featured course", featuredCourse.getName());
+
 		final List<Series> firstSeries = this.zeusClient.series().getAll(featuredCourse);
-		Assert.assertNotNull(firstSeries);
-		
+		assertNotNull(firstSeries);
+
 		for (Series series : firstSeries) {
 			final List<Exercise> exercises = this.zeusClient.exercises().getAll(series);
-			Assert.assertFalse(exercises.isEmpty());
+			assertFalse(exercises.isEmpty());
 		}
 	}
-	
+
 	/**
 	 * Tests ExerciseManagerImpl#get(long, long).
 	 */
@@ -48,55 +49,57 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 	public void testGetByIdCourseScopedValid() {
 		// Get an exercise.
 		final Course course = this.zeusClient.courses().get(1L);
-		Assert.assertNotNull(course);
-		
+		assertNotNull(course);
+
 		final Series series = this.zeusClient.series().getAll(course)
 			.stream()
 			.findAny().orElse(null);
-		Assert.assertNotNull(series);
-		
+		assertNotNull(series);
+
 		final Exercise exercise = this.zeusClient.exercises().getAll(series)
 			.stream()
 			.findAny().orElse(null);
-		Assert.assertNotNull(exercise);
-		
+		assertNotNull(exercise);
+
 		final Exercise same = this.zeusClient.exercises().get(course.getId(), exercise.getId());
-		Assert.assertNotNull(same);
-		Assert.assertEquals(exercise, same);
+		assertNotNull(same);
+		assertEquals(exercise, same);
 	}
-	
+
 	/**
 	 * Tests ExerciseManagerImpl#get(long).
 	 */
-	@Test(expected = Exception.class)
+	@Test
 	public void testGetByIdNonExisting() {
-		this.guestClient.exercises().get(fakeIds.generate());
+		assertThrows(Exception.class, () ->
+			this.guestClient.exercises().get(fakeIds.generate())
+		);
 	}
-	
+
 	/**
 	 * Tests ExerciseManagerImpl#get(long).
 	 */
 	@Test
 	public void testGetAllInSeriesById() {
 		final Course course = this.guestClient.courses().get(1L);
-		Assert.assertNotNull(course);
-		
+		assertNotNull(course);
+
 		final Series series = this.zeusClient.series().getAll(course)
 			.stream()
 			.filter(s -> s.getVisibility() == SeriesVisibility.OPEN)
 			.findAny()
 			.orElseThrow(AssertionError::new);
-		Assert.assertNotNull(series);
-		
+		assertNotNull(series);
+
 		final List<Exercise> exercises = this.guestClient.exercises().getAll(series);
-		Assert.assertFalse(exercises.isEmpty());
-		
+		assertFalse(exercises.isEmpty());
+
 		for (Exercise ex : exercises) {
 			final Exercise ex2 = this.zeusClient.exercises().get(ex.getId());
-			Assert.assertNotNull(ex2);
+			assertNotNull(ex2);
 		}
 	}
-	
+
 	/**
 	 * Tests ExerciseManagerImpl#get(SubmissionInfo).
 	 */
@@ -106,10 +109,10 @@ public class ExerciseManagerImplTest extends IntegrationTest {
 			.submissions()
 			.get(1L)
 			.getInfo();
-		Assert.assertNotNull(submission);
-		
+		assertNotNull(submission);
+
 		final Exercise exercise = this.zeusClient.exercises().get(submission);
-		Assert.assertNotNull(exercise);
-		Assert.assertNotEquals(0L, exercise.getId());
+		assertNotNull(exercise);
+		assertNotEquals(0L, exercise.getId());
 	}
 }

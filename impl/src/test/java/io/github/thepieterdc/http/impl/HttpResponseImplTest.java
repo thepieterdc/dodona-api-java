@@ -10,35 +10,31 @@ package io.github.thepieterdc.http.impl;
 
 import io.github.thepieterdc.dodona.exceptions.AuthenticationException;
 import io.github.thepieterdc.http.HttpResponse;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nonnull;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests io.github.thepieterdc.http.impl.HttpResponseImpl.
  */
 public class HttpResponseImplTest {
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
-	
 	/**
 	 * Tests HttpResponseImpl.unauthorized().
 	 */
 	@Test
 	public void testUnauthorized() {
-		exception.expect(AuthenticationException.class);
-		exception.expectMessage("invalid");
-		HttpResponseImpl.unauthorized(AuthenticationException.invalid())
-			.resolve();
-		
-		exception.expect(AuthenticationException.class);
-		exception.expectMessage("np");
-		HttpResponseImpl.unauthorized(AuthenticationException.missing())
-			.resolve();
+		final AuthenticationException thrown1 = assertThrows(AuthenticationException.class, () -> HttpResponseImpl.unauthorized(AuthenticationException.invalid())
+			.resolve());
+		assertTrue(thrown1.getMessage().contains("invalid"));
+
+		final AuthenticationException thrown2 = assertThrows(AuthenticationException.class, () -> HttpResponseImpl.unauthorized(AuthenticationException.missing())
+			.resolve());
+		assertTrue(thrown2.getMessage().contains("provided"));
 	}
-	
+
 	/**
 	 * Encodes the given object in a http response.
 	 *

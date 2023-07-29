@@ -10,10 +10,11 @@ package io.github.thepieterdc.dodona.impl;
 
 import io.github.thepieterdc.dodona.resources.Series;
 import io.github.thepieterdc.dodona.resources.User;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.impl.DodonaClientImpl.
@@ -25,19 +26,19 @@ public class DodonaClientImplTest extends IntegrationTest {
 	@Test
 	public void testDeadlines() {
 		final Collection<Series> deadlines = this.studentClient.deadlines();
-		Assert.assertNotNull(deadlines);
-		Assert.assertTrue(deadlines.isEmpty());
+		assertNotNull(deadlines);
+		assertTrue(deadlines.isEmpty());
 	}
-	
+
 	/**
 	 * Tests: DodonaClientImpl#getMe().
 	 */
 	@Test
 	public void testMe() {
 		final User me = this.studentClient.me();
-		Assert.assertNotNull(me);
-		Assert.assertEquals(3L, me.getId());
-		Assert.assertEquals("Jelix", me.getFirstName());
-		Assert.assertEquals("Vanderfeught", me.getLastName());
+		assertNotNull(me);
+		assertEquals(3L, me.getId());
+		assertEquals("Jelix", me.getFirstName());
+		assertEquals("Vanderfeught", me.getLastName());
 	}
 }

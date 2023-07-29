@@ -11,10 +11,12 @@ package io.github.thepieterdc.dodona.impl.managers;
 import io.github.thepieterdc.dodona.impl.IntegrationTest;
 import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.Series;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests io.github.thepieterdc.dodona.impl.managers.SeriesManagerImpl.
@@ -26,10 +28,10 @@ public class SeriesManagerImplTest extends IntegrationTest {
 	@Test
 	public void testGetAll() {
 		final Course first = this.zeusClient.courses().get(1L);
-		Assert.assertNotNull(first);
-		
+		assertNotNull(first);
+
 		final List<Series> series = this.zeusClient.series().getAll(first);
-		Assert.assertNotNull(series);
-		Assert.assertFalse(series.isEmpty());
+		assertNotNull(series);
+		assertFalse(series.isEmpty());
 	}
 }

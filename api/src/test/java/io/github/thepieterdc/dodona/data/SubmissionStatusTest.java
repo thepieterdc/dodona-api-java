@@ -8,15 +8,15 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests io.github.thepieterdc.dodona.data.SubmissionStatus.
@@ -29,32 +29,33 @@ public class SubmissionStatusTest {
 	public void testByName() {
 		Arrays.stream(SubmissionStatus.values()).forEach(status -> {
 			final SubmissionStatus byName = SubmissionStatus.byName(status.getName());
-			Assert.assertNotNull(byName);
-			Assert.assertEquals(byName, status);
+			assertNotNull(byName);
+			assertEquals(byName, status);
 		});
 	}
-	
+
 	/**
 	 * Tests SubmissionStatus.byName(String) using a non-existing status.
 	 */
+	@Test
 	public void testByNameNonExisting() {
 		final SubmissionStatus nonExisting = SubmissionStatus.byName("non-existing-status");
-		Assert.assertEquals(SubmissionStatus.UNKNOWN, nonExisting);
+		assertEquals(SubmissionStatus.UNKNOWN, nonExisting);
 	}
-	
+
 	/**
 	 * Tests SubmissionStatus#getName().
 	 */
 	@Test
 	public void testGetName() {
 		final int amount = SubmissionStatus.values().length;
-		
+
 		final Collection<String> names = Arrays.stream(SubmissionStatus.values())
 			.map(SubmissionStatus::getName)
 			.collect(Collectors.toSet());
-		
-		Assert.assertThat(names, notNullValue());
-		names.forEach(Assert::assertNotNull);
-		Assert.assertThat(names.size(), is(amount));
+
+		assertNotNull(names);
+		names.forEach(Assertions::assertNotNull);
+		assertEquals(amount, names.size());
 	}
 }

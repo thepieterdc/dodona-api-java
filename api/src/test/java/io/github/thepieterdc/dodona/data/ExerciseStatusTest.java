@@ -8,8 +8,9 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests io.github.thepieterdc.dodona.data.ExerciseStatus.
@@ -20,13 +21,13 @@ public class ExerciseStatusTest {
 	 */
 	@Test
 	public void testFromValues() {
-		Assert.assertEquals(ExerciseStatus.CORRECT, ExerciseStatus.fromValues(true, true, true));
-		Assert.assertEquals(ExerciseStatus.HAS_BEEN_CORRECT, ExerciseStatus.fromValues(true, true, false));
-		Assert.assertEquals(ExerciseStatus.INCORRECT, ExerciseStatus.fromValues(false, true, true));
-		Assert.assertEquals(ExerciseStatus.INCORRECT, ExerciseStatus.fromValues(false, true, false));
-		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(true, false, true));
-		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(true, false, false));
-		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(false, false, true));
-		Assert.assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(false, false, false));
+		assertEquals(ExerciseStatus.CORRECT, ExerciseStatus.fromValues(true, true, true));
+		assertEquals(ExerciseStatus.HAS_BEEN_CORRECT, ExerciseStatus.fromValues(true, true, false));
+		assertEquals(ExerciseStatus.INCORRECT, ExerciseStatus.fromValues(false, true, true));
+		assertEquals(ExerciseStatus.INCORRECT, ExerciseStatus.fromValues(false, true, false));
+		assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(true, false, true));
+		assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(true, false, false));
+		assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(false, false, true));
+		assertEquals(ExerciseStatus.NOT_ATTEMPTED, ExerciseStatus.fromValues(false, false, false));
 	}
 }

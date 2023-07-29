@@ -8,11 +8,9 @@
  */
 package io.github.thepieterdc.dodona.exceptions;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.AuthenticationException.
@@ -21,32 +19,36 @@ public class AuthenticationExceptionTest {
 	/**
 	 * Tests AuthenticationException.invalid().
 	 */
-	@Test(expected = AuthenticationException.class)
+	@Test
 	public void testInvalid() {
-		throw AuthenticationException.invalid();
+		assertThrows(AuthenticationException.class, () -> {
+			throw AuthenticationException.invalid();
+		});
 	}
-	
+
 	/**
 	 * Tests AuthenticationException.missing().
 	 */
-	@Test(expected = AuthenticationException.class)
+	@Test
 	public void testMissing() {
-		throw AuthenticationException.missing();
+		assertThrows(AuthenticationException.class, () -> {
+			throw AuthenticationException.missing();
+		});
 	}
-	
+
 	/**
 	 * Tests AuthenticationException#toString().
 	 */
 	@Test
 	public void testToString() {
 		final AuthenticationException invalid = AuthenticationException.invalid();
-		Assert.assertThat(invalid, notNullValue());
-		Assert.assertThat(invalid.toString(), notNullValue());
-		Assert.assertThat(invalid.toString(), containsString(AuthenticationException.INVALID));
-		
+		assertNotNull(invalid);
+		assertNotNull(invalid.toString());
+		assertTrue(invalid.toString().contains(AuthenticationException.INVALID));
+
 		final AuthenticationException missing = AuthenticationException.missing();
-		Assert.assertThat(missing, notNullValue());
-		Assert.assertThat(missing.toString(), notNullValue());
-		Assert.assertThat(missing.toString(), containsString(AuthenticationException.MISSING));
+		assertNotNull(missing);
+		assertNotNull(missing.toString());
+		assertTrue(missing.toString().contains(AuthenticationException.MISSING));
 	}
 }

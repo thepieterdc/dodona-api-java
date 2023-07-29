@@ -8,21 +8,19 @@
  */
 package io.github.thepieterdc.dodona.exceptions.notfound;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.notfound.ActivityNotFoundException.
  */
 public class ActivityNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests ActivityNotFoundException#getExerciseUrl().
 	 */
@@ -30,10 +28,10 @@ public class ActivityNotFoundExceptionTest {
 	public void testGetActivityUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final ActivityNotFoundException exception = new ActivityNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getActivityUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getActivityUrl());
 	}
-	
+
 	/**
 	 * Tests ActivityNotFoundException#toString().
 	 */
@@ -41,8 +39,8 @@ public class ActivityNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final ActivityNotFoundException exception = new ActivityNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(ActivityNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(ActivityNotFoundException.class.getSimpleName()));
 	}
 }

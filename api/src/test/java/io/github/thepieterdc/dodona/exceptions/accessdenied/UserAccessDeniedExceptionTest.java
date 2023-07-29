@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions.accessdenied;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.accessdenied.UserAccessDeniedException.
  */
 public class UserAccessDeniedExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests UserAccessDeniedException#getUserUrl().
 	 */
@@ -28,10 +27,10 @@ public class UserAccessDeniedExceptionTest {
 	public void testGetUserUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final UserAccessDeniedException exception = new UserAccessDeniedException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getUserUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getUserUrl());
 	}
-	
+
 	/**
 	 * Tests UserAccessDeniedException#toString().
 	 */
@@ -39,8 +38,8 @@ public class UserAccessDeniedExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final UserAccessDeniedException exception = new UserAccessDeniedException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(UserAccessDeniedException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(UserAccessDeniedException.class.getSimpleName()));
 	}
 }
