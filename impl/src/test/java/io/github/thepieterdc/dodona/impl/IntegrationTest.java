@@ -12,24 +12,24 @@ package io.github.thepieterdc.dodona.impl;
 import io.github.thepieterdc.dodona.DodonaBuilder;
 import io.github.thepieterdc.dodona.DodonaClient;
 import io.github.thepieterdc.random.numerical.RandomLongGenerator;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static io.github.thepieterdc.random.numerical.RandomLongGenerator.above;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public abstract class IntegrationTest {
 	protected static final RandomLongGenerator fakeIds = above(1_000_000L);
-	
+
 	protected DodonaClient guestClient;
 	protected DodonaClient studentClient;
 	protected DodonaClient zeusClient;
-	
+
 	/**
 	 * Set-up the test environment.
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() {
 		this.guestClient = DodonaBuilder.builder()
 			.setHost("http://localhost:3000")
@@ -46,24 +46,24 @@ public abstract class IntegrationTest {
 			.authenticate("zeus")
 			.build();
 	}
-	
+
 	/**
 	 * Tear-down the test environment.
 	 */
-	@After
+	@AfterEach
 	public void tearDown() {
 		this.guestClient = null;
 		this.studentClient = null;
 		this.zeusClient = null;
 	}
-	
+
 	/**
 	 * Tests whether the clients are valid.
 	 */
 	@Test
 	public void testClients() {
-		Assert.assertNotNull(this.guestClient);
-		Assert.assertNotNull(this.studentClient);
-		Assert.assertNotNull(this.zeusClient);
+		assertNotNull(this.guestClient);
+		assertNotNull(this.studentClient);
+		assertNotNull(this.zeusClient);
 	}
 }

@@ -12,13 +12,14 @@ import io.github.thepieterdc.dodona.impl.IntegrationTest;
 import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.random.numerical.RandomLongGenerator;
 import io.github.thepieterdc.random.textual.RandomStringGenerator;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
 
 import static io.github.thepieterdc.random.numerical.RandomLongGenerator.between;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests io.github.thepieterdc.dodona.impl.UserImpl.
@@ -27,7 +28,7 @@ public class UserImplTest extends IntegrationTest {
 	private static final RandomLongGenerator correctExercises = between(0L, 200L);
 	private static final RandomStringGenerator strings = new RandomStringGenerator(10);
 	private static final RandomLongGenerator submissionCounts = between(0L, 5000L);
-	
+
 	/**
 	 * Creates a random user with a given uid.
 	 *
@@ -50,14 +51,14 @@ public class UserImplTest extends IntegrationTest {
 			strings.generate()
 		);
 	}
-	
+
 	/**
 	 * Tests UserImpl#getUrl().
 	 */
 	@Test
 	public void testGetUrl() {
 		final User user = this.zeusClient.me();
-		Assert.assertNotNull(user);
-		Assert.assertFalse(user.getUrl().contains("json"));
+		assertNotNull(user);
+		assertFalse(user.getUrl().contains("json"));
 	}
 }
