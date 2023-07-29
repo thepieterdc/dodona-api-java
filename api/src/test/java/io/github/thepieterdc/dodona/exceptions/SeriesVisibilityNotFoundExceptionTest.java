@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.SeriesVisibilityNotFoundException.
  */
 public class SeriesVisibilityNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests SeriesVisibilityNotFoundException#getVisibility().
 	 */
@@ -28,10 +27,10 @@ public class SeriesVisibilityNotFoundExceptionTest {
 	public void testGetVisibility() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SeriesVisibilityNotFoundException exception = new SeriesVisibilityNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getVisibility(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getVisibility());
 	}
-	
+
 	/**
 	 * Tests SeriesVisibilityNotFoundException#toString().
 	 */
@@ -39,8 +38,8 @@ public class SeriesVisibilityNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SeriesVisibilityNotFoundException exception = new SeriesVisibilityNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(SeriesVisibilityNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(SeriesVisibilityNotFoundException.class.getSimpleName()));
 	}
 }

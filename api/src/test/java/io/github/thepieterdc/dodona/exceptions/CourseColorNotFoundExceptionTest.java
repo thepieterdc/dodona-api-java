@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.CourseColorNotFoundException.
  */
 public class CourseColorNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests CourseColorNotFoundException#getColor().
 	 */
@@ -28,10 +27,10 @@ public class CourseColorNotFoundExceptionTest {
 	public void testGetColor() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final CourseColorNotFoundException exception = new CourseColorNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getColor(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getColor());
 	}
-	
+
 	/**
 	 * Tests CourseColorNotFoundException#toString().
 	 */
@@ -39,8 +38,8 @@ public class CourseColorNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final CourseColorNotFoundException exception = new CourseColorNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(CourseColorNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(CourseColorNotFoundException.class.getSimpleName()));
 	}
 }

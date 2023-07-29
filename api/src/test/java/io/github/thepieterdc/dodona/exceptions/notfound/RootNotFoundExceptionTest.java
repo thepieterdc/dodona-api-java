@@ -8,11 +8,10 @@
  */
 package io.github.thepieterdc.dodona.exceptions.notfound;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.notFound.RootNotFoundException.
@@ -24,8 +23,8 @@ public class RootNotFoundExceptionTest {
 	@Test
 	public void testToString() {
 		final RootNotFoundException exception = new RootNotFoundException();
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(RootNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(RootNotFoundException.class.getSimpleName()));
 	}
 }

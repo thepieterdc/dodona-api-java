@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions.notfound;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.notFound.SubmissionNotFoundException.
  */
 public class SubmissionNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests SubmissionNotFoundException#getSubmissionUrl().
 	 */
@@ -28,10 +27,10 @@ public class SubmissionNotFoundExceptionTest {
 	public void testGetSubmissionUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SubmissionNotFoundException exception = new SubmissionNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getSubmissionUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getSubmissionUrl());
 	}
-	
+
 	/**
 	 * Tests SubmissionNotFoundException#toString().
 	 */
@@ -39,8 +38,8 @@ public class SubmissionNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SubmissionNotFoundException exception = new SubmissionNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(SubmissionNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(SubmissionNotFoundException.class.getSimpleName()));
 	}
 }

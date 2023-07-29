@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions.notfound;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.notFound.SeriesNotFoundException.
  */
 public class SeriesNotFoundExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests SeriesNotFoundException#getSeriesUrl().
 	 */
@@ -28,10 +27,10 @@ public class SeriesNotFoundExceptionTest {
 	public void testGetSeriesUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SeriesNotFoundException exception = new SeriesNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getSeriesUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getSeriesUrl());
 	}
-	
+
 	/**
 	 * Tests SeriesNotFoundException#toString().
 	 */
@@ -39,8 +38,8 @@ public class SeriesNotFoundExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SeriesNotFoundException exception = new SeriesNotFoundException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(SeriesNotFoundException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(SeriesNotFoundException.class.getSimpleName()));
 	}
 }

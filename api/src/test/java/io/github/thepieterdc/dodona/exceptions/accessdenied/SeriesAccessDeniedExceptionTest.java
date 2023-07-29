@@ -8,19 +8,18 @@
  */
 package io.github.thepieterdc.dodona.exceptions.accessdenied;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests io.github.thepieterdc.dodona.exceptions.accessdenied.SeriesAccessDeniedException.
  */
 public class SeriesAccessDeniedExceptionTest {
 	private static final Random random = new Random();
-	
+
 	/**
 	 * Tests SeriesAccessDeniedException#getSeriesUrl().
 	 */
@@ -28,10 +27,10 @@ public class SeriesAccessDeniedExceptionTest {
 	public void testGetSeriesUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.getSeriesUrl(), is(randomcharacters));
+		assertNotNull(exception);
+		assertEquals(randomcharacters, exception.getSeriesUrl());
 	}
-	
+
 	/**
 	 * Tests SeriesAccessDeniedException#toString().
 	 */
@@ -39,8 +38,8 @@ public class SeriesAccessDeniedExceptionTest {
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
 		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters);
-		Assert.assertThat(exception, notNullValue());
-		Assert.assertThat(exception.toString(), notNullValue());
-		Assert.assertThat(exception.toString(), containsString(SeriesAccessDeniedException.class.getSimpleName()));
+		assertNotNull(exception);
+		assertNotNull(exception.toString());
+		assertTrue(exception.toString().contains(SeriesAccessDeniedException.class.getSimpleName()));
 	}
 }

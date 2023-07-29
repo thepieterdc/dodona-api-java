@@ -8,8 +8,9 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests io.github.thepieterdc.dodona.data.ActivityType.
@@ -20,7 +21,7 @@ public class ActivityTypeTest {
 	 */
 	@Test
 	public void testGetType() {
-		Assert.assertEquals(ActivityType.CONTENT_PAGE_TYPE, ActivityType.CONTENT_PAGE.getType());
-		Assert.assertEquals(ActivityType.EXERCISE_TYPE, ActivityType.EXERCISE.getType());
+		assertEquals(ActivityType.CONTENT_PAGE_TYPE, ActivityType.CONTENT_PAGE.getType());
+		assertEquals(ActivityType.EXERCISE_TYPE, ActivityType.EXERCISE.getType());
 	}
 }
