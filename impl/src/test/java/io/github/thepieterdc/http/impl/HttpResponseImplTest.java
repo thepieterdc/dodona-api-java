@@ -32,7 +32,7 @@ public class HttpResponseImplTest {
 
 		final AuthenticationException thrown2 = assertThrows(AuthenticationException.class, () -> HttpResponseImpl.unauthorized(AuthenticationException.missing())
 			.resolve());
-		assertTrue(thrown2.getMessage().contains("np"));
+		assertTrue(thrown2.getMessage().contains("provided"));
 	}
 
 	/**
