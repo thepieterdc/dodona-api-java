@@ -41,9 +41,8 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.version}</version>
                 <configuration>
+                    <outputDirectory>docs</outputDirectory>
                     <source>11</source>
-                    <destDir>docs</destDir>
-                    <reportOutputDirectory>${dodona.api}</reportOutputDirectory>
                 </configuration>
             </plugin>
 
