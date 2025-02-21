@@ -36,7 +36,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           branch: gh-pages
-          folder: docs/apidocs
+          folder: api/docs/apidocs
 
   publish:
     name: Publish artifact to GitHub Packages
