@@ -9,6 +9,7 @@
 package io.github.thepieterdc.dodona;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 /**
@@ -21,7 +22,7 @@ final class DodonaClassLoader {
 	 */
 	private DodonaClassLoader() {
 	}
-	
+
 	/**
 	 * Gets a new instance of the given class.
 	 *
@@ -33,12 +34,13 @@ final class DodonaClassLoader {
 	@SuppressWarnings("unchecked")
 	public static <T> T instance(final String fqcn) {
 		try {
-			return (T) load(fqcn).newInstance();
-		} catch (final InstantiationException | IllegalAccessException ex) {
+			return (T) load(fqcn).getDeclaredConstructor().newInstance();
+		} catch (final InstantiationException | IllegalAccessException |
+					   InvocationTargetException | NoSuchMethodException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
 	/**
 	 * Loads the given class.
 	 *
@@ -54,7 +56,7 @@ final class DodonaClassLoader {
 			)
 		);
 	}
-	
+
 	/**
 	 * Loads the given class using the given classloader.
 	 *
@@ -71,7 +73,7 @@ final class DodonaClassLoader {
 			return Optional.empty();
 		}
 	}
-	
+
 	/**
 	 * Loads the given class using the class loader of this class.
 	 *
@@ -83,7 +85,7 @@ final class DodonaClassLoader {
 	private static <T> Optional<Class<T>> loadLocal(final String fqcn) {
 		return load(fqcn, DodonaClassLoader.class.getClassLoader());
 	}
-	
+
 	/**
 	 * Loads the given class using the system class loader.
 	 *
@@ -95,7 +97,7 @@ final class DodonaClassLoader {
 	private static <T> Optional<Class<T>> loadSystem(final String fqcn) {
 		return load(fqcn, ClassLoader.getSystemClassLoader());
 	}
-	
+
 	/**
 	 * Loads the given class using the class loader of the current thread.
 	 *

@@ -10,7 +10,6 @@ package io.github.thepieterdc.dodona.impl.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.thepieterdc.dodona.data.CourseColor;
 import io.github.thepieterdc.dodona.resources.Course;
 
 import javax.annotation.Nonnull;
@@ -23,7 +22,6 @@ import java.util.Optional;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class CourseImpl implements Course {
-	private final CourseColor color;
 	private final long id;
 	private final String name;
 	private final String seriesUrl;
@@ -45,14 +43,12 @@ public final class CourseImpl implements Course {
 	 * @param url       the url
 	 * @param year      the academic year
 	 */
-	public CourseImpl(@JsonProperty("color") final CourseColor color,
-	                  @JsonProperty("id") final long id,
+	public CourseImpl(@JsonProperty("id") final long id,
 	                  @JsonProperty("name") final String name,
 	                  @JsonProperty("series") final String seriesUrl,
 	                  @Nullable @JsonProperty("teacher") final String teacher,
 	                  @JsonProperty("url") final String url,
 	                  @JsonProperty("year") final String year) {
-		this.color = color;
 		this.id = id;
 		this.name = name;
 		this.seriesUrl = seriesUrl;
@@ -74,12 +70,6 @@ public final class CourseImpl implements Course {
 			return this.id == ((Course) o).getId();
 		}
 		return false;
-	}
-	
-	@Override
-	@Nonnull
-	public CourseColor getColor() {
-		return this.color;
 	}
 	
 	@Override

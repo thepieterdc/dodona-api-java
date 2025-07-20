@@ -1,0 +1,11 @@
+services:
+  database:
+    image: mariadb:10.9.6
+    environment:
+      MYSQL_DATABASE: "dodona"
+      MYSQL_ROOT_PASSWORD: "dodona"
+      MYSQL_HOST: "localhost"
+  dodona:
+    image: ghcr.io/dodona-edu/dodona:develop-latest
+    ports:
+      - 3000:3000
