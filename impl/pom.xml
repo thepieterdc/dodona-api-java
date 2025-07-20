@@ -39,9 +39,9 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${findbugs.jsr305.version}</version>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -58,7 +58,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.version}</version>
                 <configuration>
-                    <source>8</source>
+                    <source>11</source>
                 </configuration>
             </plugin>
 

@@ -8,7 +8,6 @@
  */
 package io.github.thepieterdc.dodona.resources;
 
-import io.github.thepieterdc.dodona.data.CourseColor;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -19,14 +18,6 @@ import java.util.regex.Pattern;
  * A course on Dodona.
  */
 public interface Course extends Comparable<Course>, Resource {
-	/**
-	 * Gets the color of the course.
-	 *
-	 * @return the color
-	 */
-	@Nonnull
-	CourseColor getColor();
-	
 	/**
 	 * Parses the id of a course from the url.
 	 *
@@ -39,13 +30,13 @@ public interface Course extends Comparable<Course>, Resource {
 			"https?://.*/courses/(\\d+)",
 			Pattern.CASE_INSENSITIVE
 		);
-		
+
 		return Optional.of(urlPattern.matcher(url))
 			.filter(Matcher::find)
 			.map(matcher -> matcher.group(1))
 			.map(Long::parseLong);
 	}
-	
+
 	/**
 	 * Gets the name of the course.
 	 *
@@ -53,7 +44,7 @@ public interface Course extends Comparable<Course>, Resource {
 	 */
 	@Nonnull
 	String getName();
-	
+
 	/**
 	 * Gets the url to fetch the series of the course.
 	 *
@@ -61,7 +52,7 @@ public interface Course extends Comparable<Course>, Resource {
 	 */
 	@Nonnull
 	String getSeriesUrl();
-	
+
 	/**
 	 * Gets the name of the teacher of the course.
 	 *
@@ -69,7 +60,7 @@ public interface Course extends Comparable<Course>, Resource {
 	 */
 	@Nonnull
 	Optional<String> getTeacher();
-	
+
 	/**
 	 * Gets the academic year this course is taught in.
 	 *
