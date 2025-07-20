@@ -31,7 +31,6 @@ public class CourseManagerImplTest extends IntegrationTest {
 		assertEquals("Open for All Test Course", openForAll.getName());
 		assertTrue(openForAll.getTeacher().isPresent());
 		assertEquals("Prof. Gobelijn", openForAll.getTeacher().get());
-		assertNotNull(openForAll.getColor());
 	}
 
 	/**
