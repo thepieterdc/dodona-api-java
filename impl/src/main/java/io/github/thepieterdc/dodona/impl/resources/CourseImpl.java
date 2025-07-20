@@ -35,7 +35,6 @@ public final class CourseImpl implements Course {
 	/**
 	 * CourseImpl constructor.
 	 *
-	 * @param color     the color of the course
 	 * @param id        the id
 	 * @param name      the name
 	 * @param seriesUrl url to fetch series
