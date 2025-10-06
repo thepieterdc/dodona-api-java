@@ -44,7 +44,7 @@
         <jackson.version>2.19.2</jackson.version>
         <jacoco.version>0.8.13</jacoco.version>
         <jdk.version>11</jdk.version>
-        <junit.version>5.13.3</junit.version>
+        <junit.version>6.0.0</junit.version>
         <maven.compiler.version>3.14.0</maven.compiler.version>
         <maven.jar.version>3.4.2</maven.jar.version>
         <maven.javadoc.version>3.11.2</maven.javadoc.version>
