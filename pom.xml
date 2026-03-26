@@ -41,7 +41,7 @@
 
     <properties>
         <dodona.api>${basedir}</dodona.api>
-        <jackson.version>2.20.1</jackson.version>
+        <jackson.version>2.21.0</jackson.version>
         <jacoco.version>0.8.14</jacoco.version>
         <jdk.version>17</jdk.version>
         <junit.version>6.0.2</junit.version>
