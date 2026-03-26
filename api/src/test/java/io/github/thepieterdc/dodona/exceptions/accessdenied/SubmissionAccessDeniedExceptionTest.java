@@ -26,7 +26,7 @@ public class SubmissionAccessDeniedExceptionTest {
 	@Test
 	public void testGetSubmissionUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final SubmissionAccessDeniedException exception = new SubmissionAccessDeniedException(randomcharacters);
+		final SubmissionAccessDeniedException exception = new SubmissionAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertEquals(exception.getSubmissionUrl(), randomcharacters);
 	}
@@ -37,7 +37,7 @@ public class SubmissionAccessDeniedExceptionTest {
 	@Test
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final SubmissionAccessDeniedException exception = new SubmissionAccessDeniedException(randomcharacters);
+		final SubmissionAccessDeniedException exception = new SubmissionAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertNotNull(exception.toString());
 		assertTrue(exception.toString().contains(SubmissionAccessDeniedException.class.getSimpleName()));

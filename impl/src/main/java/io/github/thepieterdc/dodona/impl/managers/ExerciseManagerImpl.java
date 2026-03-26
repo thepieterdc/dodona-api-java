@@ -31,12 +31,12 @@ import java.util.stream.Collectors;
 public final class ExerciseManagerImpl implements ExerciseManager {
 	private static final String ENDPOINT_ACTIVITIES = "/activities";
 	private static final String ENDPOINT_ACTIVITIES_ID = ENDPOINT_ACTIVITIES + "/%d";
-	
+
 	private static final String ENDPOINT_COURSES_ACTIVITIES_ID = "/courses/%d" + ENDPOINT_ACTIVITIES_ID;
-	
+
 	private final String host;
 	private final HttpClient http;
-	
+
 	/**
 	 * ExerciseManagerImpl constructor.
 	 *
@@ -47,13 +47,13 @@ public final class ExerciseManagerImpl implements ExerciseManager {
 		this.host = host;
 		this.http = http;
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<Exercise> getAll(final Series series) {
 		return this.getAll(series.getExercisesUrl());
 	}
-	
+
 	/**
 	 * Gets all exercises at the given url.
 	 *
@@ -64,7 +64,7 @@ public final class ExerciseManagerImpl implements ExerciseManager {
 	private List<Exercise> getAll(final String url) {
 		final List<Activity> activities = Arrays.asList(this.http
 			.get(url, ActivityImpl[].class)
-			.forbidden(new ActivityAccessDeniedException(url))
+			.forbidden(reason -> new ActivityAccessDeniedException(url, reason))
 			.notFound(new ActivityNotFoundException(url))
 			.resolve());
 		return activities.stream()
@@ -72,50 +72,50 @@ public final class ExerciseManagerImpl implements ExerciseManager {
 			.map(activity -> (Exercise) activity)
 			.collect(Collectors.toList());
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<Exercise> getAll() {
 		return this.getAll(this.url(ENDPOINT_ACTIVITIES));
 	}
-	
+
 	@Override
 	public Exercise get(final long courseId, final long exerciseId) {
 		return this.get(this.url(String.format(ENDPOINT_COURSES_ACTIVITIES_ID, courseId, exerciseId)));
 	}
-	
+
 	@Override
 	public Exercise get(final long exerciseId) {
 		return this.get(this.url(String.format(ENDPOINT_ACTIVITIES_ID, exerciseId)));
 	}
-	
+
 	@Override
 	@Nonnull
 	public Exercise get(@Nonnull final SubmissionInfo submission) {
 		final Long exerciseId = Activity.getId(submission.getExerciseUrl())
 			.orElseThrow(() -> new ActivityNotFoundException(submission.getExerciseUrl()));
-		
+
 		return submission.getCourseUrl().flatMap(Course::getId)
 			.map(courseId -> this.get(courseId, exerciseId))
 			.orElseGet(() -> this.get(exerciseId));
 	}
-	
+
 	@Nonnull
 	@Override
 	public Exercise get(final String url) {
 		final Activity activity = this.http
 			.get(url, ActivityImpl.class)
-			.forbidden(new ActivityAccessDeniedException(url))
+			.forbidden(reason -> new ActivityAccessDeniedException(url, reason))
 			.notFound(new ActivityNotFoundException(url))
 			.resolve();
-		
+
 		if (activity.getType() != ActivityType.EXERCISE) {
 			throw new ActivityNotFoundException(url);
 		}
-		
+
 		return (Exercise) activity;
 	}
-	
+
 	/**
 	 * Prepends the host to the given endpoint.
 	 *

@@ -15,6 +15,7 @@ import io.github.thepieterdc.dodona.resources.Resource;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -26,10 +27,10 @@ abstract class AbstractManagerImpl<T extends Resource> implements ResourceManage
 	private final String host;
 	final HttpClient http;
 	private final Class<? extends T> impl;
-	
-	private final Function<String, ResourceAccessDeniedException> forbidden;
+
+	private final BiFunction<String, String, ResourceAccessDeniedException> forbidden;
 	private final Function<String, ResourceNotFoundException> notFound;
-	
+
 	/**
 	 * AbstractManagerImpl constructor.
 	 *
@@ -41,7 +42,7 @@ abstract class AbstractManagerImpl<T extends Resource> implements ResourceManage
 	 */
 	AbstractManagerImpl(final String host, final HttpClient http,
 	                    final Class<? extends T> impl,
-	                    final Function<String, ResourceAccessDeniedException> forbidden,
+	                    final BiFunction<String, String, ResourceAccessDeniedException> forbidden,
 	                    final Function<String, ResourceNotFoundException> notFound) {
 		this.forbidden = forbidden;
 		this.host = host;
@@ -49,7 +50,7 @@ abstract class AbstractManagerImpl<T extends Resource> implements ResourceManage
 		this.impl = impl;
 		this.notFound = notFound;
 	}
-	
+
 	/**
 	 * Gets a custom response.
 	 *
@@ -61,17 +62,17 @@ abstract class AbstractManagerImpl<T extends Resource> implements ResourceManage
 	@Nonnull
 	<R> R get(final String url, final Class<R> cls) {
 		return this.http.get(url, cls)
-			.forbidden(this.forbidden.apply(url))
+			.forbidden(reason -> this.forbidden.apply(url, reason))
 			.notFound(this.notFound.apply(url))
 			.resolve();
 	}
-	
+
 	@Override
 	@Nonnull
 	public T get(final String url) {
 		return this.get(url, this.impl);
 	}
-	
+
 	/**
 	 * Prepends the host to the given endpoint.
 	 *

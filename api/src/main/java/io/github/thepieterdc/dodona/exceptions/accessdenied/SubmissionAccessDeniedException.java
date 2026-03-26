@@ -9,25 +9,27 @@
 package io.github.thepieterdc.dodona.exceptions.accessdenied;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 
 /**
  * A submission that may not be accessed.
  */
 public final class SubmissionAccessDeniedException extends ResourceAccessDeniedException {
 	private static final long serialVersionUID = -7786597404979494205L;
-	
+
 	private final String url;
-	
+
 	/**
 	 * SubmissionAccessDeniedException constructor.
 	 *
 	 * @param url the url of the submission that may not be accessed
 	 */
-	public SubmissionAccessDeniedException(final String url) {
-		super(String.format("You may not access the submission at url %s.", url));
+	public SubmissionAccessDeniedException(final String url, final @Nullable String reason) {
+		super(reason != null ? reason : String.format("You may not access the submission at url %s.", url));
 		this.url = url;
 	}
-	
+
 	/**
 	 * Gets the url of the submission that may not be accessed.
 	 *
@@ -37,11 +39,11 @@ public final class SubmissionAccessDeniedException extends ResourceAccessDeniedE
 	public String getSubmissionUrl() {
 		return this.url;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {
 		return String.format("SubmissionAccessDeniedException{url=%s}", this.url);
 	}
-	
+
 }

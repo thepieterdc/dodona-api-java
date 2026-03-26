@@ -26,7 +26,7 @@ public class SeriesAccessDeniedExceptionTest {
 	@Test
 	public void testGetSeriesUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters);
+		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertEquals(randomcharacters, exception.getSeriesUrl());
 	}
@@ -37,7 +37,7 @@ public class SeriesAccessDeniedExceptionTest {
 	@Test
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters);
+		final SeriesAccessDeniedException exception = new SeriesAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertNotNull(exception.toString());
 		assertTrue(exception.toString().contains(SeriesAccessDeniedException.class.getSimpleName()));

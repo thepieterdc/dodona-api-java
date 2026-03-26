@@ -26,7 +26,7 @@ public class CourseAccessDeniedExceptionTest {
 	@Test
 	public void testGetCourseUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final CourseAccessDeniedException exception = new CourseAccessDeniedException(randomcharacters);
+		final CourseAccessDeniedException exception = new CourseAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertEquals(randomcharacters, exception.getCourseUrl());
 	}
@@ -37,7 +37,7 @@ public class CourseAccessDeniedExceptionTest {
 	@Test
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final CourseAccessDeniedException exception = new CourseAccessDeniedException(randomcharacters);
+		final CourseAccessDeniedException exception = new CourseAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertNotNull(exception.toString());
 		assertTrue(exception.toString().contains(CourseAccessDeniedException.class.getSimpleName()));

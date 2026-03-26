@@ -26,7 +26,7 @@ public class UserAccessDeniedExceptionTest {
 	@Test
 	public void testGetUserUrl() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final UserAccessDeniedException exception = new UserAccessDeniedException(randomcharacters);
+		final UserAccessDeniedException exception = new UserAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertEquals(randomcharacters, exception.getUserUrl());
 	}
@@ -37,7 +37,7 @@ public class UserAccessDeniedExceptionTest {
 	@Test
 	public void testToString() {
 		final String randomcharacters = String.valueOf(random.nextLong());
-		final UserAccessDeniedException exception = new UserAccessDeniedException(randomcharacters);
+		final UserAccessDeniedException exception = new UserAccessDeniedException(randomcharacters, null);
 		assertNotNull(exception);
 		assertNotNull(exception.toString());
 		assertTrue(exception.toString().contains(UserAccessDeniedException.class.getSimpleName()));

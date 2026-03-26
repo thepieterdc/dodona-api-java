@@ -8,20 +8,21 @@
 package io.github.thepieterdc.http;
 
 import javax.annotation.Nonnull;
+import java.util.function.Function;
 
 /**
  * The response of a HTTP request.
  */
 public interface HttpResponse<T> {
 	/**
-	 * Sets the exception to throw when a HTTP/403 error has occurred.
+	 * Sets the exception factory to invoke when a HTTP/403 error has occurred.
 	 *
-	 * @param exception the exception to throw
+	 * @param exceptionFactory the exception factory to invoke
 	 * @return fluent
 	 */
 	@Nonnull
-	HttpResponse<T> forbidden(RuntimeException exception);
-	
+	HttpResponse<T> forbidden(Function<String, ? extends RuntimeException> exceptionFactory);
+
 	/**
 	 * Sets the exception to throw when a HTTP/404 error has occurred.
 	 *
@@ -30,7 +31,7 @@ public interface HttpResponse<T> {
 	 */
 	@Nonnull
 	HttpResponse<T> notFound(RuntimeException exception);
-	
+
 	/**
 	 * Resolves the current response to the obtained value, optionally invoking
 	 * one of the configured handlers upon errors.
@@ -39,7 +40,7 @@ public interface HttpResponse<T> {
 	 */
 	@Nonnull
 	T resolve();
-	
+
 	/**
 	 * Sets the exception to throw when a HTTP/422 error has occurred.
 	 *
