@@ -41,9 +41,9 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 	private static final String ENDPOINT_EXERCISE_ID = "%s?activity_id=%d";
 	private static final String ENDPOINT_SUBMISSIONS = "/submissions";
 	private static final String ENDPOINT_SUBMISSIONS_ID = ENDPOINT_SUBMISSIONS + "/%d";
-	
+
 	private final Supplier<User> user;
-	
+
 	/**
 	 * SubmissionManager constructor.
 	 *
@@ -55,7 +55,7 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		super(host, http, SubmissionImpl.class, SubmissionAccessDeniedException::new, SubmissionNotFoundException::new);
 		this.user = user;
 	}
-	
+
 	@Override
 	public long create(@Nullable final Course course,
 	                   @Nullable final Series series,
@@ -65,7 +65,7 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		final Long seriesId = Optional.ofNullable(series).map(Resource::getId).orElse(null);
 		return this.create(courseId, seriesId, exercise.getId(), solution);
 	}
-	
+
 	@Override
 	public long create(@Nullable final Long courseId,
 	                   @Nullable final Long seriesId,
@@ -74,33 +74,33 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 		final SubmissionCreateRequestBody request = new SubmissionCreateRequestBody(
 			courseId, seriesId, exerciseId, solution
 		);
-		
+
 		final String url = this.url(ENDPOINT_SUBMISSIONS);
 		return this.http.post(url, request, SubmissionCreatedResponseBody.class)
-			.forbidden(new ActivityAccessDeniedException(url))
+			.forbidden(reason -> new ActivityAccessDeniedException(url, reason))
 			.notFound(new ActivityNotFoundException(url))
 			.resolve()
 			.getId();
 	}
-	
+
 	@Override
 	@Nonnull
 	public Submission get(final long id) {
 		return this.get(url(String.format(ENDPOINT_SUBMISSIONS_ID, id)));
 	}
-	
+
 	@Nonnull
 	@Override
 	public Submission get(final SubmissionInfo info) {
 		return this.get(info.getUrl());
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<SubmissionInfo> getAll(final User user) {
 		return Arrays.asList(this.get(user.getSubmissionsUrl(), SubmissionInfoImpl[].class));
 	}
-	
+
 	@Nonnull
 	@Override
 	public List<SubmissionInfo> getAllByMe() {
@@ -109,30 +109,30 @@ public final class SubmissionManagerImpl extends AbstractManagerImpl<Submission>
 			SubmissionInfoImpl[].class
 		));
 	}
-	
+
 	@Nonnull
 	@Override
 	public List<SubmissionInfo> getAllByMe(final Exercise exercise) {
 		return this.getAllByMe(exercise.getId());
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<SubmissionInfo> getAllByMe(final long courseId, final long exerciseId) {
 		final String endpoint = String.format(ENDPOINT_COURSE_ID_EXERCISE_ID,
 			this.user.get().getSubmissionsUrl(), courseId, exerciseId
 		);
-		
+
 		return Arrays.asList(this.get(endpoint, SubmissionInfoImpl[].class));
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<SubmissionInfo> getAllByMe(final long exerciseId) {
 		final String endpoint = String.format(ENDPOINT_EXERCISE_ID,
 			this.user.get().getSubmissionsUrl(), exerciseId
 		);
-		
+
 		return Arrays.asList(this.get(endpoint, SubmissionInfoImpl[].class));
 	}
 }

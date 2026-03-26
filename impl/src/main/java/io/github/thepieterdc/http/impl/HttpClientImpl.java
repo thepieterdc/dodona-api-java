@@ -8,6 +8,7 @@
 package io.github.thepieterdc.http.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.github.thepieterdc.dodona.exceptions.AuthenticationException;
 import io.github.thepieterdc.http.HttpClient;
 import io.github.thepieterdc.http.HttpResponse;
@@ -15,9 +16,11 @@ import io.github.thepieterdc.http.HttpResponse;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
@@ -25,22 +28,22 @@ import java.util.Optional;
  */
 public final class HttpClientImpl implements HttpClient {
 	private static final int HTTP_UNPROCESSABLE_ENTITY = 422;
-	
+
 	private static final String ACCEPT_HEADER = "Accept";
 	private static final String ACCEPT_VALUE = "application/json";
 	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String CONTENT_TYPE_HEADER = "Content-Type";
 	private static final String CONTENT_TYPE_VALUE = "application/json";
 	private static final String USER_AGENT_HEADER = "User-Agent";
-	
+
 	@Nullable
 	private String authentication = null;
-	
+
 	@Nullable
 	private String userAgent = null;
-	
+
 	private final ObjectMapper mapper;
-	
+
 	/**
 	 * HttpClientImpl constructor.
 	 *
@@ -49,21 +52,21 @@ public final class HttpClientImpl implements HttpClient {
 	public HttpClientImpl(final ObjectMapper mapper) {
 		this.mapper = mapper;
 	}
-	
+
 	@Nonnull
 	@Override
 	public HttpClient authenticate(final String apiToken) {
 		this.authentication = apiToken;
 		return this;
 	}
-	
+
 	@Nonnull
 	@Override
 	public <T> HttpResponse<T> get(final String url, final Class<T> returnCls) {
 		return this.request(url, connection -> {
 		}, returnCls);
 	}
-	
+
 	@Nonnull
 	@Override
 	public <R, T> HttpResponse<T> post(final String url, final R body,
@@ -73,7 +76,7 @@ public final class HttpClientImpl implements HttpClient {
 				connection.setDoOutput(true);
 				connection.setRequestMethod("POST");
 				connection.setRequestProperty(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
-				
+
 				try (final OutputStream out = connection.getOutputStream()) {
 					mapper.writeValue(out, body);
 				}
@@ -82,7 +85,7 @@ public final class HttpClientImpl implements HttpClient {
 			}
 		}, returnCls);
 	}
-	
+
 	/**
 	 * Performs a HTTP request to the given url.
 	 *
@@ -102,16 +105,16 @@ public final class HttpClientImpl implements HttpClient {
 				conn.setRequestProperty(AUTHORIZATION_HEADER, token)
 			);
 			conn.setRequestProperty(USER_AGENT_HEADER, this.userAgent);
-			
+
 			adapter.accept(conn);
-			
+
 			switch (conn.getResponseCode()) {
 				case HttpURLConnection.HTTP_FORBIDDEN:
-					return HttpResponseImpl.forbidden();
-				
+					return HttpResponseImpl.forbidden(readForbiddenReason(conn));
+
 				case HttpURLConnection.HTTP_NOT_FOUND:
 					return HttpResponseImpl.notFound();
-				
+
 				case HttpURLConnection.HTTP_UNAUTHORIZED: {
 					if (this.authentication != null) {
 						return HttpResponseImpl.unauthorized(
@@ -122,10 +125,10 @@ public final class HttpClientImpl implements HttpClient {
 						AuthenticationException.missing()
 					);
 				}
-				
+
 				case HTTP_UNPROCESSABLE_ENTITY:
 					return HttpResponseImpl.unprocessable();
-				
+
 				default:
 					return HttpResponseImpl.of(
 						mapper.readValue(conn.getInputStream(), returnCls)
@@ -135,7 +138,32 @@ public final class HttpClientImpl implements HttpClient {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
+	@Nullable
+	private String readForbiddenReason(final HttpURLConnection conn) {
+		try (final InputStream in = conn.getErrorStream()) {
+			if (in == null) {
+				return null;
+			}
+
+			final String body = new String(in.readAllBytes(), StandardCharsets.UTF_8).trim();
+			if (body.isEmpty()) {
+				return null;
+			}
+
+			final JsonNode node = mapper.readTree(body);
+			final JsonNode error = node.get("error");
+			if (error != null && error.isTextual()) {
+				final String message = error.asText().trim();
+				return message.isEmpty() ? null : message;
+			}
+
+			return null;
+		} catch (final IOException ignored) {
+			return null;
+		}
+	}
+
 	@Nonnull
 	@Override
 	public HttpClient userAgent(final String userAgent) {
