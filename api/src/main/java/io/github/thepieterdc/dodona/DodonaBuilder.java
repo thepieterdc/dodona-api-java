@@ -11,6 +11,7 @@ package io.github.thepieterdc.dodona;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
+import java.util.ServiceLoader;
 
 /**
  * A builder for Dodona clients.
@@ -24,12 +25,14 @@ public interface DodonaBuilder {
 	 */
 	@Nonnull
 	DodonaBuilder authenticate(String token);
-	
+
 	@Nonnull
 	static DodonaBuilder builder() {
-		return DodonaClassLoader.instance("io.github.thepieterdc.dodona.impl.DodonaBuilderImpl");
+		return ServiceLoader.load(DodonaBuilder.class).findFirst().orElseThrow(() ->
+			new IllegalStateException("No DodonaBuilder implementation found on the classpath, add the dodona-api impl artifact.")
+		);
 	}
-	
+
 	/**
 	 * Changes the used HTTP client, to aid testing.
 	 *
@@ -38,7 +41,7 @@ public interface DodonaBuilder {
 	 */
 	@Nonnull
 	DodonaBuilder setHttpClient(HttpClient http);
-	
+
 	/**
 	 * Sets the host url.
 	 *
@@ -47,7 +50,7 @@ public interface DodonaBuilder {
 	 */
 	@Nonnull
 	DodonaBuilder setHost(String host);
-	
+
 	/**
 	 * Sets the user agent.
 	 *
@@ -56,7 +59,7 @@ public interface DodonaBuilder {
 	 */
 	@Nonnull
 	DodonaBuilder setUserAgent(String userAgent);
-	
+
 	/**
 	 * Finalizes the construction.
 	 *

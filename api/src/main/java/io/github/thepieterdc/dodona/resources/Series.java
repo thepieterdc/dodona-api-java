@@ -27,7 +27,7 @@ public interface Series extends Comparable<Series>, Resource {
 	 */
 	@Nonnull
 	String getCourseUrl();
-	
+
 	/**
 	 * Gets the deadline for this series, if any.
 	 *
@@ -35,7 +35,7 @@ public interface Series extends Comparable<Series>, Resource {
 	 */
 	@Nonnull
 	Optional<ZonedDateTime> getDeadline();
-	
+
 	/**
 	 * Gets the description for this series, if the description is non-empty.
 	 *
@@ -43,7 +43,7 @@ public interface Series extends Comparable<Series>, Resource {
 	 */
 	@Nonnull
 	Optional<String> getDescription();
-	
+
 	/**
 	 * Gets the url to fetch the exercises of the series.
 	 *
@@ -51,7 +51,7 @@ public interface Series extends Comparable<Series>, Resource {
 	 */
 	@Nonnull
 	String getExercisesUrl();
-	
+
 	/**
 	 * Parses the id of a series from the url.
 	 *
@@ -64,13 +64,13 @@ public interface Series extends Comparable<Series>, Resource {
 			"https?://.*/series/(\\d+)",
 			Pattern.CASE_INSENSITIVE
 		);
-		
+
 		return Optional.of(urlPattern.matcher(url))
 			.filter(Matcher::find)
 			.map(matcher -> matcher.group(1))
 			.map(Long::parseLong);
 	}
-	
+
 	/**
 	 * Gets the name of the series.
 	 *
@@ -78,14 +78,14 @@ public interface Series extends Comparable<Series>, Resource {
 	 */
 	@Nonnull
 	String getName();
-	
+
 	/**
 	 * Gets the order in which the series should be sorted.
 	 *
 	 * @return the sorting order
 	 */
 	int getOrder();
-	
+
 	/**
 	 * Gets the visibility of the series.
 	 *

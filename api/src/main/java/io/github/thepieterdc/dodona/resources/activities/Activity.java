@@ -27,7 +27,7 @@ public interface Activity extends Resource {
 	 */
 	@Nonnull
 	String getDescriptionFormat();
-	
+
 	/**
 	 * Gets the description url.
 	 *
@@ -35,7 +35,7 @@ public interface Activity extends Resource {
 	 */
 	@Nonnull
 	String getDescriptionUrl();
-	
+
 	/**
 	 * Parses the id of an activity from the url.
 	 *
@@ -48,13 +48,13 @@ public interface Activity extends Resource {
 			"https?://.*/activities/(\\d+)",
 			Pattern.CASE_INSENSITIVE
 		);
-		
+
 		return Optional.of(urlPattern.matcher(url))
 			.filter(Matcher::find)
 			.map(matcher -> matcher.group(1))
 			.map(Long::parseLong);
 	}
-	
+
 	/**
 	 * Gets the name of the activity.
 	 *
@@ -62,7 +62,7 @@ public interface Activity extends Resource {
 	 */
 	@Nonnull
 	String getName();
-	
+
 	/**
 	 * Gets the type of the activity.
 	 *

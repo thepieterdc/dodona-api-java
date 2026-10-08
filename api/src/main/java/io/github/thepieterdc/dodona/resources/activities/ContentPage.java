@@ -21,7 +21,7 @@ public interface ContentPage extends Comparable<ContentPage>, Activity {
 	default ActivityType getType() {
 		return ActivityType.CONTENT_PAGE;
 	}
-	
+
 	/**
 	 * Gets the read status.
 	 *

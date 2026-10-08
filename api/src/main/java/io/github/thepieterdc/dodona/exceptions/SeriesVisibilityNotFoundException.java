@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
  */
 public final class SeriesVisibilityNotFoundException extends DodonaException {
 	private static final long serialVersionUID = -4569955034385436696L;
-	
+
 	private final String visibility;
-	
+
 	/**
 	 * SeriesVisibilityNotFoundException constructor.
 	 *
@@ -27,7 +27,7 @@ public final class SeriesVisibilityNotFoundException extends DodonaException {
 		super(String.format("No visibility was found for \"%s\".", visibility));
 		this.visibility = visibility;
 	}
-	
+
 	/**
 	 * Gets the name of the visibility that was not found.
 	 *
@@ -37,7 +37,7 @@ public final class SeriesVisibilityNotFoundException extends DodonaException {
 	public String getVisibility() {
 		return this.visibility;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {

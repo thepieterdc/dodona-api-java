@@ -24,7 +24,7 @@ import java.util.Optional;
  */
 public final class CourseManagerImpl extends AbstractManagerImpl<Course> implements CourseManager {
 	private static final String ENDPOINT_COURSES = "/courses/%d";
-	
+
 	/**
 	 * CourseManagerImpl constructor.
 	 *
@@ -34,13 +34,13 @@ public final class CourseManagerImpl extends AbstractManagerImpl<Course> impleme
 	public CourseManagerImpl(final String host, final HttpClient http) {
 		super(host, http, CourseImpl.class, CourseAccessDeniedException::new, CourseNotFoundException::new);
 	}
-	
+
 	@Override
 	@Nonnull
 	public Course get(final long id) {
 		return this.get(this.url(String.format(ENDPOINT_COURSES, id)));
 	}
-	
+
 	@Nonnull
 	@Override
 	public Optional<Course> get(@Nonnull final SubmissionInfo submission) {

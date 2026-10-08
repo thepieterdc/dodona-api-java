@@ -28,7 +28,7 @@ public interface DodonaClient {
 	 * The default Dodona host.
 	 */
 	String DEFAULT_HOST = "https://dodona.be";
-	
+
 	/**
 	 * Gets a resource manager for courses.
 	 *
@@ -36,7 +36,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	CourseManager courses();
-	
+
 	/**
 	 * Gets the deadlines for the authenticated user.
 	 *
@@ -44,7 +44,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	Collection<Series> deadlines();
-	
+
 	/**
 	 * Gets a resource manager for exercises.
 	 *
@@ -52,7 +52,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	ExerciseManager exercises();
-	
+
 	/**
 	 * Gets the current user.
 	 *
@@ -60,7 +60,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	User me();
-	
+
 	/**
 	 * Gets the response from querying the root.
 	 *
@@ -68,7 +68,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	RootResponse root();
-	
+
 	/**
 	 * Gets a resource manager for series.
 	 *
@@ -76,7 +76,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	SeriesManager series();
-	
+
 	/**
 	 * Gets a resource manager for submissions.
 	 *
@@ -84,7 +84,7 @@ public interface DodonaClient {
 	 */
 	@Nonnull
 	SubmissionManager submissions();
-	
+
 	/**
 	 * Gets a resource manager for users.
 	 *

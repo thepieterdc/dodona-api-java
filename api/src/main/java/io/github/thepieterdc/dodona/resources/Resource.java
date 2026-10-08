@@ -20,7 +20,7 @@ public interface Resource {
 	 * @return the id
 	 */
 	long getId();
-	
+
 	/**
 	 * Gets the url of this resource.
 	 *

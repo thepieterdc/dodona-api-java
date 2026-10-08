@@ -25,9 +25,9 @@ public enum SubmissionStatus {
 	TIME_LIMIT_EXCEEDED("time limit exceeded"),
 	UNKNOWN("unknown"),
 	WRONG("wrong");
-	
+
 	private final String name;
-	
+
 	/**
 	 * SubmissionStatus constructor.
 	 *
@@ -36,7 +36,7 @@ public enum SubmissionStatus {
 	SubmissionStatus(final String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * Finds a SubmissionStatus given its name.
 	 *
@@ -49,7 +49,7 @@ public enum SubmissionStatus {
 			.findAny()
 			.orElse(UNKNOWN);
 	}
-	
+
 	/**
 	 * Gets the name of the status.
 	 *

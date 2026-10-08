@@ -34,13 +34,13 @@ import java.util.Collection;
 public final class DodonaClientImpl implements DodonaClient {
 	private final String host;
 	private final HttpClient http;
-	
+
 	private final CourseManager courses;
 	private final ExerciseManager exercises;
 	private final SeriesManager series;
 	private final SubmissionManager submissions;
 	private final UserManager users;
-	
+
 	/**
 	 * DodonaClientImpl constructor.
 	 *
@@ -50,56 +50,56 @@ public final class DodonaClientImpl implements DodonaClient {
 	DodonaClientImpl(final String host, final HttpClient http) {
 		this.host = host;
 		this.http = http;
-		
+
 		this.courses = new CourseManagerImpl(host, http);
 		this.exercises = new ExerciseManagerImpl(host, http);
 		this.series = new SeriesManagerImpl(host, http);
 		this.submissions = new SubmissionManagerImpl(host, http, this::me);
 		this.users = new UserManagerImpl(host, http);
 	}
-	
+
 	@Override
 	@Nonnull
 	public CourseManager courses() {
 		return this.courses;
 	}
-	
+
 	@Nonnull
 	@Override
 	public Collection<Series> deadlines() {
 		return this.root().getDeadlineSeries();
 	}
-	
+
 	@Override
 	@Nonnull
 	public ExerciseManager exercises() {
 		return this.exercises;
 	}
-	
+
 	@Override
 	@Nonnull
 	public User me() {
 		return this.root().getUser();
 	}
-	
+
 	@Nonnull
 	@Override
 	public RootResponse root() {
 		return this.http.get(this.host, RootResponseImpl.class).resolve();
 	}
-	
+
 	@Override
 	@Nonnull
 	public SeriesManager series() {
 		return this.series;
 	}
-	
+
 	@Override
 	@Nonnull
 	public SubmissionManager submissions() {
 		return this.submissions;
 	}
-	
+
 	@Override
 	@Nonnull
 	public UserManager users() {

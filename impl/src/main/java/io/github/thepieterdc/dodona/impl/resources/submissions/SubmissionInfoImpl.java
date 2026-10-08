@@ -25,16 +25,16 @@ import java.util.Optional;
 public final class SubmissionInfoImpl implements SubmissionInfo {
 	private final boolean accepted;
 	private final ZonedDateTime createdAt;
-	
+
 	@Nullable
 	private final String courseUrl;
-	
+
 	private final String exerciseUrl;
 	private final long id;
 	private final SubmissionStatus status;
 	private final String summary;
 	private final String url;
-	
+
 	/**
 	 * PartialSubmissionImpl constructor.
 	 *
@@ -64,58 +64,58 @@ public final class SubmissionInfoImpl implements SubmissionInfo {
 		this.summary = summary;
 		this.url = url;
 	}
-	
+
 	@Override
 	public int compareTo(final SubmissionInfo o) {
 		return this.createdAt.compareTo(o.getCreatedAt());
 	}
-	
+
 	@Override
 	@Nonnull
 	public Optional<String> getCourseUrl() {
 		return Optional.ofNullable(this.courseUrl);
 	}
-	
+
 	@Override
 	@Nonnull
 	public ZonedDateTime getCreatedAt() {
 		return this.createdAt;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getExerciseUrl() {
 		return this.exerciseUrl;
 	}
-	
+
 	@Override
 	public long getId() {
 		return this.id;
 	}
-	
+
 	@Override
 	@Nonnull
 	public SubmissionStatus getStatus() {
 		return this.status;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getSummary() {
 		return this.summary;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
 	}
-	
+
 	@Override
 	public boolean isAccepted() {
 		return this.accepted;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("SubmissionInfo{id=%d, status=%s}", this.id, this.status);

@@ -7,8 +7,8 @@
  */
 package io.github.thepieterdc.http.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.thepieterdc.dodona.exceptions.AuthenticationException;
 import io.github.thepieterdc.http.HttpClient;
 import io.github.thepieterdc.http.HttpResponse;
@@ -17,11 +17,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 /**
  * Implementation of a HttpClient.
@@ -42,12 +43,16 @@ public final class HttpClientImpl implements HttpClient {
 	@Nullable
 	private String userAgent = null;
 
+	private final java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
+		.followRedirects(java.net.http.HttpClient.Redirect.NORMAL)
+		.build();
+
 	private final ObjectMapper mapper;
 
 	/**
 	 * HttpClientImpl constructor.
 	 *
-	 * @param mapper object mapper
+	 * @param mapper the object mapper to (de)serialize bodies with
 	 */
 	public HttpClientImpl(final ObjectMapper mapper) {
 		this.mapper = mapper;
@@ -63,96 +68,81 @@ public final class HttpClientImpl implements HttpClient {
 	@Nonnull
 	@Override
 	public <T> HttpResponse<T> get(final String url, final Class<T> returnCls) {
-		return this.request(url, connection -> {
-		}, returnCls);
+		return this.request(this.newRequest(url).GET(), returnCls);
 	}
 
 	@Nonnull
 	@Override
 	public <R, T> HttpResponse<T> post(final String url, final R body,
 	                                   final Class<T> returnCls) {
-		return this.request(url, connection -> {
-			try {
-				connection.setDoOutput(true);
-				connection.setRequestMethod("POST");
-				connection.setRequestProperty(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
-
-				try (final OutputStream out = connection.getOutputStream()) {
-					mapper.writeValue(out, body);
-				}
-			} catch (final IOException ex) {
-				throw new RuntimeException(ex);
-			}
-		}, returnCls);
-	}
-
-	/**
-	 * Performs a HTTP request to the given url.
-	 *
-	 * @param url       the url
-	 * @param adapter   the connection adapter
-	 * @param returnCls the class of the response
-	 * @return the response parsed as T
-	 */
-	@Nonnull
-	private <T> HttpResponse<T> request(final String url,
-	                                    final Adapter adapter,
-	                                    final Class<T> returnCls) {
 		try {
-			final HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-			conn.setRequestProperty(ACCEPT_HEADER, ACCEPT_VALUE);
-			Optional.ofNullable(this.authentication).ifPresent(token ->
-				conn.setRequestProperty(AUTHORIZATION_HEADER, token)
+			return this.request(
+				this.newRequest(url)
+					.header(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE)
+					.POST(BodyPublishers.ofByteArray(mapper.writeValueAsBytes(body))),
+				returnCls
 			);
-			conn.setRequestProperty(USER_AGENT_HEADER, this.userAgent);
-
-			adapter.accept(conn);
-
-			switch (conn.getResponseCode()) {
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					return HttpResponseImpl.forbidden(readForbiddenReason(conn));
-
-				case HttpURLConnection.HTTP_NOT_FOUND:
-					return HttpResponseImpl.notFound();
-
-				case HttpURLConnection.HTTP_UNAUTHORIZED: {
-					if (this.authentication != null) {
-						return HttpResponseImpl.unauthorized(
-							AuthenticationException.invalid()
-						);
-					}
-					return HttpResponseImpl.unauthorized(
-						AuthenticationException.missing()
-					);
-				}
-
-				case HTTP_UNPROCESSABLE_ENTITY:
-					return HttpResponseImpl.unprocessable();
-
-				default:
-					return HttpResponseImpl.of(
-						mapper.readValue(conn.getInputStream(), returnCls)
-					);
-			}
 		} catch (final IOException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
 
-	@Nullable
-	private String readForbiddenReason(final HttpURLConnection conn) {
-		try (final InputStream in = conn.getErrorStream()) {
-			if (in == null) {
-				return null;
-			}
+	@Nonnull
+	private HttpRequest.Builder newRequest(final String url) {
+		final HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url))
+			.header(ACCEPT_HEADER, ACCEPT_VALUE);
+		if (this.authentication != null) {
+			builder.header(AUTHORIZATION_HEADER, this.authentication);
+		}
+		if (this.userAgent != null) {
+			builder.header(USER_AGENT_HEADER, this.userAgent);
+		}
+		return builder;
+	}
 
+	@Nonnull
+	private <T> HttpResponse<T> request(final HttpRequest.Builder request,
+	                                    final Class<T> returnCls) {
+		try {
+			final java.net.http.HttpResponse<InputStream> response =
+				this.client.send(request.build(), BodyHandlers.ofInputStream());
+
+			try (final InputStream in = response.body()) {
+				return switch (response.statusCode()) {
+					case HttpURLConnection.HTTP_FORBIDDEN ->
+						HttpResponseImpl.forbidden(readForbiddenReason(in));
+					case HttpURLConnection.HTTP_NOT_FOUND -> HttpResponseImpl.notFound();
+					case HttpURLConnection.HTTP_UNAUTHORIZED -> HttpResponseImpl.unauthorized(
+						this.authentication != null
+							? AuthenticationException.invalid()
+							: AuthenticationException.missing()
+					);
+					case HTTP_UNPROCESSABLE_ENTITY -> HttpResponseImpl.unprocessable();
+					default -> {
+						if (response.statusCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
+							throw new IOException("Unexpected HTTP status " + response.statusCode());
+						}
+						yield HttpResponseImpl.of(mapper.readValue(in, returnCls));
+					}
+				};
+			}
+		} catch (final IOException ex) {
+			throw new RuntimeException(ex);
+		} catch (final InterruptedException ex) {
+			Thread.currentThread().interrupt();
+			throw new RuntimeException(ex);
+		}
+	}
+
+	@Nullable
+	private String readForbiddenReason(final InputStream in) {
+		try {
 			final String body = new String(in.readAllBytes(), StandardCharsets.UTF_8).trim();
 			if (body.isEmpty()) {
 				return null;
 			}
 
-			final JsonNode node = mapper.readTree(body);
-			final JsonNode error = node.get("error");
+			final JsonNode error = mapper.readTree(body).get("error");
 			if (error != null && error.isTextual()) {
 				final String message = error.asText().trim();
 				return message.isEmpty() ? null : message;

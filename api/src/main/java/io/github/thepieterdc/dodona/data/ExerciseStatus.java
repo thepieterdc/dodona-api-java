@@ -32,9 +32,9 @@ public enum ExerciseStatus {
 	 * The exercise has not yet been attempted.
 	 */
 	NOT_ATTEMPTED(b -> false);
-	
+
 	private final Predicate<Byte> mask;
-	
+
 	/**
 	 * Masks used in the exercise statuses.
 	 */
@@ -43,13 +43,13 @@ public enum ExerciseStatus {
 		private static final byte HAS_CORRECT_SOLUTION = 1 << 2;
 		private static final byte HAS_SOLUTION = 1 << 1;
 		private static final byte LAST_SOLUTION_IS_BEST = 1;
-		
+
 		// Masks.
 		private static final byte MASK_CORRECT = (HAS_CORRECT_SOLUTION | HAS_SOLUTION | LAST_SOLUTION_IS_BEST);
 		private static final byte MASK_HAS_BEEN_CORRECT = (HAS_CORRECT_SOLUTION | HAS_SOLUTION);
 		private static final byte MASK_INCORRECT = HAS_SOLUTION;
 	}
-	
+
 	/**
 	 * ExerciseStatus constructor.
 	 *
@@ -58,7 +58,7 @@ public enum ExerciseStatus {
 	ExerciseStatus(final Predicate<Byte> mask) {
 		this.mask = mask;
 	}
-	
+
 	/**
 	 * Finds an ExerciseStatus given the values of the exercise.
 	 *
@@ -74,7 +74,7 @@ public enum ExerciseStatus {
 		final byte mask = (byte) ((hasCorrectSolution ? Masks.HAS_CORRECT_SOLUTION : 0)
 			| (hasSolution ? Masks.HAS_SOLUTION : 0)
 			| (lastSolutionIsBest ? Masks.LAST_SOLUTION_IS_BEST : 0));
-		
+
 		return Arrays.stream(ExerciseStatus.values())
 			.filter(status -> status.mask.test(mask))
 			.findAny()

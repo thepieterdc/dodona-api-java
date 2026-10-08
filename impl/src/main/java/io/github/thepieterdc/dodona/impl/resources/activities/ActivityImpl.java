@@ -23,13 +23,13 @@ import java.util.Objects;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 public abstract class ActivityImpl implements Activity {
 	private final long id;
-	
+
 	private final String descriptionFormat;
 	private final String descriptionUrl;
 	private final String name;
-	
+
 	private final String url;
-	
+
 	/**
 	 * ActivityImpl constructor.
 	 *
@@ -50,7 +50,7 @@ public abstract class ActivityImpl implements Activity {
 		this.name = name;
 		this.url = url;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -59,41 +59,41 @@ public abstract class ActivityImpl implements Activity {
 		}
 		return false;
 	}
-	
+
 	@Nonnull
 	@Override
 	public String getDescriptionFormat() {
 		return this.descriptionFormat;
 	}
-	
+
 	@Nonnull
 	@Override
 	public String getDescriptionUrl() {
 		return this.descriptionUrl;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.id);
 	}
-	
+
 	@Override
 	public long getId() {
 		return this.id;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getName() {
 		return this.name;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Activity{id=%d, name=%s}", this.id, this.name);

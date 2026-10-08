@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
  */
 public final class CourseColorNotFoundException extends DodonaException {
 	private static final long serialVersionUID = -4335785034385436696L;
-	
+
 	private final String color;
-	
+
 	/**
 	 * CourseColorNotFoundException constructor.
 	 *
@@ -27,7 +27,7 @@ public final class CourseColorNotFoundException extends DodonaException {
 		super(String.format("No color was found for \"%s\".", color));
 		this.color = color;
 	}
-	
+
 	/**
 	 * Gets the name of the color that was not found.
 	 *
@@ -37,7 +37,7 @@ public final class CourseColorNotFoundException extends DodonaException {
 	public String getColor() {
 		return this.color;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {

@@ -18,7 +18,7 @@ import io.github.thepieterdc.dodona.resources.activities.ContentPage;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class ContentPageImpl extends ActivityImpl implements ContentPage {
 	private final boolean hasRead;
-	
+
 	/**
 	 * ContentPageImpl constructor.
 	 *
@@ -38,17 +38,17 @@ public final class ContentPageImpl extends ActivityImpl implements ContentPage {
 		super(descriptionFormat, descriptionUrl, id, name, url);
 		this.hasRead = hasRead;
 	}
-	
+
 	@Override
 	public int compareTo(final ContentPage o) {
 		return this.getName().compareToIgnoreCase(o.getName());
 	}
-	
+
 	@Override
 	public boolean hasRead() {
 		return this.hasRead;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("ContentPage{id=%d, name=%s, read=%s}", this.getId(), this.getName(), this.hasRead);

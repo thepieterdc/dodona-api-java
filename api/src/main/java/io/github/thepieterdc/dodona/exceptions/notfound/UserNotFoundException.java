@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
  */
 public final class UserNotFoundException extends ResourceNotFoundException {
 	private static final long serialVersionUID = -5657758818250445087L;
-	
+
 	private final String url;
-	
+
 	/**
 	 * UserNotFoundException constructor.
 	 *
@@ -27,7 +27,7 @@ public final class UserNotFoundException extends ResourceNotFoundException {
 		super(String.format("No user was found at the given url: %s.", url));
 		this.url = url;
 	}
-	
+
 	/**
 	 * Gets the url of the user that can not be found.
 	 *
@@ -36,7 +36,7 @@ public final class UserNotFoundException extends ResourceNotFoundException {
 	public String getUserUrl() {
 		return this.url;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {

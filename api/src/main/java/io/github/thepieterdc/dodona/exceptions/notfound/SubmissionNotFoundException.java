@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
  */
 public final class SubmissionNotFoundException extends ResourceNotFoundException {
 	private static final long serialVersionUID = -5007531677210087562L;
-	
+
 	private final String url;
-	
+
 	/**
 	 * SubmissionNotFoundException constructor.
 	 *
@@ -27,7 +27,7 @@ public final class SubmissionNotFoundException extends ResourceNotFoundException
 		super(String.format("No submission was found at the given url: %s.", url));
 		this.url = url;
 	}
-	
+
 	/**
 	 * Gets the url of the submission that can not be found.
 	 *
@@ -36,7 +36,7 @@ public final class SubmissionNotFoundException extends ResourceNotFoundException
 	public String getSubmissionUrl() {
 		return this.url;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {

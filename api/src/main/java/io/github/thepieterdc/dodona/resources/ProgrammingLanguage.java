@@ -21,7 +21,7 @@ public interface ProgrammingLanguage extends Comparable<ProgrammingLanguage>, Re
 	 */
 	@Nonnull
 	String getExtension();
-	
+
 	/**
 	 * Gets the name of the programming language.
 	 *

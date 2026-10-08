@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public final class AuthenticationException extends DodonaException {
 	static final String INVALID = "An invalid API token was provided.";
 	static final String MISSING = "No API token was provided.";
-	
+
 	/**
 	 * AuthenticationException constructor.
 	 *
@@ -25,7 +25,7 @@ public final class AuthenticationException extends DodonaException {
 	private AuthenticationException(final String message) {
 		super(message);
 	}
-	
+
 	/**
 	 * Generates an exception stating that there was an API token provided, but
 	 * it was invalid.
@@ -36,7 +36,7 @@ public final class AuthenticationException extends DodonaException {
 	public static AuthenticationException invalid() {
 		return new AuthenticationException(INVALID);
 	}
-	
+
 	/**
 	 * Generates an exception stating that there was no API token provided.
 	 *
@@ -46,7 +46,7 @@ public final class AuthenticationException extends DodonaException {
 	public static AuthenticationException missing() {
 		return new AuthenticationException(MISSING);
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("AuthenticationException: %s", this.getMessage());

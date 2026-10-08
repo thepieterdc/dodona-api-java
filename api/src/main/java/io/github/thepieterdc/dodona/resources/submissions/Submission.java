@@ -26,7 +26,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	String getCode();
-	
+
 	/**
 	 * Gets the url of the course of this submission.
 	 *
@@ -34,7 +34,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	Optional<String> getCourseUrl();
-	
+
 	/**
 	 * Gets the creation (submission) timestamp.
 	 *
@@ -42,7 +42,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	ZonedDateTime getCreatedAt();
-	
+
 	/**
 	 * Gets the url of the exercise of this submission.
 	 *
@@ -50,7 +50,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	String getExerciseUrl();
-	
+
 	/**
 	 * Gets the submission info from the current submission.
 	 *
@@ -58,7 +58,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	SubmissionInfo getInfo();
-	
+
 	/**
 	 * Gets the status of the submission.
 	 *
@@ -66,7 +66,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	SubmissionStatus getStatus();
-	
+
 	/**
 	 * Gets the summary of the submission.
 	 *
@@ -74,7 +74,7 @@ public interface Submission extends Comparable<Submission>, Resource {
 	 */
 	@Nonnull
 	String getSummary();
-	
+
 	/**
 	 * Gets whether this submission was accepted or not.
 	 *

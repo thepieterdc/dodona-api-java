@@ -35,23 +35,23 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 	private String host = DEFAULT_HOST;
 	private HttpClient http;
 	private String userAgent = "DodonaApi/" + getClass().getPackage().getImplementationVersion();
-	
+
 	private static final ObjectMapper mapper = createMapper();
-	
+
 	/**
 	 * DodonaBuilderImpl constructor.
 	 */
 	public DodonaBuilderImpl() {
 		this.http = new HttpClientImpl(mapper);
 	}
-	
+
 	@Override
 	@Nonnull
 	public DodonaBuilder authenticate(final String token) {
 		this.apiToken = token;
 		return this;
 	}
-	
+
 	@Override
 	@Nonnull
 	public DodonaClient build() {
@@ -60,7 +60,7 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 			this.http.authenticate(apiToken).userAgent(this.userAgent)
 		);
 	}
-	
+
 	private static ObjectMapper createMapper() {
 		final ObjectMapper mapper = new ObjectMapper()
 			.enable(SerializationFeature.WRAP_ROOT_VALUE)
@@ -73,21 +73,21 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 		);
 		return mapper;
 	}
-	
+
 	@Override
 	@Nonnull
 	public DodonaBuilder setHost(final String url) {
 		this.host = url;
 		return this;
 	}
-	
+
 	@Override
 	@Nonnull
 	public DodonaBuilder setHttpClient(final HttpClient http) {
 		this.http = http;
 		return this;
 	}
-	
+
 	@Override
 	@Nonnull
 	public DodonaBuilder setUserAgent(final String userAgent) {

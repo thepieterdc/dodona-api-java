@@ -15,7 +15,7 @@ import io.github.thepieterdc.dodona.exceptions.DodonaException;
  */
 public final class UnprocessableEntityException extends DodonaException {
 	private static final long serialVersionUID = -2066370516837975536L;
-	
+
 	/**
 	 * UnprocessableEntityException constructor.
 	 */

@@ -21,7 +21,7 @@ public interface User extends Comparable<User>, Resource {
 	 * @return the amount of correct exercises
 	 */
 	long getCorrectExercises();
-	
+
 	/**
 	 * Gets the email address of the user.
 	 *
@@ -29,7 +29,7 @@ public interface User extends Comparable<User>, Resource {
 	 */
 	@Nonnull
 	String getEmail();
-	
+
 	/**
 	 * Gets the first name of the user.
 	 *
@@ -37,7 +37,7 @@ public interface User extends Comparable<User>, Resource {
 	 */
 	@Nonnull
 	String getFirstName();
-	
+
 	/**
 	 * Gets the last name of the user.
 	 *
@@ -45,14 +45,14 @@ public interface User extends Comparable<User>, Resource {
 	 */
 	@Nonnull
 	String getLastName();
-	
+
 	/**
 	 * Gets the amount of submissions made by the user.
 	 *
 	 * @return the amount of submissions
 	 */
 	long getSubmissionCount();
-	
+
 	/**
 	 * Gets the url to fetch the submissions of the user.
 	 *
@@ -60,7 +60,7 @@ public interface User extends Comparable<User>, Resource {
 	 */
 	@Nonnull
 	String getSubmissionsUrl();
-	
+
 	/**
 	 * Gets the subscribed courses of the user.
 	 *

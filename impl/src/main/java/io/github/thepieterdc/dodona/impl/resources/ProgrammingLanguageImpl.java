@@ -23,7 +23,7 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 	private final String extension;
 	private final long id;
 	private final String name;
-	
+
 	/**
 	 * ProgrammingLanguageImpl constructor.
 	 *
@@ -38,12 +38,12 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	@Override
 	public int compareTo(final ProgrammingLanguage o) {
 		return this.name.compareToIgnoreCase(o.getName());
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -52,35 +52,35 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 		}
 		return false;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getExtension() {
 		return this.extension;
 	}
-	
+
 	@Override
 	public long getId() {
 		return this.id;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getName() {
 		return this.name;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getUrl() {
 		return String.format("https://dodona.be/en/programming_languages/%d.json", this.id);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.id);
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("ProgrammingLanguage{id=%d, name=%s}", this.id, this.name);

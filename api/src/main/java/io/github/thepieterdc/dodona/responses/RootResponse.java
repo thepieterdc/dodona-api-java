@@ -25,7 +25,7 @@ public interface RootResponse {
 	 */
 	@Nonnull
 	Collection<Series> getDeadlineSeries();
-	
+
 	/**
 	 * Gets the current user.
 	 *

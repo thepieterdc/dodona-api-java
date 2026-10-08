@@ -18,9 +18,9 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup Java
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         distribution: 'zulu'
         java-version: ${{ matrix.java }}
@@ -28,7 +28,7 @@ jobs:
         server-password: GITHUB_PACKAGES_TOKEN
         server-username: thepieterdc
     - name: Cache the dependencies
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -39,6 +39,6 @@ jobs:
       env:
         GITHUB_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
     - name: Upload the coverage report
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}

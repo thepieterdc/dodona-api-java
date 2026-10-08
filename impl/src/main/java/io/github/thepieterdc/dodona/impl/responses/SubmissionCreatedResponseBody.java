@@ -18,11 +18,11 @@ import javax.annotation.Nonnull;
 public final class SubmissionCreatedResponseBody {
 	private final long courseId;
 	private final long exerciseId;
-	
+
 	private final long id;
 	private final String status;
 	private final String url;
-	
+
 	/**
 	 * SubmissionCreatedResponseBody constructor.
 	 *
@@ -43,7 +43,7 @@ public final class SubmissionCreatedResponseBody {
 		this.status = status;
 		this.url = url;
 	}
-	
+
 	/**
 	 * Gets the id of the course.
 	 *
@@ -52,7 +52,7 @@ public final class SubmissionCreatedResponseBody {
 	public long getCourseId() {
 		return this.courseId;
 	}
-	
+
 	/**
 	 * Gets the id of the exercise.
 	 *
@@ -61,7 +61,7 @@ public final class SubmissionCreatedResponseBody {
 	public long getExerciseId() {
 		return this.exerciseId;
 	}
-	
+
 	/**
 	 * Gets the id of the submission.
 	 *
@@ -70,7 +70,7 @@ public final class SubmissionCreatedResponseBody {
 	public long getId() {
 		return this.id;
 	}
-	
+
 	/**
 	 * Gets the status of the submission.
 	 *
@@ -80,7 +80,7 @@ public final class SubmissionCreatedResponseBody {
 	public String getStatus() {
 		return this.status;
 	}
-	
+
 	/**
 	 * Gets the url of the submission.
 	 *
@@ -90,7 +90,7 @@ public final class SubmissionCreatedResponseBody {
 	public String getUrl() {
 		return this.url;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("SubmissionCreatedResponseBody{id=%d}", this.id);

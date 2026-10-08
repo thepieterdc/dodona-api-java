@@ -27,7 +27,7 @@ import java.util.Collection;
 public final class RootResponseImpl implements RootResponse {
 	private final SeriesImpl[] deadlineSeries;
 	private final User user;
-	
+
 	/**
 	 * RootResponse constructor.
 	 *
@@ -39,13 +39,13 @@ public final class RootResponseImpl implements RootResponse {
 		this.deadlineSeries = deadlineSeries;
 		this.user = user;
 	}
-	
+
 	@Override
 	@Nonnull
 	public Collection<Series> getDeadlineSeries() {
 		return Arrays.asList(this.deadlineSeries);
 	}
-	
+
 	@Override
 	@Nonnull
 	public User getUser() {

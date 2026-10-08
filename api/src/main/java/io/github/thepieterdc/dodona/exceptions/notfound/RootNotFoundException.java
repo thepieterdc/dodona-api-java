@@ -15,14 +15,14 @@ import javax.annotation.Nonnull;
  */
 public final class RootNotFoundException extends ResourceNotFoundException {
 	private static final long serialVersionUID = 9122563357642441749L;
-	
+
 	/**
 	 * RootNotFoundException constructor.
 	 */
 	public RootNotFoundException() {
 		super("The root could not be queried. You should never receive this error, please report this.");
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {
