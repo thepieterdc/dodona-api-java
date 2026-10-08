@@ -96,3 +96,7 @@ jobs:
           pr_body: Merge the maven release commits into the main branch.
           pr_title: Release ${{ steps.version.outputs.version }}
           source_branch: release
+      - name: Enable auto-merge on the pull request
+        run: gh pr merge release --auto --squash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
