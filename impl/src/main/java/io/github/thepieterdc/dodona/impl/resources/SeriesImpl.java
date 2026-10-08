@@ -34,7 +34,7 @@ public final class SeriesImpl implements Series {
 	private final int order;
 	private final String url;
 	private final SeriesVisibility visibility;
-	
+
 	/**
 	 * SeriesImpl constructor.
 	 *
@@ -67,12 +67,12 @@ public final class SeriesImpl implements Series {
 		this.url = url;
 		this.visibility = visibility;
 	}
-	
+
 	@Override
 	public int compareTo(final Series o) {
 		return this.order - o.getOrder();
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -81,64 +81,64 @@ public final class SeriesImpl implements Series {
 		}
 		return false;
 	}
-	
+
 	@Nonnull
 	@Override
 	public String getCourseUrl() {
 		return this.courseUrl;
 	}
-	
+
 	@Override
 	@Nonnull
 	public Optional<ZonedDateTime> getDeadline() {
 		return Optional.ofNullable(this.deadline);
 	}
-	
+
 	@Override
 	@Nonnull
 	public Optional<String> getDescription() {
 		return Optional.of(this.description).filter(s -> !s.isEmpty());
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getExercisesUrl() {
 		return this.exercisesUrl;
 	}
-	
+
 	@Override
 	public long getId() {
 		return this.id;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getName() {
 		return this.name;
 	}
-	
+
 	@Override
 	public int getOrder() {
 		return this.order;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
 	}
-	
+
 	@Override
 	@Nonnull
 	public SeriesVisibility getVisibility() {
 		return this.visibility;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.id);
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Series{id=%d, name=%s}", this.id, this.name);

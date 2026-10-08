@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
  */
 public final class ActivityNotFoundException extends ResourceNotFoundException {
 	private static final long serialVersionUID = -7563952852777465712L;
-	
+
 	private final String url;
-	
+
 	/**
 	 * ActivityNotFoundException constructor.
 	 *
@@ -27,7 +27,7 @@ public final class ActivityNotFoundException extends ResourceNotFoundException {
 		super(String.format("No activity was found at the given url: %s.", url));
 		this.url = url;
 	}
-	
+
 	/**
 	 * Gets the url of the activity that can not be found.
 	 *
@@ -36,7 +36,7 @@ public final class ActivityNotFoundException extends ResourceNotFoundException {
 	public String getActivityUrl() {
 		return this.url;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String toString() {

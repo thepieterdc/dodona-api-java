@@ -25,13 +25,13 @@ public final class CourseImpl implements Course {
 	private final long id;
 	private final String name;
 	private final String seriesUrl;
-	
+
 	@Nullable
 	private final String teacher;
-	
+
 	private final String url;
 	private final String year;
-	
+
 	/**
 	 * CourseImpl constructor.
 	 *
@@ -55,13 +55,13 @@ public final class CourseImpl implements Course {
 		this.url = url;
 		this.year = year;
 	}
-	
+
 	@Override
 	public int compareTo(Course o) {
 		final int compareYear = this.year.compareTo(o.getYear());
 		return compareYear != 0 ? compareYear : this.name.compareToIgnoreCase(o.getName());
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -70,47 +70,47 @@ public final class CourseImpl implements Course {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public long getId() {
 		return this.id;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getName() {
 		return this.name;
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getSeriesUrl() {
 		return this.seriesUrl;
 	}
-	
+
 	@Override
 	@Nonnull
 	public Optional<String> getTeacher() {
 		return Optional.ofNullable(this.teacher);
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
 	}
-	
+
 	@Override
 	@Nonnull
 	public String getYear() {
 		return this.year;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.id);
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Course{id=%d, name=%s}", this.id, this.name);

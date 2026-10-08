@@ -33,7 +33,7 @@ public final class SeriesManagerImpl extends AbstractManagerImpl<Series> impleme
 	public SeriesManagerImpl(final String host, final HttpClient http) {
 		super(host, http, SeriesImpl.class, SeriesAccessDeniedException::new, SeriesNotFoundException::new);
 	}
-	
+
 	@Override
 	@Nonnull
 	public List<Series> getAll(final Course course) {

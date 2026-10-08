@@ -34,7 +34,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	long create(@Nullable Course course, @Nullable Series series,
 	            Exercise exercise, String solution);
-	
+
 	/**
 	 * Submits the given code to the given exercise.
 	 *
@@ -45,7 +45,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 * @return the id of the created submission
 	 */
 	long create(@Nullable Long courseId, @Nullable Long seriesId, long exerciseId, String solution);
-	
+
 	/**
 	 * Gets the submission with the given id.
 	 *
@@ -54,7 +54,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	Submission get(long id);
-	
+
 	/**
 	 * Gets the full submission, given its info.
 	 *
@@ -63,7 +63,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	Submission get(SubmissionInfo info);
-	
+
 	/**
 	 * Gets all submissions of a given user, sorted by creation timestamp.
 	 *
@@ -72,7 +72,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	List<SubmissionInfo> getAll(User user);
-	
+
 	/**
 	 * Gets all submissions by the current user.
 	 *
@@ -80,7 +80,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	List<SubmissionInfo> getAllByMe();
-	
+
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
 	 *
@@ -89,7 +89,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	List<SubmissionInfo> getAllByMe(Exercise exercise);
-	
+
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
 	 *
@@ -99,7 +99,7 @@ public interface SubmissionManager extends ResourceManager<Submission> {
 	 */
 	@Nonnull
 	List<SubmissionInfo> getAllByMe(long course, long exerciseId);
-	
+
 	/**
 	 * Gets all submissions to a given exercise, for the current user.
 	 *

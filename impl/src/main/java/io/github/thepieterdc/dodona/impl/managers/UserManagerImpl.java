@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  */
 public final class UserManagerImpl extends AbstractManagerImpl<User> implements UserManager {
 	private static final String ENDPOINT_USERS = "/users/%d";
-	
+
 	/**
 	 * UserManagerImpl constructor.
 	 *
@@ -32,7 +32,7 @@ public final class UserManagerImpl extends AbstractManagerImpl<User> implements 
 	public UserManagerImpl(final String host, final HttpClient http) {
 		super(host, http, UserImpl.class, UserAccessDeniedException::new, UserNotFoundException::new);
 	}
-	
+
 	@Override
 	@Nonnull
 	public User get(final long id) {

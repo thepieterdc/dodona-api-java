@@ -26,7 +26,7 @@ public interface CourseManager extends ResourceManager<Course> {
 	 */
 	@Nonnull
 	Course get(long id);
-	
+
 	/**
 	 * Gets the course of a given submission, if the submission contains a
 	 * course.

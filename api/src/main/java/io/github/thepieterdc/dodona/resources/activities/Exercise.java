@@ -26,7 +26,7 @@ public interface Exercise extends Comparable<Exercise>, Activity {
 	 */
 	@Nonnull
 	Optional<String> getBoilerplate();
-	
+
 	/**
 	 * Gets the programming language of this exercise. This is optional since
 	 * not every exercise contains this property.
@@ -35,7 +35,7 @@ public interface Exercise extends Comparable<Exercise>, Activity {
 	 */
 	@Nonnull
 	Optional<ProgrammingLanguage> getProgrammingLanguage();
-	
+
 	/**
 	 * Gets the status of this exercise.
 	 *
@@ -43,13 +43,13 @@ public interface Exercise extends Comparable<Exercise>, Activity {
 	 */
 	@Nonnull
 	ExerciseStatus getStatus();
-	
+
 	@Nonnull
 	@Override
 	default ActivityType getType() {
 		return ActivityType.EXERCISE;
 	}
-	
+
 	/**
 	 * Gets whether this exercise has been solved correctly in the past.
 	 *
@@ -57,14 +57,14 @@ public interface Exercise extends Comparable<Exercise>, Activity {
 	 * is correct
 	 */
 	boolean hasCorrectSolution();
-	
+
 	/**
 	 * Gets whether this exercise has at least one solution.
 	 *
 	 * @return true if the exercise has at least one solution
 	 */
 	boolean hasSolution();
-	
+
 	/**
 	 * Gets whether the last submission to this exercise is the best one (e.g.
 	 * correct is better than incorrect. If there are no correct submissions,

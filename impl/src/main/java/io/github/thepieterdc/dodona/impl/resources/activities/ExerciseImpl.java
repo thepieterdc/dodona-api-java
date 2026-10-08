@@ -27,16 +27,16 @@ import java.util.Optional;
 public final class ExerciseImpl extends ActivityImpl implements Exercise {
 	@Nullable
 	private final String boilerplate;
-	
+
 	private final boolean hasCorrectSolution;
 	private final boolean hasSolution;
 	private final boolean lastSolutionIsBest;
-	
+
 	@Nullable
 	private final ProgrammingLanguageImpl programmingLanguage;
-	
+
 	private final ExerciseStatus status;
-	
+
 	/**
 	 * ExerciseImpl constructor.
 	 *
@@ -69,50 +69,50 @@ public final class ExerciseImpl extends ActivityImpl implements Exercise {
 		this.programmingLanguage = programmingLanguage;
 		this.status = ExerciseStatus.fromValues(hasCorrectSolution, hasSolution, lastSolutionIsBest);
 	}
-	
+
 	@Override
 	public int compareTo(final Exercise o) {
 		return this.getName().compareToIgnoreCase(o.getName());
 	}
-	
+
 	@Override
 	@Nonnull
 	public Optional<String> getBoilerplate() {
 		return Optional.ofNullable(this.boilerplate);
 	}
-	
+
 	@Override
 	public boolean hasCorrectSolution() {
 		return this.hasCorrectSolution;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.getId());
 	}
-	
+
 	@Override
 	public boolean hasSolution() {
 		return this.hasSolution;
 	}
-	
+
 	@Override
 	@Nonnull
 	public Optional<ProgrammingLanguage> getProgrammingLanguage() {
 		return Optional.ofNullable(this.programmingLanguage);
 	}
-	
+
 	@Nonnull
 	@Override
 	public ExerciseStatus getStatus() {
 		return this.status;
 	}
-	
+
 	@Override
 	public boolean lastSolutionIsBest() {
 		return this.lastSolutionIsBest;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Exercise{id=%d, name=%s, status=%s}", this.getId(), this.getName(), this.status);

@@ -17,14 +17,14 @@ import javax.annotation.Nonnull;
  */
 public abstract class ResourceNotFoundException extends DodonaException {
 	private static final long serialVersionUID = 1542260234920522551L;
-	
+
 	/**
 	 * ResourceNotFoundException constructor.
 	 */
 	ResourceNotFoundException(final String message) {
 		super(message.replace(".json", ""));
 	}
-	
+
 	@Override
 	@Nonnull
 	public abstract String toString();

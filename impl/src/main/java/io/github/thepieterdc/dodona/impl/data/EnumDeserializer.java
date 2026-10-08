@@ -24,7 +24,7 @@ import java.io.IOException;
  * Maps json submission statuses to SubmissionStatus instances.
  */
 public final class EnumDeserializer extends BeanDeserializerModifier {
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public JsonDeserializer<?> modifyEnumDeserializer(final DeserializationConfig config,
@@ -32,16 +32,16 @@ public final class EnumDeserializer extends BeanDeserializerModifier {
 	                                                  final BeanDescription beanDesc,
 	                                                  final JsonDeserializer<?> deserializer) {
 		final Class<? extends Enum<?>> enumClass = (Class<Enum<?>>) type.getRawClass();
-		
+
 		if (enumClass.equals(SeriesVisibility.class)) {
 			return new SeriesVisibilityDeserializer();
 		} else if (enumClass.equals(SubmissionStatus.class)) {
 			return new SubmissionStatusDeserializer();
 		}
-		
+
 		return super.modifyEnumDeserializer(config, type, beanDesc, deserializer);
 	}
-	
+
 	/**
 	 * Deserializer for SeriesVisibilities.
 	 */
@@ -51,7 +51,7 @@ public final class EnumDeserializer extends BeanDeserializerModifier {
 			return SeriesVisibility.byName(p.getValueAsString());
 		}
 	}
-	
+
 	/**
 	 * Deserializer for SubmissionStatuses.
 	 */

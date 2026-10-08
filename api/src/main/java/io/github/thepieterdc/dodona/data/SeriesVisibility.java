@@ -8,11 +8,8 @@
  */
 package io.github.thepieterdc.dodona.data;
 
-import io.github.thepieterdc.dodona.exceptions.CourseColorNotFoundException;
 import io.github.thepieterdc.dodona.exceptions.SeriesVisibilityNotFoundException;
 
-import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.stream.Stream;
 
 /**
@@ -22,9 +19,9 @@ public enum SeriesVisibility {
 	CLOSED("closed"),
 	HIDDEN("hidden"),
 	OPEN("open");
-	
+
 	private final String name;
-	
+
 	/**
 	 * SeriesVisibility constructor.
 	 *
@@ -33,7 +30,7 @@ public enum SeriesVisibility {
 	SeriesVisibility(final String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * Finds a SeriesVisibility given its name.
 	 *
@@ -46,7 +43,7 @@ public enum SeriesVisibility {
 			.findAny()
 			.orElseThrow(() -> new SeriesVisibilityNotFoundException(name));
 	}
-	
+
 	/**
 	 * Gets the name of the visibility status.
 	 *

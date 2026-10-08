@@ -14,7 +14,7 @@ package io.github.thepieterdc.dodona.exceptions;
  */
 public abstract class DodonaException extends RuntimeException {
 	private static final long serialVersionUID = 8570830182829176477L;
-	
+
 	/**
 	 * DodonaException constructor.
 	 *

@@ -21,7 +21,7 @@ public interface HttpClient {
 	 */
 	@Nonnull
 	HttpClient authenticate(String apiToken);
-	
+
 	/**
 	 * Performs a HTTP GET request to the given url.
 	 *
@@ -32,7 +32,7 @@ public interface HttpClient {
 	 */
 	@Nonnull
 	<T> HttpResponse<T> get(String url, Class<T> returnCls);
-	
+
 	/**
 	 * Performs a HTTP POST request to the given url.
 	 *
@@ -45,7 +45,7 @@ public interface HttpClient {
 	 */
 	@Nonnull
 	<R, T> HttpResponse<T> post(String url, R body, Class<T> returnCls);
-	
+
 	/**
 	 * Sets the user agent.
 	 *

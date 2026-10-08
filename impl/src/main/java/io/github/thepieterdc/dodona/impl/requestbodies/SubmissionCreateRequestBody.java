@@ -21,16 +21,16 @@ import javax.annotation.Nullable;
 public final class SubmissionCreateRequestBody {
 	@JsonProperty("code")
 	private final String code;
-	
+
 	@JsonProperty("course_id")
 	private final Long courseId;
-	
+
 	@JsonProperty("series_id")
 	private final Long seriesId;
-	
+
 	@JsonProperty("exercise_id")
 	private final Long exerciseId;
-	
+
 	/**
 	 * SubmissionCreateRequestBody constructor.
 	 *
@@ -48,7 +48,7 @@ public final class SubmissionCreateRequestBody {
 		this.exerciseId = exerciseId;
 		this.seriesId = seriesId;
 	}
-	
+
 	/**
 	 * Gets the code.
 	 *
@@ -58,7 +58,7 @@ public final class SubmissionCreateRequestBody {
 	public String getCode() {
 		return this.code;
 	}
-	
+
 	/**
 	 * Gets the courseId.
 	 *
@@ -68,7 +68,7 @@ public final class SubmissionCreateRequestBody {
 	public Long getCourseId() {
 		return this.courseId;
 	}
-	
+
 	/**
 	 * Gets the exerciseId.
 	 *
@@ -78,7 +78,7 @@ public final class SubmissionCreateRequestBody {
 	public Long getExerciseId() {
 		return this.exerciseId;
 	}
-	
+
 	/**
 	 * Gets the seriesId.
 	 *

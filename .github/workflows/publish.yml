@@ -12,9 +12,9 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'zulu'
           java-version: 17
@@ -22,7 +22,7 @@ jobs:
           server-password: GITHUB_TOKEN
           server-username: thepieterdc
       - name: Cache the dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -33,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish the documentation
-        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
           branch: gh-pages
           folder: api/docs/apidocs
@@ -48,13 +48,13 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Create a release branch
         run: |
           git checkout -b release
           git push -u origin release
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'zulu'
           java-version: 17
@@ -66,7 +66,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: Cache the dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -77,22 +77,18 @@ jobs:
         run: |
           VERSION_RAW=v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           VERSION="${VERSION_RAW//-SNAPSHOT/}"
-          echo "::set-output name=version::$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Publish package
         run: mvn --batch-mode release:prepare release:perform -P SKIP_IMPL_TESTS
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release
-        uses: actions/create-release@v1
+        run: gh release create "$VERSION" --title "$VERSION" --generate-notes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          draft: false
-          prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ steps.version.outputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
       - name: Open a pull request
-        uses: repo-sync/pull-request@v2
+        uses: repo-sync/pull-request@v2.12.1
         with:
           destination_branch: master
           github_token: ${{ secrets.GITHUB_TOKEN }}

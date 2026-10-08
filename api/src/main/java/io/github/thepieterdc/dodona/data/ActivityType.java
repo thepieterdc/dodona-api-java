@@ -20,12 +20,12 @@ public enum ActivityType {
 	 * An exercise.
 	 */
 	EXERCISE("Exercise");
-	
+
 	public static final String CONTENT_PAGE_TYPE = "ContentPage";
 	public static final String EXERCISE_TYPE = "Exercise";
-	
+
 	private final String type;
-	
+
 	/**
 	 * ActivityType constructor.
 	 *
@@ -34,7 +34,7 @@ public enum ActivityType {
 	ActivityType(final String type) {
 		this.type = type;
 	}
-	
+
 	/**
 	 * Gets the type.
 	 *
