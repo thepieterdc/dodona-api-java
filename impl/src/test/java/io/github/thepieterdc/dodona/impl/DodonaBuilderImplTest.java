@@ -59,4 +59,21 @@ public class DodonaBuilderImplTest {
 		assertNotNull(result);
 		assertEquals(user, result);
 	}
+
+	/**
+	 * Tests DodonaBuilderImpl#setLocale().
+	 */
+	@Test
+	public void testSetLocale() {
+		final HttpClient http = mock(HttpClient.class);
+		when(http.authenticate(anyString())).thenReturn(http);
+		when(http.userAgent(anyString())).thenReturn(http);
+
+		DodonaBuilder.builder()
+			.setHttpClient(http)
+			.setLocale(java.util.Locale.forLanguageTag("nl-BE"))
+			.build();
+
+		org.mockito.Mockito.verify(http).locale(java.util.Locale.forLanguageTag("nl-BE"));
+	}
 }

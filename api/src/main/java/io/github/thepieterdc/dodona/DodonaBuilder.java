@@ -11,6 +11,7 @@ package io.github.thepieterdc.dodona;
 import io.github.thepieterdc.http.HttpClient;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 import java.util.ServiceLoader;
 
 /**
@@ -50,6 +51,18 @@ public interface DodonaBuilder {
 	 */
 	@Nonnull
 	DodonaBuilder setHost(String host);
+
+	/**
+	 * Sets the locale in which Dodona should respond (e.g. for error messages
+	 * and translated content). Dodona currently supports "en" and "nl" and falls
+	 * back to its default locale for other languages. If not set, Dodona uses the
+	 * language of the authenticated user.
+	 *
+	 * @param locale the locale to set
+	 * @return fluent
+	 */
+	@Nonnull
+	DodonaBuilder setLocale(Locale locale);
 
 	/**
 	 * Sets the user agent.

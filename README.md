@@ -51,6 +51,15 @@ public class ApiApplication {
 }
 ```
 
+### Locale
+Dodona supports `en` and `nl`. Set the locale to receive localized responses (e.g. error messages); it is sent as an `Accept-Language` header and a `locale` query parameter, which Dodona prefers over the language stored on the user account:
+```java
+DodonaBuilder.builder()
+	.authenticate("myToken")
+	.setLocale(Locale.forLanguageTag("nl"))
+	.build();
+```
+
 ## Documentation
 You can find the API documentation at [https://thepieterdc.github.io/dodona-api-java/](https://thepieterdc.github.io/dodona-api-java/).
 

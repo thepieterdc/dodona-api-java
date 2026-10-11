@@ -24,6 +24,8 @@ import io.github.thepieterdc.http.HttpClient;
 import io.github.thepieterdc.http.impl.HttpClientImpl;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Locale;
 
 import static io.github.thepieterdc.dodona.DodonaClient.DEFAULT_HOST;
 
@@ -34,6 +36,8 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 	private String apiToken = "";
 	private String host = DEFAULT_HOST;
 	private HttpClient http;
+	@Nullable
+	private Locale locale = null;
 	private String userAgent = "DodonaApi/" + getClass().getPackage().getImplementationVersion();
 
 	private static final ObjectMapper mapper = createMapper();
@@ -55,10 +59,11 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 	@Override
 	@Nonnull
 	public DodonaClient build() {
-		return new DodonaClientImpl(
-			this.host,
-			this.http.authenticate(apiToken).userAgent(this.userAgent)
-		);
+		final HttpClient client = this.http.authenticate(apiToken).userAgent(this.userAgent);
+		if (this.locale != null) {
+			client.locale(this.locale);
+		}
+		return new DodonaClientImpl(this.host, client);
 	}
 
 	private static ObjectMapper createMapper() {
@@ -85,6 +90,13 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 	@Nonnull
 	public DodonaBuilder setHttpClient(final HttpClient http) {
 		this.http = http;
+		return this;
+	}
+
+	@Override
+	@Nonnull
+	public DodonaBuilder setLocale(final Locale locale) {
+		this.locale = locale;
 		return this;
 	}
 
