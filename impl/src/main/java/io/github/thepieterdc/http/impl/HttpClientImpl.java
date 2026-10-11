@@ -18,11 +18,13 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Implementation of a HttpClient.
@@ -32,13 +34,18 @@ public final class HttpClientImpl implements HttpClient {
 
 	private static final String ACCEPT_HEADER = "Accept";
 	private static final String ACCEPT_VALUE = "application/json";
+	private static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
 	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String CONTENT_TYPE_HEADER = "Content-Type";
 	private static final String CONTENT_TYPE_VALUE = "application/json";
+	private static final String LOCALE_PARAMETER = "locale";
 	private static final String USER_AGENT_HEADER = "User-Agent";
 
 	@Nullable
 	private String authentication = null;
+
+	@Nullable
+	private String languageTag = null;
 
 	@Nullable
 	private String userAgent = null;
@@ -73,6 +80,13 @@ public final class HttpClientImpl implements HttpClient {
 
 	@Nonnull
 	@Override
+	public HttpClient locale(final Locale locale) {
+		this.languageTag = locale.toLanguageTag();
+		return this;
+	}
+
+	@Nonnull
+	@Override
 	public <R, T> HttpResponse<T> post(final String url, final R body,
 	                                   final Class<T> returnCls) {
 		try {
@@ -89,8 +103,11 @@ public final class HttpClientImpl implements HttpClient {
 
 	@Nonnull
 	private HttpRequest.Builder newRequest(final String url) {
-		final HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url))
+		final HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(this.withLocale(url)))
 			.header(ACCEPT_HEADER, ACCEPT_VALUE);
+		if (this.languageTag != null) {
+			builder.header(ACCEPT_LANGUAGE_HEADER, this.languageTag);
+		}
 		if (this.authentication != null) {
 			builder.header(AUTHORIZATION_HEADER, this.authentication);
 		}
@@ -98,6 +115,18 @@ public final class HttpClientImpl implements HttpClient {
 			builder.header(USER_AGENT_HEADER, this.userAgent);
 		}
 		return builder;
+	}
+
+	@Nonnull
+	private String withLocale(final String url) {
+		if (this.languageTag == null) {
+			return url;
+		}
+		final String encoded = URLEncoder.encode(this.languageTag, StandardCharsets.UTF_8);
+		final int fragment = url.indexOf('#');
+		final String base = fragment < 0 ? url : url.substring(0, fragment);
+		final String suffix = fragment < 0 ? "" : url.substring(fragment);
+		return base + (base.contains("?") ? "&" : "?") + LOCALE_PARAMETER + "=" + encoded + suffix;
 	}
 
 	@Nonnull

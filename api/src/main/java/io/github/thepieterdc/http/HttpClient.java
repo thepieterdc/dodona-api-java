@@ -8,6 +8,7 @@
 package io.github.thepieterdc.http;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 
 /**
  * Sends HTTP calls.
@@ -32,6 +33,17 @@ public interface HttpClient {
 	 */
 	@Nonnull
 	<T> HttpResponse<T> get(String url, Class<T> returnCls);
+
+	/**
+	 * Sets the locale to request localized responses in. This is sent both as
+	 * the Accept-Language header and as the locale query parameter, as Dodona
+	 * gives the latter precedence over the language stored on the user account.
+	 *
+	 * @param locale the locale
+	 * @return fluent setter
+	 */
+	@Nonnull
+	HttpClient locale(Locale locale);
 
 	/**
 	 * Performs a HTTP POST request to the given url.
