@@ -33,10 +33,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish the documentation
-        uses: JamesIves/github-pages-deploy-action@v4.9.0
-        with:
-          branch: gh-pages
-          folder: api/docs/apidocs
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          cp -r api/docs/apidocs "$RUNNER_TEMP/site"
+          git checkout --orphan gh-pages
+          git rm -rfq --cached .
+          git clean -fdxq
+          cp -r "$RUNNER_TEMP/site/." .
+          touch .nojekyll
+          git add --all
+          git commit -qm "Deploy documentation"
+          git push --force origin gh-pages
 
   publish:
     name: Publish artifact to GitHub Packages
@@ -87,16 +95,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.version.outputs.version }}
-      - name: Open a pull request
-        uses: repo-sync/pull-request@v2.12.1
-        with:
-          destination_branch: master
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_assignee: thepieterdc
-          pr_body: Merge the maven release commits into the main branch.
-          pr_title: Release ${{ steps.version.outputs.version }}
-          source_branch: release
-      - name: Enable auto-merge on the pull request
-        run: gh pr merge release --auto --squash
+      - name: Open a pull request and enable auto-merge
+        run: |
+          gh pr create --base master --head release \
+            --assignee thepieterdc \
+            --title "Release $VERSION" \
+            --body "Merge the maven release commits into the main branch."
+          gh pr merge release --auto --squash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}

@@ -17,33 +17,23 @@ import io.github.thepieterdc.dodona.resources.User;
 import io.github.thepieterdc.dodona.responses.RootResponse;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Implementation of a RootResponse.
+ *
+ * @param deadlineSeries the series with deadlines
+ * @param user           the user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class RootResponseImpl implements RootResponse {
-	private final SeriesImpl[] deadlineSeries;
-	private final User user;
-
-	/**
-	 * RootResponse constructor.
-	 *
-	 * @param deadlineSeries the series with deadlines
-	 * @param user           the user
-	 */
-	public RootResponseImpl(@JsonProperty("deadline_series") final SeriesImpl[] deadlineSeries,
-	                        @JsonProperty("user") final UserImpl user) {
-		this.deadlineSeries = deadlineSeries;
-		this.user = user;
-	}
-
+public record RootResponseImpl(@JsonProperty("deadline_series") List<SeriesImpl> deadlineSeries,
+                               @JsonProperty("user") UserImpl user) implements RootResponse {
 	@Override
 	@Nonnull
 	public Collection<Series> getDeadlineSeries() {
-		return Arrays.asList(this.deadlineSeries);
+		return Collections.unmodifiableList(this.deadlineSeries);
 	}
 
 	@Override

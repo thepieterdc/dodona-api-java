@@ -13,44 +13,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.resources.ProgrammingLanguage;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
+
 
 /**
  * A programming language on Dodona.
+ *
+ * @param extension the file extension
+ * @param id the id
+ * @param name the name
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
-	private final String extension;
-	private final long id;
-	private final String name;
-
-	/**
-	 * ProgrammingLanguageImpl constructor.
-	 *
-	 * @param extension the file extension
-	 * @param id        the id
-	 * @param name      the name
-	 */
-	public ProgrammingLanguageImpl(@JsonProperty("extension") final String extension,
-	                               @JsonProperty("id") final long id,
-	                               @JsonProperty("name") final String name) {
-		this.extension = extension;
-		this.id = id;
-		this.name = name;
-	}
-
+public record ProgrammingLanguageImpl(
+	@JsonProperty("extension") String extension,
+	@JsonProperty("id") long id,
+	@JsonProperty("name") String name
+) implements ProgrammingLanguage {
 	@Override
 	public int compareTo(final ProgrammingLanguage o) {
 		return this.name.compareToIgnoreCase(o.getName());
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o) return true;
-		if (o instanceof ProgrammingLanguage) {
-			return this.id == ((ProgrammingLanguage) o).getId();
-		}
-		return false;
+		return o instanceof ProgrammingLanguage other && this.id == other.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
 	}
 
 	@Override
@@ -74,11 +65,6 @@ public final class ProgrammingLanguageImpl implements ProgrammingLanguage {
 	@Nonnull
 	public String getUrl() {
 		return String.format("https://dodona.be/en/programming_languages/%d.json", this.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.id);
 	}
 
 	@Override

@@ -7,11 +7,12 @@
  */
 package io.github.thepieterdc.http.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.thepieterdc.dodona.exceptions.AuthenticationException;
 import io.github.thepieterdc.http.HttpClient;
 import io.github.thepieterdc.http.HttpResponse;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -89,16 +90,12 @@ public final class HttpClientImpl implements HttpClient {
 	@Override
 	public <R, T> HttpResponse<T> post(final String url, final R body,
 	                                   final Class<T> returnCls) {
-		try {
-			return this.request(
-				this.newRequest(url)
-					.header(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE)
-					.POST(BodyPublishers.ofByteArray(mapper.writeValueAsBytes(body))),
-				returnCls
-			);
-		} catch (final IOException ex) {
-			throw new RuntimeException(ex);
-		}
+		return this.request(
+			this.newRequest(url)
+				.header(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE)
+				.POST(BodyPublishers.ofByteArray(mapper.writeValueAsBytes(body))),
+			returnCls
+		);
 	}
 
 	@Nonnull
@@ -178,7 +175,7 @@ public final class HttpClientImpl implements HttpClient {
 			}
 
 			return null;
-		} catch (final IOException ignored) {
+		} catch (final IOException | JacksonException ignored) {
 			return null;
 		}
 	}

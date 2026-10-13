@@ -12,60 +12,37 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.resources.Course;
 import io.github.thepieterdc.dodona.resources.User;
-
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
 
 /**
  * A user on Dodona.
+ *
+ * @param correctExercises amount of correct solved exercises
+ * @param email the email address
+ * @param firstName first name
+ * @param id id
+ * @param lastName last name
+ * @param submissionCount amount of submitted exercises
+ * @param submissionsUrl url to fetch submissions
+ * @param subscribedCourses list of subscribed courses
+ * @param url url
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class UserImpl implements User {
-	private final long correctExercises;
-	private final String email;
-	private final String firstName;
-	private final long id;
-	private final String lastName;
-	private final long submissionCount;
-	private final String submissionsUrl;
-	private final List<CourseImpl> subscribedCourses;
-	private final String url;
-
-	/**
-	 * UserImpl constructor.
-	 *
-	 * @param correctExercises  amount of correct solved exercises
-	 * @param email             the email address
-	 * @param firstName         first name
-	 * @param id                id
-	 * @param lastName          last name
-	 * @param submissionCount   amount of submitted exercises
-	 * @param submissionsUrl    url to fetch submissions
-	 * @param subscribedCourses list of subscribed courses
-	 * @param url               url
-	 */
-	public UserImpl(@JsonProperty("correct_exercises") final long correctExercises,
-	                @JsonProperty("email") final String email,
-	                @JsonProperty("first_name") final String firstName,
-	                @JsonProperty("id") final long id,
-	                @JsonProperty("last_name") final String lastName,
-	                @JsonProperty("submission_count") final long submissionCount,
-	                @JsonProperty("submissions") final String submissionsUrl,
-	                @JsonProperty("subscribed_courses") final List<CourseImpl> subscribedCourses,
-	                @JsonProperty("url") final String url) {
-		this.correctExercises = correctExercises;
-		this.email = email;
-		this.firstName = firstName;
-		this.id = id;
-		this.lastName = lastName;
-		this.submissionCount = submissionCount;
-		this.submissionsUrl = submissionsUrl;
-		this.subscribedCourses = subscribedCourses;
-		this.url = url;
-	}
-
+public record UserImpl(
+	@JsonProperty("correct_exercises") long correctExercises,
+	@JsonProperty("email") String email,
+	@JsonProperty("first_name") String firstName,
+	@JsonProperty("id") long id,
+	@JsonProperty("last_name") String lastName,
+	@JsonProperty("submission_count") long submissionCount,
+	@JsonProperty("submissions") String submissionsUrl,
+	@JsonProperty("subscribed_courses") List<CourseImpl> subscribedCourses,
+	@JsonProperty("url") String url
+) implements User {
 	@Override
 	public int compareTo(final User o) {
 		final int compareLast = this.lastName.compareToIgnoreCase(o.getLastName());
@@ -73,12 +50,14 @@ public final class UserImpl implements User {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o) return true;
-		if (o instanceof User) {
-			return this.id == ((User) o).getId();
-		}
-		return false;
+		return o instanceof User other && this.id == other.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
 	}
 
 	@Override
@@ -86,8 +65,8 @@ public final class UserImpl implements User {
 		return this.correctExercises;
 	}
 
-	@Nonnull
 	@Override
+	@Nonnull
 	public String getEmail() {
 		return this.email;
 	}
@@ -130,11 +109,6 @@ public final class UserImpl implements User {
 	@Nonnull
 	public String getUrl() {
 		return this.url.replace(".json", "");
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.id);
 	}
 
 	@Override

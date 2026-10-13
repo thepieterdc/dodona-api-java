@@ -8,12 +8,12 @@
  */
 package io.github.thepieterdc.dodona.impl;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.jsontype.NamedType;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.jsontype.NamedType;
+import tools.jackson.databind.module.SimpleModule;
 import io.github.thepieterdc.dodona.DodonaBuilder;
 import io.github.thepieterdc.dodona.DodonaClient;
 import io.github.thepieterdc.dodona.data.ActivityType;
@@ -67,16 +67,15 @@ public final class DodonaBuilderImpl implements DodonaBuilder {
 	}
 
 	private static ObjectMapper createMapper() {
-		final ObjectMapper mapper = new ObjectMapper()
+		return JsonMapper.builder()
 			.enable(SerializationFeature.WRAP_ROOT_VALUE)
-			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-			.registerModule(new JavaTimeModule())
-			.registerModule(new SimpleModule().setDeserializerModifier(new EnumDeserializer()));
-		mapper.registerSubtypes(
-			new NamedType(ContentPageImpl.class, ActivityType.CONTENT_PAGE_TYPE),
-			new NamedType(ExerciseImpl.class, ActivityType.EXERCISE_TYPE)
-		);
-		return mapper;
+			.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+			.addModule(new SimpleModule().setDeserializerModifier(new EnumDeserializer()))
+			.registerSubtypes(
+				new NamedType(ContentPageImpl.class, ActivityType.CONTENT_PAGE_TYPE),
+				new NamedType(ExerciseImpl.class, ActivityType.EXERCISE_TYPE)
+			)
+			.build();
 	}
 
 	@Override
