@@ -16,7 +16,7 @@ jobs:
           MYSQL_DATABASE: "dodona"
           MYSQL_ROOT_PASSWORD: "dodona"
           MYSQL_HOST: "localhost"
-        options: --health-cmd "mysqladmin ping --silent" --health-interval 10s --health-timeout 10s --health-retries 6
+        options: --health-cmd "mariadb-admin ping --silent" --health-interval 10s --health-timeout 10s --health-retries 6
       dodona:
         image: ghcr.io/dodona-edu/dodona:develop-latest
         ports:
