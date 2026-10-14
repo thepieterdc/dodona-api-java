@@ -1,6 +1,6 @@
 services:
   database:
-    image: mariadb:11.8.9
+    image: mariadb:10.9.6
     environment:
       MYSQL_DATABASE: "dodona"
       MYSQL_ROOT_PASSWORD: "dodona"
