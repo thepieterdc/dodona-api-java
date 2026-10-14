@@ -1,0 +1,12 @@
+io.github.thepieterdc.dodona
+io.github.thepieterdc.dodona.data
+io.github.thepieterdc.dodona.exceptions
+io.github.thepieterdc.dodona.exceptions.accessdenied
+io.github.thepieterdc.dodona.exceptions.notfound
+io.github.thepieterdc.dodona.managers
+io.github.thepieterdc.dodona.resources
+io.github.thepieterdc.dodona.resources.activities
+io.github.thepieterdc.dodona.resources.submissions
+io.github.thepieterdc.dodona.responses
+io.github.thepieterdc.http
+io.github.thepieterdc.http.exceptions
