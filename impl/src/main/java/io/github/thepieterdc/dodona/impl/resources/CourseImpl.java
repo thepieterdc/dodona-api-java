@@ -11,64 +11,46 @@ package io.github.thepieterdc.dodona.impl.resources;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.resources.Course;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.Optional;
+
 
 /**
  * A course on Dodona.
+ *
+ * @param id the id
+ * @param name the name
+ * @param seriesUrl url to fetch series
+ * @param teacher the teacher
+ * @param url the url
+ * @param year the academic year
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class CourseImpl implements Course {
-	private final long id;
-	private final String name;
-	private final String seriesUrl;
-
-	@Nullable
-	private final String teacher;
-
-	private final String url;
-	private final String year;
-
-	/**
-	 * CourseImpl constructor.
-	 *
-	 * @param id        the id
-	 * @param name      the name
-	 * @param seriesUrl url to fetch series
-	 * @param teacher   the teacher
-	 * @param url       the url
-	 * @param year      the academic year
-	 */
-	public CourseImpl(@JsonProperty("id") final long id,
-	                  @JsonProperty("name") final String name,
-	                  @JsonProperty("series") final String seriesUrl,
-	                  @Nullable @JsonProperty("teacher") final String teacher,
-	                  @JsonProperty("url") final String url,
-	                  @JsonProperty("year") final String year) {
-		this.id = id;
-		this.name = name;
-		this.seriesUrl = seriesUrl;
-		this.teacher = teacher;
-		this.url = url;
-		this.year = year;
-	}
-
+public record CourseImpl(
+	@JsonProperty("id") long id,
+	@JsonProperty("name") String name,
+	@JsonProperty("series") String seriesUrl,
+	@JsonProperty("teacher") @Nullable String teacher,
+	@JsonProperty("url") String url,
+	@JsonProperty("year") String year
+) implements Course {
 	@Override
-	public int compareTo(Course o) {
+	public int compareTo(final Course o) {
 		final int compareYear = this.year.compareTo(o.getYear());
 		return compareYear != 0 ? compareYear : this.name.compareToIgnoreCase(o.getName());
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o) return true;
-		if (o instanceof Course) {
-			return this.id == ((Course) o).getId();
-		}
-		return false;
+		return o instanceof Course other && this.id == other.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
 	}
 
 	@Override
@@ -104,11 +86,6 @@ public final class CourseImpl implements Course {
 	@Nonnull
 	public String getYear() {
 		return this.year;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.id);
 	}
 
 	@Override

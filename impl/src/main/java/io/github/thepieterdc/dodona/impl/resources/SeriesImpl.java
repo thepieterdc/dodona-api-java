@@ -12,78 +12,56 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.data.SeriesVisibility;
 import io.github.thepieterdc.dodona.resources.Series;
+import java.time.ZonedDateTime;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.time.ZonedDateTime;
-import java.util.Objects;
-import java.util.Optional;
+
 
 /**
  * A series on Dodona.
+ *
+ * @param courseUrl url to the course
+ * @param deadline the optional deadline
+ * @param description the description
+ * @param exercisesUrl url to fetch exercises
+ * @param id the id
+ * @param name the name
+ * @param order the order
+ * @param url the url
+ * @param visibility the series visibility
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class SeriesImpl implements Series {
-	private final String courseUrl;
-	@Nullable
-	private final ZonedDateTime deadline;
-	private final String description;
-	private final String exercisesUrl;
-	private final long id;
-	private final String name;
-	private final int order;
-	private final String url;
-	private final SeriesVisibility visibility;
-
-	/**
-	 * SeriesImpl constructor.
-	 *
-	 * @param courseUrl    url to the course
-	 * @param deadline     the optional deadline
-	 * @param description  the description
-	 * @param exercisesUrl url to fetch exercises
-	 * @param id           the id
-	 * @param name         the name
-	 * @param order        the order
-	 * @param url          the url
-	 * @param visibility   the series visibility
-	 */
-	public SeriesImpl(@JsonProperty("course") final String courseUrl,
-	                  @Nullable @JsonProperty("deadline") final ZonedDateTime deadline,
-	                  @JsonProperty("description") final String description,
-	                  @JsonProperty("exercises") final String exercisesUrl,
-	                  @JsonProperty("id") final long id,
-	                  @JsonProperty("name") final String name,
-	                  @JsonProperty("order") final int order,
-	                  @JsonProperty("url") final String url,
-	                  @JsonProperty("visibility") final SeriesVisibility visibility) {
-		this.courseUrl = courseUrl;
-		this.deadline = deadline;
-		this.description = description;
-		this.exercisesUrl = exercisesUrl;
-		this.id = id;
-		this.name = name;
-		this.order = order;
-		this.url = url;
-		this.visibility = visibility;
-	}
-
+public record SeriesImpl(
+	@JsonProperty("course") String courseUrl,
+	@JsonProperty("deadline") @Nullable ZonedDateTime deadline,
+	@JsonProperty("description") String description,
+	@JsonProperty("exercises") String exercisesUrl,
+	@JsonProperty("id") long id,
+	@JsonProperty("name") String name,
+	@JsonProperty("order") int order,
+	@JsonProperty("url") String url,
+	@JsonProperty("visibility") SeriesVisibility visibility
+) implements Series {
 	@Override
 	public int compareTo(final Series o) {
 		return this.order - o.getOrder();
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o) return true;
-		if (o instanceof Series) {
-			return this.id == ((Series) o).getId();
-		}
-		return false;
+		return o instanceof Series other && this.id == other.getId();
 	}
 
-	@Nonnull
 	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
+	}
+
+	@Override
+	@Nonnull
 	public String getCourseUrl() {
 		return this.courseUrl;
 	}
@@ -132,11 +110,6 @@ public final class SeriesImpl implements Series {
 	@Nonnull
 	public SeriesVisibility getVisibility() {
 		return this.visibility;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.id);
 	}
 
 	@Override

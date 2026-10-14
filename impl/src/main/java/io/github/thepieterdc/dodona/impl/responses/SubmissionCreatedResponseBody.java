@@ -4,46 +4,26 @@
  * @author Pieter De Clercq
  * @author Tobiah Lissens
  *
- * https://github.com/thepieterdc/ugent-dodona/
+ * https://github.com/thepieterdc/dodona-api-java/
  */
 package io.github.thepieterdc.dodona.impl.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.annotation.Nonnull;
-
 /**
  * Response from creating a submission.
+ *
+ * @param courseId   the id of the course
+ * @param exerciseId the id of the exercise
+ * @param id         the id of the submission
+ * @param status     the submission status
+ * @param url        the url
  */
-public final class SubmissionCreatedResponseBody {
-	private final long courseId;
-	private final long exerciseId;
-
-	private final long id;
-	private final String status;
-	private final String url;
-
-	/**
-	 * SubmissionCreatedResponseBody constructor.
-	 *
-	 * @param course   the id of the course
-	 * @param exercise the id of the exercise
-	 * @param id       the id of the submission
-	 * @param status   the submission status
-	 * @param url      the url
-	 */
-	public SubmissionCreatedResponseBody(@JsonProperty("course_id") final long course,
-	                                     @JsonProperty("exercise_id") final long exercise,
-	                                     @JsonProperty("id") final long id,
-	                                     @JsonProperty("status") final String status,
-	                                     @JsonProperty("url") final String url) {
-		this.courseId = course;
-		this.exerciseId = exercise;
-		this.id = id;
-		this.status = status;
-		this.url = url;
-	}
-
+public record SubmissionCreatedResponseBody(@JsonProperty("course_id") long courseId,
+                                            @JsonProperty("exercise_id") long exerciseId,
+                                            @JsonProperty("id") long id,
+                                            @JsonProperty("status") String status,
+                                            @JsonProperty("url") String url) {
 	/**
 	 * Gets the id of the course.
 	 *
@@ -76,7 +56,6 @@ public final class SubmissionCreatedResponseBody {
 	 *
 	 * @return the status
 	 */
-	@Nonnull
 	public String getStatus() {
 		return this.status;
 	}
@@ -86,7 +65,6 @@ public final class SubmissionCreatedResponseBody {
 	 *
 	 * @return the url
 	 */
-	@Nonnull
 	public String getUrl() {
 		return this.url;
 	}

@@ -8,29 +8,27 @@
  */
 package io.github.thepieterdc.dodona.impl.data;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.BeanDescription;
+import tools.jackson.databind.DeserializationConfig;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.databind.deser.ValueDeserializerModifier;
 import io.github.thepieterdc.dodona.data.SeriesVisibility;
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
-
-import java.io.IOException;
 
 /**
  * Maps json submission statuses to SubmissionStatus instances.
  */
-public final class EnumDeserializer extends BeanDeserializerModifier {
+public final class EnumDeserializer extends ValueDeserializerModifier {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public JsonDeserializer<?> modifyEnumDeserializer(final DeserializationConfig config,
+	public ValueDeserializer<?> modifyEnumDeserializer(final DeserializationConfig config,
 	                                                  final JavaType type,
-	                                                  final BeanDescription beanDesc,
-	                                                  final JsonDeserializer<?> deserializer) {
+	                                                  final BeanDescription.Supplier beanDesc,
+	                                                  final ValueDeserializer<?> deserializer) {
 		final Class<? extends Enum<?>> enumClass = (Class<Enum<?>>) type.getRawClass();
 
 		if (enumClass.equals(SeriesVisibility.class)) {
@@ -45,9 +43,9 @@ public final class EnumDeserializer extends BeanDeserializerModifier {
 	/**
 	 * Deserializer for SeriesVisibilities.
 	 */
-	private static class SeriesVisibilityDeserializer extends JsonDeserializer<SeriesVisibility> {
+	private static class SeriesVisibilityDeserializer extends ValueDeserializer<SeriesVisibility> {
 		@Override
-		public SeriesVisibility deserialize(final JsonParser p, final DeserializationContext ctx) throws IOException {
+		public SeriesVisibility deserialize(final JsonParser p, final DeserializationContext ctx) {
 			return SeriesVisibility.byName(p.getValueAsString());
 		}
 	}
@@ -55,9 +53,9 @@ public final class EnumDeserializer extends BeanDeserializerModifier {
 	/**
 	 * Deserializer for SubmissionStatuses.
 	 */
-	private static class SubmissionStatusDeserializer extends JsonDeserializer<SubmissionStatus> {
+	private static class SubmissionStatusDeserializer extends ValueDeserializer<SubmissionStatus> {
 		@Override
-		public SubmissionStatus deserialize(final JsonParser p, final DeserializationContext ctx) throws IOException {
+		public SubmissionStatus deserialize(final JsonParser p, final DeserializationContext ctx) {
 			return SubmissionStatus.byName(p.getValueAsString());
 		}
 	}

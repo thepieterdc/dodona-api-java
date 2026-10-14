@@ -12,59 +12,36 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.thepieterdc.dodona.data.SubmissionStatus;
 import io.github.thepieterdc.dodona.resources.submissions.SubmissionInfo;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+
 /**
  * The info of a submission on Dodona.
+ *
+ * @param accepted the acceptance status
+ * @param courseUrl the course url
+ * @param createdAt the creation timestamp
+ * @param exerciseUrl the exercise url
+ * @param id the id
+ * @param status the status
+ * @param summary the summary
+ * @param url the url
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class SubmissionInfoImpl implements SubmissionInfo {
-	private final boolean accepted;
-	private final ZonedDateTime createdAt;
-
-	@Nullable
-	private final String courseUrl;
-
-	private final String exerciseUrl;
-	private final long id;
-	private final SubmissionStatus status;
-	private final String summary;
-	private final String url;
-
-	/**
-	 * PartialSubmissionImpl constructor.
-	 *
-	 * @param accepted  the acceptance status
-	 * @param course    the course url
-	 * @param createdAt the creation timestamp
-	 * @param exercise  the exercise url
-	 * @param id        the id
-	 * @param status    the status
-	 * @param summary   the summary
-	 * @param url       the url
-	 */
-	public SubmissionInfoImpl(@JsonProperty("accepted") final boolean accepted,
-	                          @Nullable @JsonProperty("course") final String course,
-	                          @JsonProperty("created_at") final ZonedDateTime createdAt,
-	                          @JsonProperty("exercise") final String exercise,
-	                          @JsonProperty("id") final long id,
-	                          @JsonProperty("status") final SubmissionStatus status,
-	                          @JsonProperty("summary") final String summary,
-	                          @JsonProperty("url") final String url) {
-		this.accepted = accepted;
-		this.courseUrl = course;
-		this.createdAt = createdAt;
-		this.exerciseUrl = exercise;
-		this.id = id;
-		this.status = status;
-		this.summary = summary;
-		this.url = url;
-	}
-
+public record SubmissionInfoImpl(
+	@JsonProperty("accepted") boolean accepted,
+	@JsonProperty("course") @Nullable String courseUrl,
+	@JsonProperty("created_at") ZonedDateTime createdAt,
+	@JsonProperty("exercise") String exerciseUrl,
+	@JsonProperty("id") long id,
+	@JsonProperty("status") SubmissionStatus status,
+	@JsonProperty("summary") String summary,
+	@JsonProperty("url") String url
+) implements SubmissionInfo {
 	@Override
 	public int compareTo(final SubmissionInfo o) {
 		return this.createdAt.compareTo(o.getCreatedAt());
